@@ -3,7 +3,7 @@ class CreateForearms < ActiveRecord::Migration
     create_table :Forearms do |t|
       t.string :PATIENT_KEY 
       t.string :SCANID
-      t.string :SERIAL_NUMBER
+      t.string :SERIAL_NUMBER, :null => false
       t.float :R_13_AREA
       t.float :R_13_BMC
       t.float :R_13_BMD

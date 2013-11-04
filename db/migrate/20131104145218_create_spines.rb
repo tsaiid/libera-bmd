@@ -2,15 +2,15 @@ class CreateSpines < ActiveRecord::Migration
   def change
     create_table :spines do |t|
       t.string :PATIENT_KEY
-      t.string :SCANID
-      t.string :SERIAL_NUMBER
+      t.string :SCANID, :null => false
+      t.string :SERIAL_NUMBER, :null => false
       t.integer :NO_REGIONS
       t.integer :STARTING_REGION
-      t.integer :L1_INCLUDED
-      t.integer :L2_INCLUDED
-      t.integer :L3_INCLUDED
-      t.integer :L4_INCLUDED
-      t.integer :L5_INCLUDED
+      t.integer :L1_INCLUDED, :null => false
+      t.integer :L2_INCLUDED, :null => false
+      t.integer :L3_INCLUDED, :null => false
+      t.integer :L4_INCLUDED, :null => false
+      t.integer :L5_INCLUDED, :null => false
       t.float :L1_AREA
       t.float :L1_BMC
       t.float :L1_BMD

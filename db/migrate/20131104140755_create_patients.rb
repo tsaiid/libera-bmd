@@ -1,7 +1,7 @@
 class CreatePatients < ActiveRecord::Migration
   def change
-    create_table :PATIENTS do |t|
-      t.string :PATIENT_KEY
+    create_table :PATIENTS, :id => false, :primary_key => :PATIENT_KEY do |t|
+      t.string :PATIENT_KEY, :null => false
       t.string :STUDY
       t.string :LAST_NAME
       t.string :FIRST_NAME

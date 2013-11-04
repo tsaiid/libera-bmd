@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20131104145218) do
   create_table "Forearms", force: true do |t|
     t.string   "PATIENT_KEY"
     t.string   "SCANID"
-    t.string   "SERIAL_NUMBER"
+    t.string   "SERIAL_NUMBER",     null: false
     t.float    "R_13_AREA"
     t.float    "R_13_BMC"
     t.float    "R_13_BMD"
@@ -62,8 +62,8 @@ ActiveRecord::Schema.define(version: 20131104145218) do
     t.datetime "updated_at"
   end
 
-  create_table "PATIENTS", force: true do |t|
-    t.string   "PATIENT_KEY"
+  create_table "PATIENTS", id: false, force: true do |t|
+    t.string   "PATIENT_KEY",    null: false
     t.string   "STUDY"
     t.string   "LAST_NAME"
     t.string   "FIRST_NAME"
@@ -100,15 +100,15 @@ ActiveRecord::Schema.define(version: 20131104145218) do
 
   create_table "spines", force: true do |t|
     t.string   "PATIENT_KEY"
-    t.string   "SCANID"
-    t.string   "SERIAL_NUMBER"
+    t.string   "SCANID",            null: false
+    t.string   "SERIAL_NUMBER",     null: false
     t.integer  "NO_REGIONS"
     t.integer  "STARTING_REGION"
-    t.integer  "L1_INCLUDED"
-    t.integer  "L2_INCLUDED"
-    t.integer  "L3_INCLUDED"
-    t.integer  "L4_INCLUDED"
-    t.integer  "L5_INCLUDED"
+    t.integer  "L1_INCLUDED",       null: false
+    t.integer  "L2_INCLUDED",       null: false
+    t.integer  "L3_INCLUDED",       null: false
+    t.integer  "L4_INCLUDED",       null: false
+    t.integer  "L5_INCLUDED",       null: false
     t.float    "L1_AREA"
     t.float    "L1_BMC"
     t.float    "L1_BMD"
