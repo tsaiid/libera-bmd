@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131104145218) do
+ActiveRecord::Schema.define(version: 20131104153838) do
 
   create_table "Forearms", force: true do |t|
     t.string   "PATIENT_KEY"
@@ -94,6 +94,35 @@ ActiveRecord::Schema.define(version: 20131104145218) do
     t.datetime "LAST_UPDATE"
     t.datetime "LAST_EXPORT"
     t.float    "BMI"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "hips", force: true do |t|
+    t.string   "PATIENT_KEY"
+    t.string   "SCANID",            null: false
+    t.string   "SERIAL_NUMBER",     null: false
+    t.float    "TROCH_AREA"
+    t.float    "TROCH_BMC"
+    t.float    "TROCH_BMD"
+    t.float    "INTER_AREA"
+    t.float    "INTER_BMC"
+    t.float    "INTER_BMD"
+    t.float    "NECK_AREA"
+    t.float    "NECK_BMC"
+    t.float    "NECK_BMD"
+    t.float    "WARDS_AREA"
+    t.float    "WARDS_BMC"
+    t.float    "WARDS_BMD"
+    t.float    "HTOT_AREA"
+    t.float    "HTOT_BMC"
+    t.float    "HTOT_BMD"
+    t.float    "HSTD_TOT_BMD"
+    t.integer  "ROI_TYPE"
+    t.float    "ROI_WIDTH"
+    t.float    "ROI_HEIGHT"
+    t.float    "AXIS_LENGTH"
+    t.string   "PHYSICIAN_COMMENT"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
