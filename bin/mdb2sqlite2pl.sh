@@ -10,6 +10,7 @@
 | /usr/bin/sed "s/\`Spine\`/\`Spines\`/g" \
 | /usr/bin/sed "s/\`SubRegionComposition\`/\`SubRegionCompositions\`/g" \
 | /usr/bin/sed "s/\`SystemId\`/\`SystemIds\`/g" \
+| /usr/bin/sed "s/\`ScanAnalysis\`/\`Scan_Analyses\`/g" \
 | /usr/bin/sed "s/\`TenYearFxRisk\`/\`TenYearFxRisks\`/g" \
 | /usr/bin/sed "s/\`Version\`/\`Versions\`/g" \
 | /usr/bin/sed "s/\`Wbody\`/\`Wbodies\`/g" \
