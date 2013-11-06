@@ -6,4 +6,5 @@ class Patient < ActiveRecord::Base
   has_many :Hips, foreign_key: "PATIENT_KEY"
   has_many :HipHsas, foreign_key: "PATIENT_KEY"
   has_many :Laterals, foreign_key: "PATIENT_KEY"
+  has_many :ScanAnalyses, foreign_key: "PATIENT_KEY"
 end
