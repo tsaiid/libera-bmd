@@ -1,4 +1,6 @@
 BoneDensityAnalyzer::Application.routes.draw do
+  get "patients/index"
+  get "patients/show"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

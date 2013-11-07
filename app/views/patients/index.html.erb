@@ -1,0 +1,9 @@
+<h1>Patients#index</h1>
+<ul>
+<% @patients.each do |pt| %>
+  <li>
+  <%= pt.name %>
+  <%= link_to 'Show', :controller => 'patients', :action => 'show', :id => pt %>
+  </li>
+<% end %>
+</ul>
