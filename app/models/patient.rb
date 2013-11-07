@@ -17,4 +17,8 @@ class Patient < ActiveRecord::Base
     read_attribute(:LAST_NAME)
   end
 
+  def studies
+    self.ScanAnalyses.select(:ACCESSION_NO).distinct
+  end
+
 end
