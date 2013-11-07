@@ -43,5 +43,3 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
-gem 'strong_parameters'
