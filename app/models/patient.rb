@@ -1,4 +1,5 @@
 class Patient < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
   #attr_accessible :last_name
 
   self.primary_key = "PATIENT_KEY"
