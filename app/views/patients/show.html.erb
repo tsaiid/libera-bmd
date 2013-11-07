@@ -1,2 +1,22 @@
 <h1>Patients#show</h1>
-<p>Find me in app/views/patients/show.html.erb</p>
+
+<table>
+  <caption>Spine</caption>
+  <thead>
+    <tr>
+      <td>AREA</td>
+      <td>BMC</td>
+      <td>BMD</td>
+    </tr>
+  </thead>
+  <tbody>
+  <% @patient.Spines.each do |spine| %>
+    <tr>
+      <td><%= spine.area %></td>
+      <td><%= spine.bmc %></td>
+      <td><%= spine.bmd %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
