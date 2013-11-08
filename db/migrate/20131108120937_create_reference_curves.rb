@@ -2,15 +2,15 @@ class CreateReferenceCurves < ActiveRecord::Migration
   def change
     create_table :reference_curves do |t|
       t.integer :UNIQUE_ID
-      t.integer :IF_CURRENT
+      t.integer :IF_CURRENT, :null => false
       t.string :ETHNIC
       t.string :SEX
       t.string :REFTYPE
       t.string :BONERANGE
-      t.integer :IF_DEFAULT
+      t.integer :IF_DEFAULT, :null => false
       t.string :AUTHOR
       t.datetime :DATE
-      t.integer :HOLOGIC
+      t.integer :HOLOGIC, :null => false
       t.string :CURVE_SET
       t.string :SOURCE
       t.string :COMMENT
