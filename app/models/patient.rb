@@ -17,6 +17,10 @@ class Patient < ActiveRecord::Base
     read_attribute(:LAST_NAME)
   end
 
+  def birthday
+    read_attribute(:BIRTHDATE)
+  end
+
   def studies
     self.ScanAnalyses.select(:ACCESSION_NO).distinct
   end
