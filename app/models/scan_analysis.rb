@@ -5,6 +5,7 @@ class ScanAnalysis < ActiveRecord::Base
 
   has_many :Hips, foreign_key: :SCANID
   has_many :Spines, foreign_key: :SCANID
+  has_many :Forearms, foreign_key: :SCANID
 
   def type
     read_attribute(:SCAN_TYPE)
