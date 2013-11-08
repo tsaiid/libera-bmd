@@ -25,4 +25,9 @@ class Patient < ActiveRecord::Base
     self.ScanAnalyses.select(:ACCESSION_NO).distinct
   end
 
+  def age(time = Time.now)
+    time = time.to_datetime
+    dob = self.birthday
+    time.year - dob.year - ((time.month > dob.month || (time.month == dob.month && time.day >= dob.day)) ? 0 : 1)
+  end
 end
