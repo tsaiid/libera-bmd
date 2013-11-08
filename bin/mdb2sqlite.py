@@ -24,7 +24,7 @@ sys.stdout.flush()
 # converting " " in table names to "_" for the CSV filenames.
 for table in tables:
     if table != '':
-        subprocess.call(["mdb-export", "-I", "mysql", DATABASE, table])
+        subprocess.call(["mdb-export", "-I", "mysql", "-D", "%Y-%m-%d %H:%M:%S", DATABASE, table])
  
 print "COMMIT;" # end the transaction
 sys.stdout.flush()
