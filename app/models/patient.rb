@@ -25,7 +25,8 @@ class Patient < ActiveRecord::Base
     self.ScanAnalyses.select(:ACCESSION_NO).distinct
   end
 
-  def age(time = Time.now)
+  ## use LAST_UPDATE for age calculation.
+  def age(time = self.read_attribute(:LAST_UPDATE))
     time = time.to_datetime
     dob = self.birthday
     time.year - dob.year - ((time.month > dob.month || (time.month == dob.month && time.day >= dob.day)) ? 0 : 1)
