@@ -1,46 +1,46 @@
 class CreateHipHsas < ActiveRecord::Migration
   def change
     create_table :hip_hsas do |t|
-      t.string :PATIENT_KEY
-      t.string :SCANID, :null => false
-      t.string :SERIAL_NUMBER, :null => false
-      t.float :NN_BMD
-      t.float :NN_CSA
-      t.float :NN_CSMI
-      t.float :NN_WIDTH
-      t.float :NN_ED
-      t.float :NN_ACT
-      t.float :NN_PCD
-      t.float :NN_CMP
-      t.float :NN_SECT_MOD
-      t.float :NN_BR
-      t.float :IT_BMD
-      t.float :IT_CSA
-      t.float :IT_CSMI
-      t.float :IT_WIDTH
-      t.float :IT_ED
-      t.float :IT_ACT
-      t.float :IT_PCD
-      t.float :IT_CMP
-      t.float :IT_SECT_MOD
-      t.float :IT_BR
-      t.float :FS_BMD
-      t.float :FS_CSA
-      t.float :FS_CSMI
-      t.float :FS_WIDTH
-      t.float :FS_ED
-      t.float :FS_ACT
-      t.float :FS_PCD
-      t.float :FS_CMP
-      t.float :FS_SECT_MOD
-      t.float :FS_BR
-      t.float :SHAFT_NECK_ANGLE
-      t.float :VAR1
-      t.float :VAR2
-      t.float :VAR3
-      t.float :VAR4
-      t.float :VAR5
-      t.float :VAR6
+      t.string :patient_key
+      t.string :scanid, :null => false
+      t.string :serial_number, :null => false
+      t.float :nn_bmd
+      t.float :nn_csa
+      t.float :nn_csmi
+      t.float :nn_width
+      t.float :nn_ed
+      t.float :nn_act
+      t.float :nn_pcd
+      t.float :nn_cmp
+      t.float :nn_sect_mod
+      t.float :nn_br
+      t.float :it_bmd
+      t.float :it_csa
+      t.float :it_csmi
+      t.float :it_width
+      t.float :it_ed
+      t.float :it_act
+      t.float :it_pcd
+      t.float :it_cmp
+      t.float :it_sect_mod
+      t.float :it_br
+      t.float :fs_bmd
+      t.float :fs_csa
+      t.float :fs_csmi
+      t.float :fs_width
+      t.float :fs_ed
+      t.float :fs_act
+      t.float :fs_pcd
+      t.float :fs_cmp
+      t.float :fs_sect_mod
+      t.float :fs_br
+      t.float :shaft_neck_angle
+      t.float :var1
+      t.float :var2
+      t.float :var3
+      t.float :var4
+      t.float :var5
+      t.float :var6
       t.timestamps
     end
   end

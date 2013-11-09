@@ -1,27 +1,27 @@
 class CreateReferenceCurves < ActiveRecord::Migration
   def change
     create_table :reference_curves do |t|
-      t.integer :UNIQUE_ID
-      t.integer :IF_CURRENT, :null => false
-      t.string :ETHNIC
-      t.string :SEX
-      t.string :REFTYPE
-      t.string :BONERANGE
-      t.integer :IF_DEFAULT, :null => false
-      t.string :AUTHOR
-      t.datetime :DATE
-      t.integer :HOLOGIC, :null => false
-      t.string :CURVE_SET
-      t.string :SOURCE
-      t.string :COMMENT
-      t.float :Y_MIN
-      t.float :Y_MAX
-      t.float :X_MIN
-      t.float :X_MAX
-      t.float :AGE_YOUNG
-      t.string :X_LABEL
-      t.string :Y_LABEL
-      t.string :METHOD
+      t.integer :unique_id
+      t.integer :if_current, :null => false
+      t.string :ethnic
+      t.string :sex
+      t.string :reftype
+      t.string :bonerange
+      t.integer :if_default, :null => false
+      t.string :author
+      t.datetime :date
+      t.integer :hologic, :null => false
+      t.string :curve_set
+      t.string :source
+      t.string :comment
+      t.float :y_min
+      t.float :y_max
+      t.float :x_min
+      t.float :x_max
+      t.float :age_young
+      t.string :x_label
+      t.string :y_label
+      t.string :method
       t.timestamps
     end
   end
