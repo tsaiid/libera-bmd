@@ -2,6 +2,14 @@ class Spine < ActiveRecord::Base
   belongs_to :Patient, foreign_key: "PATIENT_KEY"
   belongs_to :ScanAnalysis, foreign_key: "SCANID"
 
+  def bone_range
+    range = ""
+    range += read_attribute(:L1_INCLUDED) ? "1" : "."
+    range += read_attribute(:L2_INCLUDED) ? "2" : "."
+    range += read_attribute(:L3_INCLUDED) ? "3" : "."
+    range += read_attribute(:L4_INCLUDED) ? "4" : "."
+  end
+
   def l1_area
     read_attribute(:L1_AREA)
   end
