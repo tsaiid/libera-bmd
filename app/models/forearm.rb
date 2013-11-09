@@ -1,52 +1,52 @@
 class Forearm < ActiveRecord::Base
-  belongs_to :Patient, foreign_key: "PATIENT_KEY"
-  belongs_to :ScanAnalysis, foreign_key: "SCANID"
+  belongs_to :Patient, foreign_key: "patient_key"
+  belongs_to :ScanAnalysis, foreign_key: "scanid"
 
   def ru13_area
-    read_attribute(:RU13TOT_AREA)
+    read_attribute(:ru13tot_area)
   end
 
   def ru13_bmc
-    read_attribute(:RU13TOT_BMC)
+    read_attribute(:ru13tot_bmc)
   end
 
   def ru13_bmd
-    read_attribute(:RU13TOT_BMD)
+    read_attribute(:ru13tot_bmd)
   end
 
   def rumid_area
-    read_attribute(:RUMIDTOT_AREA)
+    read_attribute(:rumidtot_area)
   end
 
   def rumid_bmc
-    read_attribute(:RUMIDTOT_BMC)
+    read_attribute(:rumidtot_bmc)
   end
 
   def rumid_bmd
-    read_attribute(:RUMIDTOT_BMD)
+    read_attribute(:rumidtot_bmd)
   end
 
   def ruud_area
-    read_attribute(:RUUDTOT_AREA)
+    read_attribute(:ruudtot_area)
   end
 
   def ruud_bmc
-    read_attribute(:RUUDTOT_BMC)
+    read_attribute(:ruudtot_bmc)
   end
 
   def ruud_bmd
-    read_attribute(:RUUDTOT_BMD)
+    read_attribute(:ruudtot_bmd)
   end
 
   def rutot_area
-    read_attribute(:RUTOT_AREA)
+    read_attribute(:rutot_area)
   end
 
   def rutot_bmc
-    read_attribute(:RUTOT_BMC)
+    read_attribute(:rutot_bmc)
   end
 
   def rutot_bmd
-    read_attribute(:RUTOT_BMD)
+    read_attribute(:rutot_bmd)
   end
 end

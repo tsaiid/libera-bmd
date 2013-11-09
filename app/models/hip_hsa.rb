@@ -1,3 +1,3 @@
 class HipHsa < ActiveRecord::Base
-  belongs_to :Patient, foreign_key: "PATIENT_KEY"
+  belongs_to :Patient, foreign_key: "patient_key"
 end

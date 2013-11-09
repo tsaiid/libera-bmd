@@ -1,15 +1,15 @@
 class Point < ActiveRecord::Base
-  belongs_to :ReferenceCurve, foreign_key: "UNIQUE_ID"
+  belongs_to :ReferenceCurve, foreign_key: "unique_id"
 
   def age
-    read_attribute(:X_VALUE)
+    read_attribute(:x_value)
   end
 
   def bmd
-    read_attribute(:Y_VALUE)
+    read_attribute(:y_value)
   end
 
   def std
-    read_attribute(:STD)
+    read_attribute(:std)
   end
 end
