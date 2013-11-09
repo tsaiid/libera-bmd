@@ -10,4 +10,8 @@ class ScanAnalysis < ActiveRecord::Base
   def type
     read_attribute(:SCAN_TYPE)
   end
+
+  def acc
+    read_attribute(:ACCESSION_NO)
+  end
 end
