@@ -7,6 +7,20 @@ class ScanAnalysis < ActiveRecord::Base
   has_one :Spine, foreign_key: :SCANID
   has_one :Forearm, foreign_key: :SCANID
 
+  def study
+    type = read_attribute(:REF_TYPE)
+    case type
+    when "S"
+      self.Spine
+    when "H"
+      self.Hip
+    when "R"
+      self.Forearm
+    else
+      nil
+    end
+  end
+
   def type
     read_attribute(:SCAN_TYPE)
   end
