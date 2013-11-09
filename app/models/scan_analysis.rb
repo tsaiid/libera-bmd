@@ -21,6 +21,13 @@ class ScanAnalysis < ActiveRecord::Base
     end
   end
 
+  def find_reference
+    ref_type = read_attribute(:REF_TYPE)
+    ethnicity = self.Patient.ethnicity
+    ReferenceCurve.where(REFTYPE: ref_type, ETHNIC: ethnicity).first
+    # incomplete.
+  end
+
   def type
     read_attribute(:SCAN_TYPE)
   end
