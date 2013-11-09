@@ -25,6 +25,10 @@ class Patient < ActiveRecord::Base
     self.ScanAnalyses.select(:ACCESSION_NO).distinct
   end
 
+  def ethnicity
+    read_attribute(:ETHNICITY)
+  end
+
   ## use LAST_UPDATE for age calculation.
   def age(time = self.read_attribute(:LAST_UPDATE))
     time = time.to_datetime
