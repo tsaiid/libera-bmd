@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reverst T-Score Calculator</title>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+</head>
+<body>
+  <h1>Reverst T-Score Calculator</h1>
+  <p>(a - x) / b = y</p>
+  <p>a1 = <input type="text" id="a1"> b1 = <input type="text" id="b1"></p>
+  <p>a2 = <input type="text" id="a2"> b2 = <input type="text" id="b2"></p>
+  <p>Result:</p>
+  <p>x = <input type="text" id="x"></p>
+  <p>y = <input type="text" id="y"></p>
+  <p><input type="button" value="Calculate" id="btn"></p>
+  <script>
+    $('#btn').click(function(){
+      a1 = parseFloat($('#a1').val());
+      a2 = parseFloat($('#a2').val());
+      b1 = parseFloat($('#b1').val());
+      b2 = parseFloat($('#b2').val());
+      y = (a2 - a1) / (b2 - b1);
+      x = a1 - y * b1;
+      $('#x').val(x);
+      $('#y').val(y);
+    });
+  </script>
+</body>
+</html>
