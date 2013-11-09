@@ -7,6 +7,8 @@ class ScanAnalysis < ActiveRecord::Base
   has_one :Spine, foreign_key: :SCANID
   has_one :Forearm, foreign_key: :SCANID
 
+  scope :accession_lists, -> { group(:ACCESSION_NO).order(SCAN_DATE: :desc) }
+
   def study
     type = read_attribute(:REF_TYPE)
     case type
