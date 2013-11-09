@@ -21,6 +21,10 @@ class Patient < ActiveRecord::Base
     read_attribute(:BIRTHDATE)
   end
 
+  def pid
+    read_attribute(:IDENTIFIER1)
+  end
+
   def studies
     self.ScanAnalyses.select(:ACCESSION_NO).distinct
   end
