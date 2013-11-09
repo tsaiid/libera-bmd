@@ -37,4 +37,8 @@ class ScanAnalysis < ActiveRecord::Base
   def acc
     read_attribute(:ACCESSION_NO)
   end
+
+  def scan_date
+    read_attribute(:SCAN_DATE)
+  end
 end
