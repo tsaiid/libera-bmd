@@ -1,6 +1,6 @@
 class Hip < ActiveRecord::Base
-  belongs_to :Patient, foreign_key: "patient_key"
-  belongs_to :ScanAnalysis, foreign_key: "scanid"
+  belongs_to :patient, foreign_key: "patient_key"
+  belongs_to :scan_analysis, foreign_key: "scanid"
 
   def neck_area
     read_attribute(:neck_area)

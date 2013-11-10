@@ -1,23 +1,23 @@
 class ScanAnalysis < ActiveRecord::Base
   self.primary_key = "scanid"
 
-  belongs_to :Patient, foreign_key: "patient_key"
+  belongs_to :patient, foreign_key: "patient_key"
 
-  has_one :Hip, foreign_key: :scanid
-  has_one :Spine, foreign_key: :scanid
-  has_one :Forearm, foreign_key: :scanid
+  has_one :hip, foreign_key: :scanid
+  has_one :spine, foreign_key: :scanid
+  has_one :forearm, foreign_key: :scanid
 
-  scope :accession_lists, -> { joins(:Patient).where("accession_no is not null and patients.identifier1 is not null").group(:accession_no).order(scan_date: :desc) }
+  scope :accession_lists, -> { joins(:patient).where("accession_no is not null and patients.identifier1 is not null").group(:accession_no).order(scan_date: :desc) }
 
   def study
     type = read_attribute(:ref_type)
     case type
     when "S"
-      self.Spine
+      self.spine
     when "H"
-      self.Hip
+      self.hip
     when "R"
-      self.Forearm
+      self.forearm
     else
       nil
     end
@@ -25,7 +25,7 @@ class ScanAnalysis < ActiveRecord::Base
 
   def find_reference
     ref_type = read_attribute(:ref_type)
-    ethnicity = self.Patient.ethnicity
+    ethnicity = self.patient.ethnicity
     ReferenceCurve.where(reftype: ref_type, ethnic: ethnicity).first
     # incomplete.
   end

@@ -6,12 +6,12 @@ class Patient < ActiveRecord::Base
 
   scope :not_phantom, -> { where('phantom_id IS NULL') }
 
-  has_many :Forearms, foreign_key: "patient_key"
-  has_many :Spines, foreign_key: "patient_key"
-  has_many :Hips, foreign_key: "patient_key"
-  has_many :HipHsas, foreign_key: "patient_key"
-  has_many :Laterals, foreign_key: "patient_key"
-  has_many :ScanAnalyses, foreign_key: "patient_key"
+  has_many :forearms, foreign_key: "patient_key"
+  has_many :spines, foreign_key: "patient_key"
+  has_many :hips, foreign_key: "patient_key"
+  has_many :hip_hsas, foreign_key: "patient_key"
+  has_many :laterals, foreign_key: "patient_key"
+  has_many :scan_analyses, foreign_key: "patient_key"
 
   def name
     read_attribute(:last_name)
@@ -26,7 +26,7 @@ class Patient < ActiveRecord::Base
   end
 
   def studies
-    self.ScanAnalyses.select(:accession_no).distinct
+    self.scan_analyses.select(:accession_no).distinct
   end
 
   def ethnicity
