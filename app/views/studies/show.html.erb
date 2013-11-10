@@ -15,7 +15,18 @@
     </tr>
   </thead>
   <tbody>
-    
+    <% study.study.levels.each do |level| %>
+    <tr>
+      <td><%= level[:label] %></td>
+      <td><%= level[:area] %></td>
+      <td><%= level[:bmc] %></td>
+      <td><%= level[:bmd] %></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <% end %>
   </tbody>
 </table>
 <% end %>
