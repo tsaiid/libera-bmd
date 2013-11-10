@@ -13,8 +13,8 @@
     <% @studies.each do |study| %>
       <tr>
         <td><%= study.scan_date.to_date.to_s %></td>
-        <td><%= study.Patient.name %></td>
-        <td><%= study.Patient.pid %></td>
+        <td><%= study.patient.name %></td>
+        <td><%= study.patient.pid %></td>
         <td><%= study.acc %></td>
       </tr>
     <% end %>
