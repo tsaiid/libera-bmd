@@ -17,4 +17,4 @@
 | /usr/bin/sed "s/\`WbodyComposition\`/\`w_body_compositions\`/g" \
 | /usr/bin/sed "s/\`PATIENT\`/\`patients\`/g" \
 | /usr/bin/sed "s/\`SubRegionBone\`/\`sub_region_bones\`/g" \
-| /usr/bin/tr "[:upper:]" "[:lower:]"
+| /usr/bin/perl -pe "s/\`([A-Z_a-z0-9]+)\`/\`\L\1\`/g"
