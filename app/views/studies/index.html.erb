@@ -15,7 +15,7 @@
         <td><%= study.scan_date.to_date.to_s %></td>
         <td><%= study.patient.name %></td>
         <td><%= study.patient.pid %></td>
-        <td><%= study.acc %></td>
+        <td><%= link_to study.acc, :controller => "studies", :action => "show", :acc => study.acc  %></td>
       </tr>
     <% end %>
   </tbody>
