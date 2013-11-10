@@ -38,7 +38,20 @@ class ScanAnalysis < ActiveRecord::Base
   end
 
   def type
-    read_attribute(:scan_type)
+    read_attribute(:ref_type)
+  end
+
+  def to_s
+    case self.type
+    when "S"
+      "Spine"
+    when "H"
+      "Hip"
+    when "R"
+      "Forearm"
+    else
+      nil
+    end
   end
 
   def acc
