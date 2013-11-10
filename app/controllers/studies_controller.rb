@@ -4,5 +4,6 @@ class StudiesController < ApplicationController
   end
 
   def show
+    @studies = ScanAnalysis.where(accession_no: params[:acc])
   end
 end
