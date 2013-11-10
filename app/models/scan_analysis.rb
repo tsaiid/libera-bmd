@@ -7,7 +7,14 @@ class ScanAnalysis < ActiveRecord::Base
   has_one :spine, foreign_key: :scanid
   has_one :forearm, foreign_key: :scanid
 
-  scope :accession_lists, -> { joins(:patient).where("accession_no is not null and patients.identifier1 is not null").group(:accession_no).order(scan_date: :desc) }
+  scope :accession_lists, -> { 
+    joins(:patient)
+    .where("accession_no is not null")
+    .where("patients.identifier1 IS NOT NULL")
+    .where("patients.last_name IS NOT NULL")
+    .group(:accession_no)
+    .order(scan_date: :desc) 
+  }
 
   def study
     type = read_attribute(:ref_type)
