@@ -1,2 +1,21 @@
-<h1>Studies#show</h1>
-<p>Find me in app/views/studies/show.html.erb</p>
+<h1>Studies#show <%= params[:acc] %></h1>
+<% @studies.each do |study| %>
+<table class="table table-striped">
+  <caption><%= study.to_s %></caption>
+  <thead>
+    <tr>
+      <th>Part</th>
+      <th>Area</th>
+      <th>BMC</th>
+      <th>BMD</th>
+      <th>T-score</th>
+      <th>%</th>
+      <th>Z-score</th>
+      <th>%</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+  </tbody>
+</table>
+<% end %>
