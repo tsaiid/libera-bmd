@@ -2,6 +2,15 @@ class Hip < ActiveRecord::Base
   belongs_to :patient, foreign_key: "patient_key"
   belongs_to :scan_analysis, foreign_key: "scanid"
 
+  def levels
+    array = []
+    array <<= {label: "Neck", area: self.neck_area, bmc: self.neck_bmc, bmd: self.neck_bmd}
+    array <<= {label: "Troch", area: self.troch_area, bmc: self.troch_bmc, bmd: self.troch_bmd}
+    array <<= {label: "Inter", area: self.inter_area, bmc: self.inter_bmc, bmd: self.inter_bmd}
+    array <<= {label: "Total", area: self.total_area, bmc: self.total_bmc, bmd: self.total_bmd}
+    array <<= {label: "Ward's", area: self.wards_area, bmc: self.wards_bmc, bmd: self.wards_bmd}
+  end
+
   def neck_area
     read_attribute(:neck_area)
   end
