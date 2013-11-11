@@ -1,22 +1,29 @@
 <h1>Studies#index</h1>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Name</th>
-      <th>ID</th>
-      <th>Acc NO</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @studies.each do |study| %>
-      <tr>
-        <td><%= study.scan_date.to_date.to_s %></td>
-        <td><%= study.patient.name %></td>
-        <td><%= study.patient.pid %></td>
-        <td><%= link_to study.acc, :controller => "studies", :action => "show", :acc => study.acc  %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-md-8">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Name</th>
+          <th>ID</th>
+          <th>Acc NO</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @studies.each do |study| %>
+          <tr>
+            <td><%= study.scan_date.to_date.to_s %></td>
+            <td><%= study.patient.name %></td>
+            <td><%= study.patient.pid %></td>
+            <td><%= link_to study.acc, :controller => "studies", :action => "show", :acc => study.acc  %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <!-- for quick access of reports -->
+  </div>
+</div>
