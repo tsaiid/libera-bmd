@@ -1,6 +1,6 @@
 BoneDensityAnalyzer::Application.routes.draw do
   get "studies/index"
-  get "studies/show"
+  get "studies/show/:acc" => 'studies#show'
   get "patients/index"
   get "patients/show"
   # The priority is based upon order of creation: first created -> highest priority.
