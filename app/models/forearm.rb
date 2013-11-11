@@ -13,13 +13,12 @@ class Forearm < ActiveRecord::Base
     age = self.patient.age
     array.each do |a|
       ref_curve = self.scan_analysis.find_reference(a[:bone_range])
-      a[:z_score] = ref_curve.z_score(age, a[:bmd])
-      ## incomplete.
-      ## Z-score percentage.
-      ## T-score
       a[:t_score] = ref_curve.t_score(a[:bmd])
-      ## T-score percentage.
-    end  end
+      a[:peak_reference] = ref_curve.peak_reference(a[:bmd])
+      a[:z_score] = ref_curve.z_score(age, a[:bmd])
+      a[:age_matched] = ref_curve.age_matched(age, a[:bmd])
+    end  
+  end
 
   def ru13_area
     read_attribute(:ru13tot_area)
