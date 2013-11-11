@@ -26,6 +26,7 @@ class Spine < ActiveRecord::Base
       ## incomplete.
       ## Z-score percentage.
       ## T-score
+      a[:t_score] = ref_curve.t_score(a[:bmd])
       ## T-score percentage.
     end
   end
