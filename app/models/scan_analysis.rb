@@ -37,7 +37,7 @@ class ScanAnalysis < ActiveRecord::Base
     bone_range = self.study.bone_range if bone_range.empty?
     ReferenceCurve.where( if_current: 1,
                           reftype: ref_type,
-                          ethnic: ethnicity,
+                          ethnic: (ref_type == "R" ? nil : ethnicity),
                           sex: sex,
                           bonerange: bone_range).first
   end
