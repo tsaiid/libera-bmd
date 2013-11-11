@@ -7,13 +7,13 @@ class ScanAnalysis < ActiveRecord::Base
   has_one :spine, foreign_key: :scanid
   has_one :forearm, foreign_key: :scanid
 
-  scope :accession_lists, -> { 
+  scope :accession_lists, -> {
     joins(:patient)
     .where("accession_no is not null")
     .where("patients.identifier1 IS NOT NULL")
     .where("patients.last_name IS NOT NULL")
     .group(:accession_no)
-    .order(scan_date: :desc) 
+    .order(scan_date: :desc)
   }
 
   def study
@@ -33,8 +33,18 @@ class ScanAnalysis < ActiveRecord::Base
   def find_reference
     ref_type = read_attribute(:ref_type)
     ethnicity = self.patient.ethnicity
-    ReferenceCurve.where(reftype: ref_type, ethnic: ethnicity).first
+    sex = self.patient.sex
+    bone_range = self.study.bone_range
+    ReferenceCurve.where( if_current: 1,
+                          reftype: ref_type,
+                          ethnic: ethnicity,
+                          sex: sex,
+                          bonerange: bone_range).first
     # incomplete.
+  end
+
+  def z_scores
+    self.study.z_scores
   end
 
   def type
