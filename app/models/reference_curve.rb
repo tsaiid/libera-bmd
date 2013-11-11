@@ -11,6 +11,12 @@ class ReferenceCurve < ActiveRecord::Base
     self.Points.where("x_value >= " + age.to_s).order(x_value: :asc).first
   end
 
+  def t_score(bmd)
+    age = read_attribute(:age_young).to_i
+    p = self.Points.where(x_value: age).first
+    (bmd - p.bmd) / p.std
+  end
+
   def z_score(pt_age, bmd)
     up = self.upper_point(pt_age)
     lp = self.lower_point(pt_age)
