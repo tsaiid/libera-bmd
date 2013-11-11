@@ -30,11 +30,11 @@ class ScanAnalysis < ActiveRecord::Base
     end
   end
 
-  def find_reference
+  def find_reference(bone_range="")
     ref_type = read_attribute(:ref_type)
     ethnicity = self.patient.ethnicity
     sex = self.patient.sex
-    bone_range = self.study.bone_range
+    bone_range = self.study.bone_range if bone_range.empty?
     ReferenceCurve.where( if_current: 1,
                           reftype: ref_type,
                           ethnic: ethnicity,
