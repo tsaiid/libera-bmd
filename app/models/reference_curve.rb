@@ -20,8 +20,14 @@ class ReferenceCurve < ActiveRecord::Base
   def z_score(pt_age, bmd)
     up = self.upper_point(pt_age)
     lp = self.lower_point(pt_age)
-    ref_bmd = ((pt_age - lp.age) / (up.age - lp.age)) * (up.bmd - lp.bmd) + lp.bmd
-    ref_std = ((pt_age - lp.age) / (up.age - lp.age)) * (up.std - lp.std) + lp.std
+    # should handle with: if upper == lower
+    if (up == lp)
+      ref_bmd = up.bmd
+      ref_std = up.std
+    else
+      ref_bmd = ((pt_age - lp.age) / (up.age - lp.age)) * (up.bmd - lp.bmd) + lp.bmd
+      ref_std = ((pt_age - lp.age) / (up.age - lp.age)) * (up.std - lp.std) + lp.std
+    end
     (bmd - ref_bmd) / ref_std
   end
 end
