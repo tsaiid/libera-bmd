@@ -33,6 +33,10 @@ class Patient < ActiveRecord::Base
     read_attribute(:ethnicity)
   end
 
+  def sex
+    read_attribute(:sex)
+  end
+
   ## use last_update for age calculation.
   def age(time = self.read_attribute(:last_update))
     time = time.to_datetime
