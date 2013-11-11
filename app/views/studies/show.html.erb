@@ -22,9 +22,9 @@
       <td><%= level[:bmc].round(2) %></td>
       <td><%= level[:bmd].round(3) %></td>
       <td><%= level[:t_score].round(3) %></td>
-      <td></td>
+      <td><%= level[:peak_reference].to_i %></td>
       <td><%= level[:z_score].round(3) %></td>
-      <td></td>
+      <td><%= level[:age_matched].to_i %></td>
     </tr>
     <% end %>
   </tbody>
