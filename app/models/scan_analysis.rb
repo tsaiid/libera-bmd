@@ -40,11 +40,6 @@ class ScanAnalysis < ActiveRecord::Base
                           ethnic: ethnicity,
                           sex: sex,
                           bonerange: bone_range).first
-    # incomplete.
-  end
-
-  def z_scores
-    self.study.z_scores
   end
 
   def type
