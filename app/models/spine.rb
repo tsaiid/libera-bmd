@@ -12,19 +12,22 @@ class Spine < ActiveRecord::Base
 
   def levels
     array = []
-    array <<= {label: "L1", area: self.l1_area, bmc: self.l1_bmc, bmd: self.l1_bmd} if read_attribute(:l1_included)
-    array <<= {label: "L2", area: self.l2_area, bmc: self.l2_bmc, bmd: self.l2_bmd} if read_attribute(:l2_included)
-    array <<= {label: "L3", area: self.l3_area, bmc: self.l3_bmc, bmd: self.l3_bmd} if read_attribute(:l3_included)
-    array <<= {label: "L4", area: self.l4_area, bmc: self.l4_bmc, bmd: self.l4_bmd} if read_attribute(:l4_included)
-    array <<= {label: "Total", area: self.tot_area, bmc: self.tot_bmc, bmd: self.tot_bmd}
-  end
+    array <<= {label: "L1", bone_range: "1...", area: self.l1_area, bmc: self.l1_bmc, bmd: self.l1_bmd} if read_attribute(:l1_included)
+    array <<= {label: "L2", bone_range: ".2..", area: self.l2_area, bmc: self.l2_bmc, bmd: self.l2_bmd} if read_attribute(:l2_included)
+    array <<= {label: "L3", bone_range: "..3.", area: self.l3_area, bmc: self.l3_bmc, bmd: self.l3_bmd} if read_attribute(:l3_included)
+    array <<= {label: "L4", bone_range: "...4", area: self.l4_area, bmc: self.l4_bmc, bmd: self.l4_bmd} if read_attribute(:l4_included)
+    array <<= {label: "Total", bone_range: "1234", area: self.tot_area, bmc: self.tot_bmc, bmd: self.tot_bmd}
 
-  def z_scores
-    ref_curve = self.scan_analysis.find_reference
+    ## calculate Z-score
     age = self.patient.age
-    ref_curve.z_score(age, self.tot_bmd)
-    ## incomplete
-    ## goal: put z scores in an array of hash.
+    array.each do |a|
+      ref_curve = self.scan_analysis.find_reference(a[:bone_range])
+      a[:z_score] = ref_curve.z_score(age, a[:bmd])
+      ## incomplete.
+      ## Z-score percentage.
+      ## T-score
+      ## T-score percentage.
+    end
   end
 
   def l1_area
