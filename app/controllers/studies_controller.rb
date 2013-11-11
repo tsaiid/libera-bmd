@@ -5,5 +5,6 @@ class StudiesController < ApplicationController
 
   def show
     @studies = ScanAnalysis.where(accession_no: params[:acc])
+    @patient = @studies.first.patient
   end
 end
