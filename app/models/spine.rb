@@ -1,6 +1,6 @@
 class Spine < ActiveRecord::Base
-  belongs_to :Patient, foreign_key: "patient_key"
-  belongs_to :ScanAnalysis, foreign_key: "scanid"
+  belongs_to :patient, foreign_key: "patient_key"
+  belongs_to :scan_analysis, foreign_key: "scanid"
 
   def bone_range
     range = ""
@@ -17,6 +17,14 @@ class Spine < ActiveRecord::Base
     array <<= {label: "L3", area: self.l3_area, bmc: self.l3_bmc, bmd: self.l3_bmd} if read_attribute(:l3_included)
     array <<= {label: "L4", area: self.l4_area, bmc: self.l4_bmc, bmd: self.l4_bmd} if read_attribute(:l4_included)
     array <<= {label: "Total", area: self.tot_area, bmc: self.tot_bmc, bmd: self.tot_bmd}
+  end
+
+  def z_scores
+    ref_curve = self.scan_analysis.find_reference
+    age = self.patient.age
+    ref_curve.z_score(age, self.tot_bmd)
+    ## incomplete
+    ## goal: put z scores in an array of hash.
   end
 
   def l1_area
