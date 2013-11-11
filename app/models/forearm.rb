@@ -4,11 +4,22 @@ class Forearm < ActiveRecord::Base
 
   def levels
     array = []
-    array <<= {label: "RU 1/3", area: self.ru13_area, bmc: self.ru13_bmc, bmd: self.ru13_bmd}
-    array <<= {label: "RU Mid", area: self.rumid_area, bmc: self.rumid_bmc, bmd: self.rumid_bmd}
-    array <<= {label: "RU UD", area: self.ruud_area, bmc: self.ruud_bmc, bmd: self.ruud_bmd}
-    array <<= {label: "Total", area: self.rutot_area, bmc: self.rutot_bmc, bmd: self.rutot_bmd}
-  end
+    array <<= {label: "RU 1/3", bone_range: "1..", area: self.ru13_area, bmc: self.ru13_bmc, bmd: self.ru13_bmd}
+    array <<= {label: "RU Mid", bone_range: ".2.", area: self.rumid_area, bmc: self.rumid_bmc, bmd: self.rumid_bmd}
+    array <<= {label: "RU UD", bone_range: "..3", area: self.ruud_area, bmc: self.ruud_bmc, bmd: self.ruud_bmd}
+    array <<= {label: "Total", bone_range: "123", area: self.rutot_area, bmc: self.rutot_bmc, bmd: self.rutot_bmd}
+
+    ## calculate Z-score
+    age = self.patient.age
+    array.each do |a|
+      ref_curve = self.scan_analysis.find_reference(a[:bone_range])
+      a[:z_score] = ref_curve.z_score(age, a[:bmd])
+      ## incomplete.
+      ## Z-score percentage.
+      ## T-score
+      a[:t_score] = ref_curve.t_score(a[:bmd])
+      ## T-score percentage.
+    end  end
 
   def ru13_area
     read_attribute(:ru13tot_area)
