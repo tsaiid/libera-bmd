@@ -22,7 +22,7 @@
         </tr>
         <tr>
           <th>Age</th>
-          <td><%= @patient.age %></td>
+          <td><%= @patient.age(@studies.first.scan_date) %> <small>(by scan date)</small></td>
         </tr>
         <tr>
           <th>Ethnicity</th>
