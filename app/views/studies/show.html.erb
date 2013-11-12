@@ -67,10 +67,10 @@
               <td><%= level[:area].round(2) %></td>
               <td><%= level[:bmc].round(2) %></td>
               <td><%= level[:bmd].round(3) %></td>
-              <td><%= level[:t_score].round(3) %></td>
-              <td><%= level[:peak_reference].to_i %></td>
-              <td><%= level[:z_score].round(3) %></td>
-              <td><%= level[:age_matched].to_i %></td>
+              <td><%= level[:t_score].round(1) %></td>
+              <td><%= level[:peak_reference].round(0) %></td>
+              <td><%= level[:z_score].round(1) %></td>
+              <td><%= level[:age_matched].round(0) %></td>
             </tr>
             <% end %>
           </tbody>
