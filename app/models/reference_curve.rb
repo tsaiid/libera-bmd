@@ -33,7 +33,8 @@ class ReferenceCurve < ActiveRecord::Base
     (bmd / ref[:bmd]) * 100
   end
 
-  private
+#  private
+#  temp comment out for debug
   def calculate_ref(pt_age)
     up = self.upper_point(pt_age)
     lp = self.lower_point(pt_age)
