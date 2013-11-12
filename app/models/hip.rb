@@ -18,7 +18,7 @@ class Hip < ActiveRecord::Base
       a[:peak_reference] = ref_curve.peak_reference(a[:bmd])
       a[:z_score] = ref_curve.z_score(age, a[:bmd])
       a[:age_matched] = ref_curve.age_matched(age, a[:bmd])
-    end  
+    end
   end
 
   def neck_area
