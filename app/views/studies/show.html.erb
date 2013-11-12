@@ -1,71 +1,82 @@
 <h1>Studies#show <%= params[:acc] %></h1>
 
 <div class="row">
-  <div class="col-md-4">
-    <table class="table table-striped">
-      <tbody>
-        <tr>
-          <th>Name</th>
-          <td><%= @patient.name %></td>
-        </tr>
-        <tr>
-          <th>ID</th>
-          <td><%= @patient.pid %></td>
-        </tr>
-        <tr>
-          <th>Sex</th>
-          <td><%= @patient.sex %></td>
-        </tr>
-        <tr>
-          <th>Birthday</th>
-          <td><%= @patient.birthday.to_date %></td>
-        </tr>
-        <tr>
-          <th>Age</th>
-          <td><%= @patient.age(@studies.first.scan_date) %> <small>(by scan date)</small></td>
-        </tr>
-        <tr>
-          <th>Ethnicity</th>
-          <td><%= @patient.ethnicity %></td>
-        </tr>
-        <tr>
-          <th>Scan Date</th>
-          <td><%= @studies.first.scan_date.to_date %></td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="col-md-3">
+    <div class="panel panel-info">
+      <div class="panel-heading">Patient Info</div>
+      <div class="panel-body">
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <td><%= @patient.name %></td>
+            </tr>
+            <tr>
+              <th>ID</th>
+              <td><%= @patient.pid %></td>
+            </tr>
+            <tr>
+              <th>Sex</th>
+              <td><%= @patient.sex %></td>
+            </tr>
+            <tr>
+              <th>Birthday</th>
+              <td><%= @patient.birthday.to_date %></td>
+            </tr>
+            <tr>
+              <th>Age</th>
+              <td><%= @patient.age(@studies.first.scan_date) %> <small>(by scan date)</small></td>
+            </tr>
+            <tr>
+              <th>Ethnicity</th>
+              <td><%= @patient.ethnicity %></td>
+            </tr>
+            <tr>
+              <th>Scan Date</th>
+              <td><%= @studies.first.scan_date.to_date %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  <div class="col-md-8">
+  <div class="col-md-9">
     <% @studies.each do |study| %>
-    <table class="table table-striped table-condensed">
-      <caption><%= study.to_s %></caption>
-      <thead>
-        <tr>
-          <th>Region</th>
-          <th>Area (cm<sup>2</sup>)</th>
-          <th>BMC (g)</th>
-          <th>BMD (g/cm<sup>2</sup>)</th>
-          <th>T-score</th>
-          <th>Peak Reference (%)</th>
-          <th>Z-score</th>
-          <th>Age Matched (%)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% study.study.levels.each do |level| %>
-        <tr>
-          <td><%= level[:label] %></td>
-          <td><%= level[:area].round(2) %></td>
-          <td><%= level[:bmc].round(2) %></td>
-          <td><%= level[:bmd].round(3) %></td>
-          <td><%= level[:t_score].round(3) %></td>
-          <td><%= level[:peak_reference].to_i %></td>
-          <td><%= level[:z_score].round(3) %></td>
-          <td><%= level[:age_matched].to_i %></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= study.to_s %></h3>
+      </div>
+      <div class="panel-body">
+        <table class="table table-striped table-condensed">
+          <thead>
+            <tr>
+              <th>Region</th>
+              <th>Area (cm<sup>2</sup>)</th>
+              <th>BMC (g)</th>
+              <th>BMD (g/cm<sup>2</sup>)</th>
+              <th>T-score</th>
+              <th>Peak Reference (%)</th>
+              <th>Z-score</th>
+              <th>Age Matched (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% study.study.levels.each do |level| %>
+            <tr>
+              <td><%= level[:label] %></td>
+              <td><%= level[:area].round(2) %></td>
+              <td><%= level[:bmc].round(2) %></td>
+              <td><%= level[:bmd].round(3) %></td>
+              <td><%= level[:t_score].round(3) %></td>
+              <td><%= level[:peak_reference].to_i %></td>
+              <td><%= level[:z_score].round(3) %></td>
+              <td><%= level[:age_matched].to_i %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <% end %>
   </div>
 </div>
