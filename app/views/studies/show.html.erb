@@ -28,6 +28,10 @@
           <th>Ethnicity</th>
           <td><%= @patient.ethnicity %></td>
         </tr>
+        <tr>
+          <th>Scan Date</th>
+          <td><%= @studies.first.scan_date.to_date %></td>
+        </tr>
       </tbody>
     </table>
   </div>
