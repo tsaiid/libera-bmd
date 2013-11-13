@@ -1,25 +1,25 @@
 class ReferenceCurve < ActiveRecord::Base
   self.primary_key = "unique_id"
 
-  has_many :Points, foreign_key: :unique_id
+  has_many :points, foreign_key: :unique_id
 
   def lower_point(age)
-    self.Points.where("x_value <= " + age.to_s).order(x_value: :desc).first
+    self.points.where("x_value <= " + age.to_s).order(x_value: :desc).first
   end
 
   def upper_point(age)
-    self.Points.where("x_value >= " + age.to_s).order(x_value: :asc).first
+    self.points.where("x_value >= " + age.to_s).order(x_value: :asc).first
   end
 
   def t_score(bmd)
     age = read_attribute(:age_young).to_i
-    p = self.Points.where(x_value: age).first
+    p = self.points.where(x_value: age).first
     (bmd - p.bmd) / p.std
   end
 
   def peak_reference(bmd)
     age = read_attribute(:age_young).to_i
-    p = self.Points.where(x_value: age).first
+    p = self.points.where(x_value: age).first
     (bmd / p.bmd) * 100
   end
 
