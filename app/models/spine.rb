@@ -25,7 +25,7 @@ class Spine < ActiveRecord::Base
   end
 
   def calculate_t_z_scores(level)
-    age = self.patient.age
+    age = self.patient.age(self.scan_analysis.scan_date)
     ref_curve = self.scan_analysis.find_reference(level[:bone_range])
 
     level[:t_score] = ref_curve.t_score(level[:bmd])
@@ -33,6 +33,16 @@ class Spine < ActiveRecord::Base
     level[:z_score] = ref_curve.z_score(age, level[:bmd])
     level[:age_matched] = ref_curve.age_matched(age, level[:bmd])
     level
+  end
+
+  def t_score
+    level = calculate_t_z_scores({label: "Total", bone_range: "1234", area: self.tot_area, bmc: self.tot_bmc, bmd: self.tot_bmd})
+    level[:t_score].round(1)
+  end
+
+  def z_score
+    level = calculate_t_z_scores({label: "Total", bone_range: "1234", area: self.tot_area, bmc: self.tot_bmc, bmd: self.tot_bmd})
+    level[:z_score].round(1)
   end
 
   def report_str

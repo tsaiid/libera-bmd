@@ -27,6 +27,16 @@ class Hip < ActiveRecord::Base
     level
   end
 
+  def t_score
+    level = calculate_t_z_scores({label: "Neck", bone_range: "1...", area: self.neck_area, bmc: self.neck_bmc, bmd: self.neck_bmd})
+    level[:t_score].round(1)
+  end
+
+  def z_score
+    level = calculate_t_z_scores({label: "Neck", bone_range: "1...", area: self.neck_area, bmc: self.neck_bmc, bmd: self.neck_bmd})
+    level[:z_score].round(1)
+  end
+
   def report_str
     level = calculate_t_z_scores({label: "Neck", bone_range: "1...", area: self.neck_area, bmc: self.neck_bmc, bmd: self.neck_bmd})
     str = "The BMD of #{self.side} proximal femur is #{level[:bmd].round(3)} gm/cm2"
