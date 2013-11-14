@@ -27,6 +27,19 @@ class Hip < ActiveRecord::Base
     level
   end
 
+  def report_str
+    level = calculate_t_z_scores({label: "Neck", bone_range: "1...", area: self.neck_area, bmc: self.neck_bmc, bmd: self.neck_bmd})
+    age = self.patient.age
+    mp_age = self.patient.menopause_year.to_i
+    str = "The BMD of proximal femur is #{level[:bmd].round(3)} gm/cm2"
+    if mp_age > 0
+      str += ", and is about #{level[:peak_reference].round(0)}\% of the mean of young reference value (T-score = #{level[:t_score].round(1)})."
+    else
+      str += ". The age matched percentage is about #{level[:age_matched].round(0)}\% (Z-score = #{level[:z_score].round(1)})."
+    end
+    str
+  end
+
   def neck_area
     read_attribute(:neck_area)
   end
