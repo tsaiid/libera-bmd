@@ -1,4 +1,5 @@
 <div class="row">
+  <!-- Patient Info -->
   <div class="col-md-3">
     <div class="panel panel-info">
       <div class="panel-heading">
@@ -44,43 +45,53 @@
       </div>
     </div>
   </div>
+
+  <!-- Studies -->
   <div class="col-md-9">
-    <% @studies.each do |study| %>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= study.to_s %></h3>
+    <div class="panel-group" id="studies-panel">
+      <% @studies.each do |study| %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <a data-toggle="collapse" data-parent="#studies-panel" href="#collapse-<%= study.scanid %>">
+              <%= study.to_s %>
+            </a>
+          </h3>
+        </div>
+        <div id="collapse-<%= study.scanid %>" class="panel-collapse collapse">
+          <div class="panel-body">
+            <table class="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Region</th>
+                  <th>Area <small>(cm<sup>2</sup>)</small></th>
+                  <th>BMC <small>(g)</small></th>
+                  <th>BMD <small>(g/cm<sup>2</sup>)</small></th>
+                  <th>T-score</th>
+                  <th>PR <small>(%)</small></th>
+                  <th>Z-score</th>
+                  <th>AM <small>(%)</small></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% study.study.levels.each do |level| %>
+                <tr class="<%= "active" if level[:label] == "Total" %>">
+                  <td><%= level[:label] %></td>
+                  <td><%= level[:area].round(2) %></td>
+                  <td><%= level[:bmc].round(2) %></td>
+                  <td><%= level[:bmd].round(3) %></td>
+                  <td><%= level[:t_score].round(1) %></td>
+                  <td><%= level[:peak_reference].round(0) %></td>
+                  <td><%= level[:z_score].round(1) %></td>
+                  <td><%= level[:age_matched].round(0) %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-      <div class="panel-body">
-        <table class="table table-condensed">
-          <thead>
-            <tr>
-              <th>Region</th>
-              <th>Area <small>(cm<sup>2</sup>)</small></th>
-              <th>BMC <small>(g)</small></th>
-              <th>BMD <small>(g/cm<sup>2</sup>)</small></th>
-              <th>T-score</th>
-              <th>PR <small>(%)</small></th>
-              <th>Z-score</th>
-              <th>AM <small>(%)</small></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% study.study.levels.each do |level| %>
-            <tr class="<%= "active" if level[:label] == "Total" %>">
-              <td><%= level[:label] %></td>
-              <td><%= level[:area].round(2) %></td>
-              <td><%= level[:bmc].round(2) %></td>
-              <td><%= level[:bmd].round(3) %></td>
-              <td><%= level[:t_score].round(1) %></td>
-              <td><%= level[:peak_reference].round(0) %></td>
-              <td><%= level[:z_score].round(1) %></td>
-              <td><%= level[:age_matched].round(0) %></td>
-            </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+      <% end %>
     </div>
-    <% end %>
   </div>
 </div>
