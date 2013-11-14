@@ -46,12 +46,16 @@ class ScanAnalysis < ActiveRecord::Base
     read_attribute(:ref_type)
   end
 
+  def scan_type
+    read_attribute(:scan_type)
+  end
+
   def to_s
     case self.type
     when "S"
       "Spine"
     when "H"
-      "Hip"
+      "Hip - " + self.study.side.capitalize
     when "R"
       "Forearm"
     else
