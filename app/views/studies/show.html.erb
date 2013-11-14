@@ -5,46 +5,46 @@
       <div class="panel-heading">
         <h3 class="panel-title">Patient Info</h3>
       </div>
-        <table class="table table-striped">
-          <tbody>
-            <tr>
-              <th>Name</th>
-              <td><%= @patient.name %></td>
-            </tr>
-            <tr>
-              <th>ID</th>
-              <td><%= @patient.pid %></td>
-            </tr>
-            <tr>
-              <th>Acc No</th>
-              <td><%= @studies.first.acc %></td>
-            </tr>
-            <tr>
-              <th>Sex</th>
-              <td><%= @patient.sex %></td>
-            </tr>
-            <tr>
-              <th>Birthday</th>
-              <td><%= @patient.birthday.to_date %></td>
-            </tr>
-            <tr>
-              <th>Age</th>
-              <td><%= @patient.age(@studies.first.scan_date) %> <small>(by scan date)</small></td>
-            </tr>
-            <tr>
-              <th>Menopause Age</th>
-              <td><%= @patient.menopause_year %></td>
-            </tr>
-            <tr>
-              <th>Ethnicity</th>
-              <td><%= @patient.ethnicity %></td>
-            </tr>
-            <tr>
-              <th>Scan Date</th>
-              <td><%= @studies.first.scan_date.to_date %></td>
-            </tr>
-          </tbody>
-        </table>
+      <table class="table table-striped">
+        <tbody>
+          <tr>
+            <th>Name</th>
+            <td><%= @patient.name %></td>
+          </tr>
+          <tr>
+            <th>ID</th>
+            <td><%= @patient.pid %></td>
+          </tr>
+          <tr>
+            <th>Acc No</th>
+            <td><%= @studies.first.acc %></td>
+          </tr>
+          <tr>
+            <th>Sex</th>
+            <td><%= @patient.sex %></td>
+          </tr>
+          <tr>
+            <th>Birthday</th>
+            <td><%= @patient.birthday.to_date %></td>
+          </tr>
+          <tr>
+            <th>Age</th>
+            <td><%= @patient.age(@studies.first.scan_date) %> <small>(by scan date)</small></td>
+          </tr>
+          <tr>
+            <th>Menopause Age</th>
+            <td><%= @patient.menopause_year %></td>
+          </tr>
+          <tr>
+            <th>Ethnicity</th>
+            <td><%= @patient.ethnicity %></td>
+          </tr>
+          <tr>
+            <th>Scan Date</th>
+            <td><%= @studies.first.scan_date.to_date %></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
