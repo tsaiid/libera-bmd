@@ -105,9 +105,11 @@
           </h3>
         </div>
         <div class="panel-body">
-        <% @studies.each do |exam| %>
+          <% @studies.each do |exam| %>
           <p><%= exam.study.report_str %></p>
-        <% end %>
+          <% end %>
+          <h5>Conclusion:</h5>
+          <p><%= @conclusion %></p>
         </div>
       </div>
     </div>
