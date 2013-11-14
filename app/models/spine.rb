@@ -34,7 +34,7 @@ class Spine < ActiveRecord::Base
   end
 
   def l1_bmc
-    read_attribute(:l1_bmd)
+    read_attribute(:l1_bmc)
   end
 
   def l1_bmd
@@ -46,7 +46,7 @@ class Spine < ActiveRecord::Base
   end
 
   def l2_bmc
-    read_attribute(:l2_bmd)
+    read_attribute(:l2_bmc)
   end
 
   def l2_bmd
@@ -58,7 +58,7 @@ class Spine < ActiveRecord::Base
   end
 
   def l3_bmc
-    read_attribute(:l3_bmd)
+    read_attribute(:l3_bmc)
   end
 
   def l3_bmd
@@ -70,7 +70,7 @@ class Spine < ActiveRecord::Base
   end
 
   def l4_bmc
-    read_attribute(:l4_bmd)
+    read_attribute(:l4_bmc)
   end
 
   def l4_bmd
@@ -82,7 +82,7 @@ class Spine < ActiveRecord::Base
   end
 
   def tot_bmc
-    read_attribute(:tot_bmd)
+    read_attribute(:tot_bmc)
   end
 
   def tot_bmd
