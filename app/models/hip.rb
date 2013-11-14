@@ -30,9 +30,10 @@ class Hip < ActiveRecord::Base
   def report_str
     level = calculate_t_z_scores({label: "Neck", bone_range: "1...", area: self.neck_area, bmc: self.neck_bmc, bmd: self.neck_bmd})
     str = "The BMD of #{self.side} proximal femur is #{level[:bmd].round(3)} gm/cm2"
-    if self.scan_analysis.t_or_z?
+    case self.scan_analysis.t_or_z
+    when 't'
       str += ", and is about #{level[:peak_reference].round(0)}\% of the mean of young reference value (T-score = #{level[:t_score].round(1)})."
-    else
+    when 'z'
       str += ". The age matched percentage is about #{level[:age_matched].round(0)}\% (Z-score = #{level[:z_score].round(1)})."
     end
     str

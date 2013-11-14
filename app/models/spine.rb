@@ -38,9 +38,10 @@ class Spine < ActiveRecord::Base
   def report_str
     level = calculate_t_z_scores({label: "Total", bone_range: "1234", area: self.tot_area, bmc: self.tot_bmc, bmd: self.tot_bmd})
     str = "Average bone mineral density (BMD) of L1 to L4 is #{level[:bmd].round(3)} gm/cm2"
-    if self.scan_analysis.t_or_z?
+    case self.scan_analysis.t_or_z
+    when 't'
       str += ", about #{level[:peak_reference].round(0)}\% of the mean of young reference value (T-score = #{level[:t_score].round(1)})."
-    else
+    when 'z'
       str += ". The age matched percentage is about #{level[:age_matched].round(0)}\% (Z-score = #{level[:z_score].round(1)})."
     end
     str
