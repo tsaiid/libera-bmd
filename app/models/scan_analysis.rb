@@ -37,6 +37,16 @@ class ScanAnalysis < ActiveRecord::Base
     (mp_age > 0 || age > 50) ? "t" : "z"
   end
 
+  # find score for conclusion
+  def score
+    case self.t_or_z
+    when 't'
+      self.study.t_score
+    when 'z'
+      self.study.z_score
+    end
+  end
+
   def find_reference(bone_range="")
     ref_type = read_attribute(:ref_type)
     ethnicity = self.patient.ethnicity
