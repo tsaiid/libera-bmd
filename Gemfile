@@ -46,3 +46,8 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+group :development do
+  gem 'guard-livereload', require: false
+  gem "rack-livereload"
+end

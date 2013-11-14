@@ -1,4 +1,7 @@
 BoneDensityAnalyzer::Application.configure do
+  # Add Rack::LiveReload to the bottom of the middleware stack with the default options.
+  config.middleware.use Rack::LiveReload
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
