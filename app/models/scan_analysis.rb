@@ -30,6 +30,13 @@ class ScanAnalysis < ActiveRecord::Base
     end
   end
 
+  # true for t; false for z
+  def t_or_z?
+    age = self.patient.age(self.scan_date)
+    mp_age = self.patient.menopause_year.to_i
+    (mp_age > 0 || age > 50)
+  end
+
   def find_reference(bone_range="")
     ref_type = read_attribute(:ref_type)
     ethnicity = self.patient.ethnicity
