@@ -18,15 +18,21 @@ class Spine < ActiveRecord::Base
     array <<= {label: "L4", bone_range: "...4", area: self.l4_area, bmc: self.l4_bmc, bmd: self.l4_bmd} if read_attribute(:l4_included)
     array <<= {label: "Total", bone_range: "1234", area: self.tot_area, bmc: self.tot_bmc, bmd: self.tot_bmd}
 
-    ## calculate Z-score
-    age = self.patient.age
+    ## calculate T- and Z-scores
     array.each do |a|
-      ref_curve = self.scan_analysis.find_reference(a[:bone_range])
-      a[:t_score] = ref_curve.t_score(a[:bmd])
-      a[:peak_reference] = ref_curve.peak_reference(a[:bmd])
-      a[:z_score] = ref_curve.z_score(age, a[:bmd])
-      a[:age_matched] = ref_curve.age_matched(age, a[:bmd])
+      a = calculate_t_z_scores(a)
     end
+  end
+
+  def calculate_t_z_scores(level)
+    age = self.patient.age
+    ref_curve = self.scan_analysis.find_reference(level[:bone_range])
+
+    level[:t_score] = ref_curve.t_score(level[:bmd])
+    level[:peak_reference] = ref_curve.peak_reference(level[:bmd])
+    level[:z_score] = ref_curve.z_score(age, level[:bmd])
+    level[:age_matched] = ref_curve.age_matched(age, level[:bmd])
+    level
   end
 
   def l1_area
