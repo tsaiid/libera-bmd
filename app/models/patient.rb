@@ -43,4 +43,9 @@ class Patient < ActiveRecord::Base
     dob = self.birthday
     time.year - dob.year - ((time.month > dob.month || (time.month == dob.month && time.day >= dob.day)) ? 0 : 1)
   end
+
+  def menopause_year
+    mp_year = read_attribute(:menopause_year)
+    mp_year > 0 ? mp_year : ""
+  end
 end
