@@ -30,11 +30,11 @@ class ScanAnalysis < ActiveRecord::Base
     end
   end
 
-  # true for t; false for z
-  def t_or_z?
+  # decide to use T or Z score according to age > 50 or menopaused.
+  def t_or_z
     age = self.patient.age(self.scan_date)
     mp_age = self.patient.menopause_year.to_i
-    (mp_age > 0 || age > 50)
+    (mp_age > 0 || age > 50) ? "t" : "z"
   end
 
   def find_reference(bone_range="")
