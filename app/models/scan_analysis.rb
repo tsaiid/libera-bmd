@@ -80,7 +80,7 @@ class ScanAnalysis < ActiveRecord::Base
     end
   end
 
-  def acc
+  def accession_no
     read_attribute(:accession_no)
   end
 
