@@ -1,4 +1,19 @@
 <div class="row">
+  <div class="col-md-12">
+    <ul class="pager">
+      <li class="previous <%= "disabled" if @previous.nil? %>">
+        <%= link_to_unless(@previous.nil?, raw("&larr; Previous"), { :controller => "studies", :action => "show", :accession_no => (@previous.accession_no unless @previous.nil?) }) do |name| %>
+          <%= link_to(name, {}) %>
+        <% end %>
+      </li>
+      <li class="next <%= "disabled" if @next.nil? %>">
+        <%= link_to_unless @next.nil?, raw("Next &rarr;"), { :controller => "studies", :action => "show", :accession_no => (@next.accession_no unless @next.nil?) } %>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
   <!-- Patient Info -->
   <div class="col-md-3">
     <div class="panel panel-info">
@@ -17,7 +32,7 @@
           </tr>
           <tr>
             <th>Acc No</th>
-            <td><%= @studies.first.acc %></td>
+            <td><%= @studies.first.accession_no %></td>
           </tr>
           <tr>
             <th>Sex</th>
