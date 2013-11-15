@@ -26,6 +26,39 @@ class Forearm < ActiveRecord::Base
     level
   end
 
+  def t_score
+    level = calculate_t_z_scores({label: "RU 1/3", bone_range: "1..", area: self.ru13_area, bmc: self.ru13_bmc, bmd: self.ru13_bmd})
+    level[:t_score].round(1)
+  end
+
+  def z_score
+    level = calculate_t_z_scores({label: "RU 1/3", bone_range: "1..", area: self.ru13_area, bmc: self.ru13_bmc, bmd: self.ru13_bmd})
+    level[:z_score].round(1)
+  end
+
+  def report_str
+    level = calculate_t_z_scores({label: "RU 1/3", bone_range: "1..", area: self.ru13_area, bmc: self.ru13_bmc, bmd: self.ru13_bmd})
+    str = "The BMD of #{self.side} 1/3 forearm is #{level[:bmd].round(3)} gm/cm2"
+    case self.scan_analysis.t_or_z
+    when 't'
+      str += ", and is about #{level[:peak_reference].round(0)}\% of the mean of young reference value (T-score = #{level[:t_score].round(1)})."
+    when 'z'
+      str += ". The age matched percentage is about #{level[:age_matched].round(0)}\% (Z-score = #{level[:z_score].round(1)})."
+    end
+    str
+  end
+
+  def side
+    case self.scan_analysis.scan_type
+    when 6
+      "left"
+    when 7
+      "right"
+    else
+      nil
+    end
+  end
+
   def ru13_area
     read_attribute(:ru13tot_area)
   end
