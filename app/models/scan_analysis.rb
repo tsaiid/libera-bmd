@@ -16,7 +16,7 @@ class ScanAnalysis < ActiveRecord::Base
     .order(scan_date: :desc)
   }
 
-  def study
+  def exam
     type = read_attribute(:ref_type)
     case type
     when "S"
@@ -41,9 +41,9 @@ class ScanAnalysis < ActiveRecord::Base
   def score
     case self.t_or_z
     when 't'
-      self.study.t_score
+      self.exam.t_score
     when 'z'
-      self.study.z_score
+      self.exam.z_score
     end
   end
 
@@ -51,7 +51,7 @@ class ScanAnalysis < ActiveRecord::Base
     ref_type = read_attribute(:ref_type)
     ethnicity = self.patient.ethnicity
     sex = self.patient.sex
-    bone_range = self.study.bone_range if bone_range.empty?
+    bone_range = self.exam.bone_range if bone_range.empty?
     ReferenceCurve.where( if_current: 1,
                           reftype: ref_type,
                           ethnic: (ref_type == "R" ? nil : ethnicity),
@@ -72,9 +72,9 @@ class ScanAnalysis < ActiveRecord::Base
     when "S"
       "Spine"
     when "H"
-      "Hip - " + self.study.side.capitalize
+      "Hip - " + self.exam.side.capitalize
     when "R"
-      "Forearm - " + self.study.side.capitalize
+      "Forearm - " + self.exam.side.capitalize
     else
       nil
     end

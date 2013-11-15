@@ -91,7 +91,7 @@
                 </tr>
               </thead>
               <tbody>
-                <% study.study.levels.each do |level| %>
+                <% study.exam.levels.each do |level| %>
                 <tr class="<%= "active" if level[:label] == "Total" %>">
                   <td><%= level[:label] %></td>
                   <td><%= level[:area].round(2) %></td>
@@ -120,8 +120,8 @@
           </h3>
         </div>
         <div class="panel-body">
-          <% @studies.each do |exam| %>
-          <p><%= exam.study.report_str %></p>
+          <% @studies.each do |study| %>
+          <p><%= study.exam.report_str %></p>
           <% end %>
           <h5>Conclusion:</h5>
           <p><%= @conclusion %></p>
