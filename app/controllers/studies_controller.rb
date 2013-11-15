@@ -1,14 +1,15 @@
 class StudiesController < ApplicationController
   def index
     @studies = ScanAnalysis.accession_lists
+    #@reports = get_reports(@studies)
   end
 
   def show
     @studies = ScanAnalysis.where(accession_no: params[:accession_no])
     @patient = @studies.first.patient
     @conclusion = conclusion(@studies)
-    @previous = ScanAnalysis.where("accession_no != ? AND scan_date > ?", params[:accession_no], @studies.first.scan_date).order(scan_date: :desc).last
-    @next = ScanAnalysis.where("accession_no != ? AND scan_date < ?", params[:accession_no], @studies.first.scan_date).order(scan_date: :desc).first
+    @previous = ScanAnalysis.accession_lists.where("accession_no != ? AND scan_date > ?", params[:accession_no], @studies.first.scan_date).last
+    @next = ScanAnalysis.accession_lists.where("accession_no != ? AND scan_date < ?", params[:accession_no], @studies.first.scan_date).first
   end
 
   private
@@ -33,5 +34,14 @@ class StudiesController < ApplicationController
         "The BMD meeting the criteria is below the expected range of age, according to 2007 ISCD (the International Society for Clinical Densitometry) combined official positions."
       end
     end
+  end
+
+  def get_reports(studies)
+    reports = ""
+    studies.each do |study|
+      reports += "<p>#{study.exam.report_str}</p>"
+    end
+    reports += "<h5>Conclusions:</h5>"
+    reports += "<p>#{conclusion(studies)}</p>"
   end
 end
