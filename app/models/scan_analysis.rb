@@ -74,7 +74,7 @@ class ScanAnalysis < ActiveRecord::Base
     when "H"
       "Hip - " + self.study.side.capitalize
     when "R"
-      "Forearm"
+      "Forearm - " + self.study.side.capitalize
     else
       nil
     end
