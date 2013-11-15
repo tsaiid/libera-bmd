@@ -5,11 +5,13 @@ class StudiesController < ApplicationController
   end
 
   def show
-    @studies = ScanAnalysis.where(accession_no: params[:accession_no])
+    @studies = ScanAnalysis.accession_lists.where(accession_no: params[:accession_no])
     @patient = @studies.first.patient
     @conclusion = conclusion(@studies)
-    @previous = ScanAnalysis.accession_lists.where("accession_no != ? AND scan_date > ?", params[:accession_no], @studies.first.scan_date).last
-    @next = ScanAnalysis.accession_lists.where("accession_no != ? AND scan_date < ?", params[:accession_no], @studies.first.scan_date).first
+    studies = ScanAnalysis.accession_lists
+    index = studies.index(@studies.first)
+    @previous = (index > 0 ? studies[index - 1] : nil)
+    @next = studies[index + 1]
   end
 
   private
