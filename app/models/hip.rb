@@ -17,7 +17,7 @@ class Hip < ActiveRecord::Base
   end
 
   def calculate_t_z_scores(level)
-    age = self.patient.age
+    age = self.patient.age(self.scan_analysis.scan_date)
     ref_curve = self.scan_analysis.find_reference(level[:bone_range])
 
     level[:t_score] = ref_curve.t_score(level[:bmd])
