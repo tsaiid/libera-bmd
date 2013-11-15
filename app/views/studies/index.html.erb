@@ -9,6 +9,7 @@
           <th>Name</th>
           <th>ID</th>
           <th>Acc NO</th>
+          <th>Function</th>
         </tr>
       </thead>
       <tbody>
@@ -18,6 +19,11 @@
             <td><%= study.patient.name %></td>
             <td><%= study.patient.pid %></td>
             <td><%= link_to study.accession_no, :controller => "studies", :action => "show", :accession_no => study.accession_no  %></td>
+            <td>
+              <button type="button" class="btn btn-default btn-xs">
+                <span class="glyphicon glyphicon-list-alt"></span>
+              </button>
+            </td>
           </tr>
         <% end %>
       </tbody>
