@@ -5,7 +5,7 @@ class StudiesController < ApplicationController
   end
 
   def show
-    @studies = ScanAnalysis.where(accession_no: params[:accession_no])
+    @studies = ScanAnalysis.where("ref_type IS NOT NULL").where(accession_no: params[:accession_no])
     @study_lists = ScanAnalysis.accession_lists.where(accession_no: params[:accession_no])
     @patient = @studies.first.patient
     @conclusion = conclusion(@studies)

@@ -10,6 +10,7 @@ class ScanAnalysis < ActiveRecord::Base
   scope :accession_lists, -> {
     joins(:patient)
     .where("accession_no is not null")
+    .where("ref_type IS NOT NULL")
     .where("patients.identifier1 IS NOT NULL")
     .where("patients.last_name IS NOT NULL")
     .group(:accession_no)
