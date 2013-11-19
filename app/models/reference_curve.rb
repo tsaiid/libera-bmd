@@ -42,6 +42,12 @@ class ReferenceCurve < ActiveRecord::Base
     if (up == lp)
       ref_bmd = up.bmd
       ref_std = up.std
+    # should handle with: very old patients
+    elsif (up.nil?)
+      lp2 = lower_point(lp.age - 1)
+      slope = (pt_age - lp.age) / (lp.age - lp2.age)
+      ref_bmd = slope * (lp.bmd - lp2.bmd) + lp.bmd
+      ref_std = slope * (lp.std - lp2.std) + lp.std
     else
       ref_bmd = ((pt_age - lp.age) / (up.age - lp.age)) * (up.bmd - lp.bmd) + lp.bmd
       ref_std = ((pt_age - lp.age) / (up.age - lp.age)) * (up.std - lp.std) + lp.std
