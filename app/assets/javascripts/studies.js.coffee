@@ -5,5 +5,6 @@
 $(document).ready ->
   $('.bda-btn-report').popover({
     container: "body",
-    placement: "right"
+    placement: "right",
+    html: true
   });
