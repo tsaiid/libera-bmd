@@ -1,7 +1,6 @@
 class StudiesController < ApplicationController
   def index
     @studies = ScanAnalysis.accession_lists
-    @reports = get_reports(@studies)
   end
 
   def show
@@ -13,6 +12,15 @@ class StudiesController < ApplicationController
     index = studies.index(@study_lists.first)
     @previous = (index > 0 ? studies[index - 1] : nil)
     @next = studies[index + 1]
+  end
+
+  def report
+    @studies = ScanAnalysis.where("ref_type IS NOT NULL").where(accession_no: params[:accession_no])
+    output = { report: get_reports(@studies) }
+    respond_to do |format|
+      format.html { render json: output }
+      format.json { render json: output }
+    end
   end
 
   private
@@ -40,13 +48,12 @@ class StudiesController < ApplicationController
   end
 
   def get_reports(studies)
-    reports = []
+    reports = ""
     studies.each do |study|
       report = ""
       report += "<p>#{study.exam.report_str}</p>"
-      report += "<h5>Conclusions:</h5>"
-      reports << report
+      reports += report
     end
-    reports
+    reports += "<h4>Conclusions:</h4><p>#{conclusion(studies)}</p>"
   end
 end
