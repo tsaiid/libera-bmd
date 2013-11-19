@@ -1,7 +1,7 @@
 class StudiesController < ApplicationController
   def index
     @studies = ScanAnalysis.accession_lists
-    #@reports = get_reports(@studies)
+    @reports = get_reports(@studies)
   end
 
   def show
@@ -40,11 +40,13 @@ class StudiesController < ApplicationController
   end
 
   def get_reports(studies)
-    reports = ""
+    reports = []
     studies.each do |study|
-      reports += "<p>#{study.exam.report_str}</p>"
+      report = ""
+      report += "<p>#{study.exam.report_str}</p>"
+      report += "<h5>Conclusions:</h5>"
+      reports << report
     end
-    reports += "<h5>Conclusions:</h5>"
-    reports += "<p>#{conclusion(studies)}</p>"
+    reports
   end
 end
