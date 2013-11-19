@@ -13,14 +13,14 @@
         </tr>
       </thead>
       <tbody>
-        <% @studies.each do |study| %>
+        <% @studies.each_with_index do |study, i| %>
           <tr>
             <td><%= study.scan_date.to_date.to_s %></td>
             <td><%= study.patient.name %></td>
             <td><%= study.patient.pid %></td>
             <td><%= link_to study.accession_no, :controller => "studies", :action => "show", :accession_no => study.accession_no  %></td>
             <td>
-              <button type="button" class="btn btn-default btn-xs bda-btn-report" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+              <button type="button" class="btn btn-default btn-xs bda-btn-report" data-content="<%= @reports[i] %>">
                 <span class="glyphicon glyphicon-list-alt"></span>
               </button>
             </td>
