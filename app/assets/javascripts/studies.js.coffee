@@ -6,5 +6,17 @@ $(document).ready ->
   $('.bda-btn-report').popover({
     container: "body",
     placement: "right",
-    html: true
+    content: ->
+      div_id = "div-id-" + $.now()
+      acc_no = $(this).attr('id').substring(4)
+      return details_in_popup(acc_no, div_id)
+    html: true,
+    trigger: 'hover'
   });
+
+details_in_popup = (acc_no, div_id) ->
+  report = ""
+  $.getJSON( "/studies/report/" + acc_no )
+    .done (data)-> 
+      $('#'+div_id).html(data.report)
+  '<div id="' + div_id + '">Loading...</div>'
