@@ -20,7 +20,7 @@
             <td><%= study.patient.pid %></td>
             <td><%= link_to study.accession_no, :controller => "studies", :action => "show", :accession_no => study.accession_no  %></td>
             <td>
-              <button type="button" class="btn btn-default btn-xs bda-btn-report" data-content="<%= @reports[i] %>">
+              <button type="button" class="btn btn-default btn-xs bda-btn-report" data-content="" id="btn-<%= study.accession_no %>">
                 <span class="glyphicon glyphicon-list-alt"></span>
               </button>
             </td>
