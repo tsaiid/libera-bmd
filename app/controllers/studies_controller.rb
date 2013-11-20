@@ -16,7 +16,8 @@ class StudiesController < ApplicationController
 
   def report
     @studies = ScanAnalysis.where("ref_type IS NOT NULL").where(accession_no: params[:accession_no])
-    output = { report: get_reports(@studies) }
+    mode = params[:mode] || 'html'
+    output = { report: get_reports(@studies, mode) }
     respond_to do |format|
       format.html { render json: output }
       format.json { render json: output }
@@ -47,13 +48,21 @@ class StudiesController < ApplicationController
     end
   end
 
-  def get_reports(studies)
+  def get_reports(studies, mode = 'html')
     reports = ""
-    studies.each do |study|
-      report = ""
-      report += "<p>#{study.exam.report_str}</p>"
-      reports += report
+    case mode
+    when 'html'
+      studies.each do |study|
+        report = "<p>#{study.exam.report_str}</p>"
+        reports += report
+      end
+      reports += "<h4>Conclusions:</h4><p>#{conclusion(studies)}</p>"
+    when 'text'
+      studies.each do |study|
+        report = "#{study.exam.report_str}\n\n"
+        reports += report
+      end
+      reports += "Conclusions:\n\n#{conclusion(studies)}"
     end
-    reports += "<h4>Conclusions:</h4><p>#{conclusion(studies)}</p>"
   end
 end
