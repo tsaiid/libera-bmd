@@ -1,7 +1,7 @@
 $(document).ready(function(){
   t1 = $('#i1').contents().find('#t1');
 
-  $.getJSON( "/studies/report/64304529").done(function(data){
+  $.getJSON( "/studies/report/64304529/text").done(function(data){
     t1.val(data.report);
   });
 
