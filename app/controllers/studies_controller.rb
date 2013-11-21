@@ -18,6 +18,8 @@ class StudiesController < ApplicationController
     @studies = ScanAnalysis.where("ref_type IS NOT NULL").where(accession_no: params[:accession_no])
     mode = params[:mode] || 'html'
     output = { report: get_reports(@studies, mode) }
+
+    set_cors_headers
     respond_to do |format|
       format.html { render json: output }
       format.json { render json: output }
@@ -68,5 +70,13 @@ class StudiesController < ApplicationController
     else
       reports = nil
     end
+  end
+
+  def set_cors_headers
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Expose-Headers'] = 'ETag'
+    headers['Access-Control-Allow-Methods'] = 'GET, POST, PATCH, PUT, DELETE, OPTIONS, HEAD'
+    headers['Access-Control-Allow-Headers'] = '*,x-requested-with,Content-Type,If-Modified-Since,If-None-Match'
+    headers['Access-Control-Max-Age'] = '86400'
   end
 end
