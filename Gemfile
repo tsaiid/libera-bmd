@@ -12,6 +12,8 @@ gem 'sass-rails', '~> 4.0.0'
 gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
                               :github => 'anjlab/bootstrap-rails'
 
+gem 'will_paginate-bootstrap'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
