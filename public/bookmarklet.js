@@ -1,10 +1,9 @@
 $(document).ready(function(){
-  t1 = $('#i1').contents().find('#t1');
+  acc_no = $('iframe[name=frameWork]').contents().find('#tabIframe2').contents().find('input[name=OldAccNo]').val();
+  report_area = $('iframe[name=frameWork]').contents().find('#tabIframe2').contents().find('textarea[name=ReportContent]');
 
-  $.getJSON( "/studies/report/64304529/text").done(function(data){
-    t1.val(data.report);
+  $.getJSON( "/studies/report/" + acc_no + "/text").done(function(data){
+    //report_area.val(data.report);
+    alert(data.report);
   });
-
-  t2 = $('#i2').contents().find('#t2');
-  t2.val("t2");
 });
