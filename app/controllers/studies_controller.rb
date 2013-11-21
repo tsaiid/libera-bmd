@@ -50,19 +50,23 @@ class StudiesController < ApplicationController
 
   def get_reports(studies, mode = 'html')
     reports = ""
-    case mode
-    when 'html'
-      studies.each do |study|
-        report = "<p>#{study.exam.report_str}</p>"
-        reports += report
+    if (studies.length > 0)
+      case mode
+      when 'html'
+        studies.each do |study|
+          report = "<p>#{study.exam.report_str}</p>"
+          reports += report
+        end
+        reports += "<h4>Conclusions:</h4><p>#{conclusion(studies)}</p>"
+      when 'text'
+        studies.each do |study|
+          report = "#{study.exam.report_str}\n\n"
+          reports += report
+        end
+        reports += "Conclusions:\n\n#{conclusion(studies)}"
       end
-      reports += "<h4>Conclusions:</h4><p>#{conclusion(studies)}</p>"
-    when 'text'
-      studies.each do |study|
-        report = "#{study.exam.report_str}\n\n"
-        reports += report
-      end
-      reports += "Conclusions:\n\n#{conclusion(studies)}"
+    else
+      reports = nil
     end
   end
 end
