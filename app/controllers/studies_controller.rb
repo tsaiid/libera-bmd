@@ -1,6 +1,6 @@
 class StudiesController < ApplicationController
   def index
-    @studies = ScanAnalysis.accession_lists
+    @studies = ScanAnalysis.accession_lists.paginate(:page => params[:page], :per_page => 20)
   end
 
   def show
