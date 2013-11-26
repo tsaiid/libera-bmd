@@ -59,12 +59,25 @@
         </thead>
         <tbody>
           <% @patient.studies.each do |study| %>
+          <%   acc = study.accession_no %>
           <tr>
             <td><%= study.scan_date.to_date.to_s %></td>
             <td><%= link_to study.accession_no, :controller => "studies", :action => "show", :accession_no => study.accession_no %></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>
+              <% @patient.spines_by_acc(acc).each do |spine| %>
+                <%= "#{spine.t_or_z.capitalize}: #{spine.score}" %>
+              <% end %>
+            </td>
+            <td>
+              <% @patient.hips_by_acc(acc).each do |hip| %>
+                <%= "#{hip.t_or_z.capitalize}: #{hip.score}" %>
+              <% end %>
+            </td>
+            <td>
+              <% @patient.forearms_by_acc(acc).each do |forearm| %>
+                <%= "#{forearm.t_or_z.capitalize}: #{forearm.score}" %>
+              <% end %>
+            </td>
             <td></td>
           </tr>
           <% end %>
