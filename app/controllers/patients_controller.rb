@@ -1,6 +1,6 @@
 class PatientsController < ApplicationController
   def index
-    @patients = Patient.not_phantom
+    @patients = Patient.lists
   end
 
   def show
