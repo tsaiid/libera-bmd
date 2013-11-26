@@ -5,6 +5,10 @@ class PatientsController < ApplicationController
 
   def show
     @patient = Patient.where(identifier1: params[:pid]).first
+    patients = Patient.lists
+    index = patients.index(@patient)
+    @previous = (index > 0 ? patients[index - 1] : nil)
+    @next = patients[index + 1]
   end
 
   private
