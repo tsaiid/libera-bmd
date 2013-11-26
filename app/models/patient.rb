@@ -29,6 +29,22 @@ class Patient < ActiveRecord::Base
     self.scan_analyses.group(:accession_no)
   end
 
+  def studies_by_acc(accession_no)
+    self.scan_analyses.where(accession_no: accession_no)
+  end
+
+  def spines_by_acc(accession_no)
+    self.scan_analyses.where(accession_no: accession_no, ref_type: "S")
+  end
+
+  def hips_by_acc(accession_no)
+    self.scan_analyses.where(accession_no: accession_no, ref_type: "H")
+  end
+
+  def forearms_by_acc(accession_no)
+    self.scan_analyses.where(accession_no: accession_no, ref_type: "R")
+  end
+
   def ethnicity
     read_attribute(:ethnicity)
   end
