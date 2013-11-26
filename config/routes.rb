@@ -1,4 +1,5 @@
 BoneDensityAnalyzer::Application.routes.draw do
+  get "statistics/index"
   get "studies/index"
   get "studies/index/page/:page" => 'studies#index'
   get "studies/:accession_no" => 'studies#show'
