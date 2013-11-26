@@ -9,13 +9,13 @@
         <tbody>
           <tr>
             <th>期間</th>
-            <th>人數</th>
-            <th>...</th>
+            <th>總人數</th>
+            <th>總檢查數</th>
           </tr>
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td><%= @studies.last.scan_date.to_date.to_s + " ~ " + @studies.first.scan_date.to_date.to_s %></td>
+            <td><%= @studies.group("patients.identifier1").length %></td>
+            <td><%= @studies.length %></td>
           </tr>
         </tbody>
       </table>
