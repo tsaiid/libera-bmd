@@ -70,6 +70,23 @@ class Patient < ActiveRecord::Base
     end
   end
 
+  def status_to_icon(status)
+    icon =  case status
+            when 'osteoporosis'
+              "remove"
+            when 'osteopenia'
+              "flag"
+            when 'below'
+              "minus"
+            when 'normal'
+              "ok"
+            end
+
+    "<button type=\"button\" class=\"btn btn-default btn-xs\">
+      <span class=\"glyphicon glyphicon-#{icon}\"></span>
+    </button>"
+  end
+
   def ethnicity
     read_attribute(:ethnicity)
   end
