@@ -59,6 +59,17 @@ class Forearm < ActiveRecord::Base
     end
   end
 
+  def side_abbr
+    case self.scan_analysis.scan_type
+    when 6
+      "Lt"
+    when 7
+      "Rt"
+    else
+      nil
+    end
+  end
+
   def ru13_area
     read_attribute(:ru13tot_area)
   end

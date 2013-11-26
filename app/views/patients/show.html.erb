@@ -89,12 +89,12 @@
             </td>
             <td>
               <% @patient.hips_by_acc(acc).each do |hip| %>
-                <%= "#{hip.t_or_z.capitalize}: #{hip.score}" %>
-              <% end %>
+                <div><%= "#{hip.exam.side_abbr} - #{hip.t_or_z.capitalize}: #{hip.score}" %>
+              <% end %></div>
             </td>
             <td>
               <% @patient.forearms_by_acc(acc).each do |forearm| %>
-                <%= "#{forearm.t_or_z.capitalize}: #{forearm.score}" %>
+                <div><%= "#{forearm.exam.side_abbr} - #{forearm.t_or_z.capitalize}: #{forearm.score}" %></div>
               <% end %>
             </td>
             <td><%= raw @patient.status_to_icon(@patient.status_by_acc(acc)) %></td>

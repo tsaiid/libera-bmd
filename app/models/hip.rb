@@ -60,6 +60,17 @@ class Hip < ActiveRecord::Base
     end
   end
 
+  def side_abbr
+    case self.scan_analysis.scan_type
+    when 2
+      "Lt"
+    when 3
+      "Rt"
+    else
+      nil
+    end
+  end
+
   def neck_area
     read_attribute(:neck_area)
   end
