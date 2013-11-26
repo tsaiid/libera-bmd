@@ -5,6 +5,11 @@ class Patient < ActiveRecord::Base
   self.primary_key = "patient_key"
 
   scope :not_phantom, -> { where('phantom_id IS NULL') }
+  scope :lists, -> { 
+    not_phantom
+    .group(:identifier1)
+    .order(identifier1: :asc) 
+  }
 
   has_many :forearms, foreign_key: "patient_key"
   has_many :spines, foreign_key: "patient_key"
