@@ -45,6 +45,31 @@ class Patient < ActiveRecord::Base
     self.scan_analyses.where(accession_no: accession_no, ref_type: "R")
   end
 
+  def status_by_acc(accession_no)
+    scores = []
+    studies = self.studies_by_acc(accession_no)
+    studies.each do |study|
+      scores << study.score
+    end
+
+    case studies.first.t_or_z
+    when 't'
+      if scores.min <= -2.5
+        "osteoporosis"
+      elsif scores.min < -1.0
+        "osteopenia"
+      else
+        "normal"
+      end
+    when 'z'
+      if scores.min < 2
+        "normal"
+      else
+        "below"
+      end
+    end
+  end
+
   def ethnicity
     read_attribute(:ethnicity)
   end
