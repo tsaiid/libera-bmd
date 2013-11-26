@@ -26,7 +26,7 @@ class Patient < ActiveRecord::Base
   end
 
   def studies
-    self.scan_analyses.select(:accession_no).distinct
+    self.scan_analyses.group(:accession_no)
   end
 
   def ethnicity
