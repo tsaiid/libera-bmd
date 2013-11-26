@@ -3,7 +3,7 @@
 <% @patients.each do |pt| %>
   <li>
   <%= pt.name %>
-  <%= link_to 'Show', :controller => 'patients', :action => 'show', :id => pt %>
+  <%= link_to 'Show', :controller => 'patients', :action => 'show', :pid => pt.pid %>
   </li>
 <% end %>
 </ul>
