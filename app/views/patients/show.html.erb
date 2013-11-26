@@ -1,22 +1,74 @@
-<h1>Patients#show</h1>
+<div class="row">
+  <!-- Patient Info -->
+  <div class="col-md-3">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Patient Info</h3>
+      </div>
+      <table class="table table-striped">
+        <tbody>
+          <tr>
+            <th>Name</th>
+            <td><%= @patient.name %></td>
+          </tr>
+          <tr>
+            <th>ID</th>
+            <td><%= @patient.pid %></td>
+          </tr>
+          <tr>
+            <th>Sex</th>
+            <td><%= @patient.sex %></td>
+          </tr>
+          <tr>
+            <th>Birthday</th>
+            <td><%= @patient.birthday.to_date %></td>
+          </tr>
+          <tr>
+            <th>Age</th>
+            <td><%= @patient.age %> <small>(by now)</small></td>
+          </tr>
+          <tr>
+            <th>Menopause Age</th>
+            <td><%= @patient.menopause_year %></td>
+          </tr>
+          <tr>
+            <th>Ethnicity</th>
+            <td><%= @patient.ethnicity %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-<table>
-  <caption>Spine</caption>
-  <thead>
-    <tr>
-      <td>AREA</td>
-      <td>BMC</td>
-      <td>BMD</td>
-    </tr>
-  </thead>
-  <tbody>
-  <% @patient.Spines.each do |spine| %>
-    <tr>
-      <td><%= spine.area %></td>
-      <td><%= spine.bmc %></td>
-      <td><%= spine.bmd %></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
-
+  <!-- Studies -->
+  <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Studies</h3>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Acc NO</th>
+            <th>Spine</th>
+            <th>Hip</th>
+            <th>Forearm</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @patient.studies.each do |study| %>
+          <tr>
+            <td><%= study.scan_date.to_date.to_s %></td>
+            <td><%= link_to study.accession_no, :controller => "studies", :action => "show", :accession_no => study.accession_no %></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+  </div>
+</div>
