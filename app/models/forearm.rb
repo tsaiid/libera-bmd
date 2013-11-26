@@ -62,9 +62,9 @@ class Forearm < ActiveRecord::Base
   def side_abbr
     case self.scan_analysis.scan_type
     when 6
-      "Lt"
+      '<button type="button" class="btn btn-default btn-xs" disabled="disabled">Ｌ</button>'
     when 7
-      "Rt"
+      '<button type="button" class="btn btn-default btn-xs" disabled="disabled">Ｒ</button>'
     else
       nil
     end
