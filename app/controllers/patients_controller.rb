@@ -4,7 +4,7 @@ class PatientsController < ApplicationController
   end
 
   def show
-    @patient = Patient.find(params[:id])
+    @patient = Patient.where(identifier1: params[:pid]).first
   end
 
   private
