@@ -80,7 +80,7 @@
                 <%= "#{forearm.t_or_z.capitalize}: #{forearm.score}" %>
               <% end %>
             </td>
-            <td><%= @patient.status_by_acc(acc) %></td>
+            <td><%= raw @patient.status_to_icon(@patient.status_by_acc(acc)) %></td>
           </tr>
           <% end %>
         </tbody>
