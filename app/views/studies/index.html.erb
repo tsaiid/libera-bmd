@@ -17,7 +17,7 @@
           <tr>
             <td><%= study.scan_date.to_date.to_s %></td>
             <td><%= study.patient.name %></td>
-            <td><%= study.patient.pid %></td>
+            <td><%= link_to study.patient.pid, :controller => "patients", :action => "show", :pid => study.patient.pid %></td>
             <td><%= link_to study.accession_no, :controller => "studies", :action => "show", :accession_no => study.accession_no  %></td>
             <td>
               <button type="button" class="btn btn-default btn-xs bda-btn-report" data-content="" id="btn-<%= study.accession_no %>">
