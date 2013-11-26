@@ -71,18 +71,18 @@ class Patient < ActiveRecord::Base
   end
 
   def status_to_icon(status)
-    icon =  case status
-            when 'osteoporosis'
-              "remove"
-            when 'osteopenia'
-              "flag"
-            when 'below'
-              "minus"
-            when 'normal'
-              "ok"
-            end
+    icon, style = case status
+                  when 'osteoporosis'
+                    ["remove", "danger"]
+                  when 'osteopenia'
+                    ["flag", "warning"]
+                  when 'below'
+                    ["minus", "warning"]
+                  when 'normal'
+                    ["ok", "success"]
+                  end
 
-    "<button type=\"button\" class=\"btn btn-default btn-xs\">
+    "<button type=\"button\" class=\"btn btn-#{style} btn-xs\">
       <span class=\"glyphicon glyphicon-#{icon}\"></span>
     </button>"
   end
