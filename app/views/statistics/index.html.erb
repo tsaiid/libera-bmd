@@ -13,7 +13,7 @@
             <th>總檢查數</th>
           </tr>
           <tr>
-            <td><%= @studies.last.scan_date.to_date.to_s + " ~ " + @studies.first.scan_date.to_date.to_s %></td>
+            <td><%= @studies.first.scan_date.to_date.to_s + " ~ " + @studies.last.scan_date.to_date.to_s %></td>
             <td><%= @studies.group("patients.identifier1").length %></td>
             <td><%= @studies.length %></td>
           </tr>
