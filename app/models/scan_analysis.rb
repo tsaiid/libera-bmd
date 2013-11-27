@@ -28,6 +28,12 @@ class ScanAnalysis < ActiveRecord::Base
     .order(scan_date: :asc)
   }
 
+  scope :pcu_list, -> {
+    effective
+    .where("wl_sched_proc_step_desc LIKE ?", "%PCU%")
+    .order(scan_date: :asc)
+  }
+
   def exam
     type = read_attribute(:ref_type)
     case type
