@@ -19,8 +19,8 @@ class StatisticsController < ApplicationController
         @forearm_ru13_count += 1
       end
     end
-    @spine_avg_tot_bmd = @spine_tot_bmd / @spine_tot_count
-    @hip_avg_neck_bmd = @hip_neck_bmd / @hip_neck_count
-    @forearm_avg_ru13_bmd = @forearm_ru13_bmd / @forearm_ru13_count
+    @spine_avg_tot_bmd = (@spine_tot_bmd / @spine_tot_count).round(4)
+    @hip_avg_neck_bmd = (@hip_neck_bmd / @hip_neck_count).round(4)
+    @forearm_avg_ru13_bmd = (@forearm_ru13_bmd / @forearm_ru13_count).round(4)
   end
 end
