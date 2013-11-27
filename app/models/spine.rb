@@ -4,10 +4,10 @@ class Spine < ActiveRecord::Base
 
   def bone_range
     range = ""
-    range += read_attribute(:l1_included) ? "1" : "."
-    range += read_attribute(:l2_included) ? "2" : "."
-    range += read_attribute(:l3_included) ? "3" : "."
-    range += read_attribute(:l4_included) ? "4" : "."
+    range += l1_included? ? "1" : "."
+    range += l2_included? ? "2" : "."
+    range += l3_included? ? "3" : "."
+    range += l4_included? ? "4" : "."
   end
 
   def levels
@@ -115,5 +115,21 @@ class Spine < ActiveRecord::Base
 
   def tot_bmd
     read_attribute(:tot_bmd)
+  end
+
+  def l1_included?
+    !read_attribute(:l1_included).zero?
+  end
+
+  def l2_included?
+    !read_attribute(:l2_included).zero?
+  end
+
+  def l3_included?
+    !read_attribute(:l3_included).zero?
+  end
+
+  def l4_included?
+    !read_attribute(:l4_included).zero?
   end
 end
