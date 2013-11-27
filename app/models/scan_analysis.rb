@@ -21,7 +21,7 @@ class ScanAnalysis < ActiveRecord::Base
     .order(scan_date: :desc)
   }
 
-  scope :pcu_list, -> {
+  scope :pcu_acc_list, -> {
     effective
     .group(:accession_no)
     .where("wl_sched_proc_step_desc LIKE ?", "%PCU%")
