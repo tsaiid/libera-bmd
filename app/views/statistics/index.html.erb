@@ -11,11 +11,17 @@
             <th>期間</th>
             <th>總人數</th>
             <th>總檢查數</th>
+            <th>總 Spine 數</th>
+            <th>總 Hip 數</th>
+            <th>總 Forearm 數</th>
           </tr>
           <tr>
             <td><%= @studies.first.scan_date.to_date.to_s + " ~ " + @studies.last.scan_date.to_date.to_s %></td>
             <td><%= @studies.group("patients.identifier1").length %></td>
             <td><%= @studies.length %></td>
+            <td><%= @spine_tot_count %></td>
+            <td><%= @hip_count %></td>
+            <td><%= @forearm_count %></td>
           </tr>
         </tbody>
       </table>
