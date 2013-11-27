@@ -7,19 +7,25 @@ class ScanAnalysis < ActiveRecord::Base
   has_one :spine, foreign_key: :scanid
   has_one :forearm, foreign_key: :scanid
 
-  scope :accession_lists, -> {
+  scope :effective, -> {
     joins(:patient)
     .where("accession_no is not null")
     .where("ref_type IS NOT NULL")
     .where("patients.identifier1 IS NOT NULL")
     .where("patients.last_name IS NOT NULL")
+  }
+
+  scope :accession_lists, -> {
+    effective
     .group(:accession_no)
     .order(scan_date: :desc)
   }
 
-  scope :pcu_list, -> { 
-    accession_lists
-    .where("wl_sched_proc_step_desc LIKE ?", "%PCU%") 
+  scope :pcu_list, -> {
+    effective
+    .group(:accession_no)
+    .where("wl_sched_proc_step_desc LIKE ?", "%PCU%")
+    .order(scan_date: :asc)
   }
 
   def exam
