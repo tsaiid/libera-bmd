@@ -42,33 +42,39 @@
             <th>部位</th>
             <th>BMD</th>
             <th>STD</th>
+            <th>總數</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <th>L1</th>
-            <td></td>
-            <td></td>
+            <td><%= @spine_avg_tot_bmd %></td>
+            <td><%= @spine_tot_std %></td>
+            <td><%= @spine_l1_count %></td>
           </tr>
           <tr>
             <th>L2</th>
-            <td></td>
-            <td></td>
+            <td><%= @spine_avg_tot_bmd %></td>
+            <td><%= @spine_tot_std %></td>
+            <td><%= @spine_l2_count %></td>
           </tr>
           <tr>
             <th>L3</th>
-            <td></td>
-            <td></td>
+            <td><%= @spine_avg_tot_bmd %></td>
+            <td><%= @spine_tot_std %></td>
+            <td><%= @spine_l3_count %></td>
           </tr>
           <tr>
             <th>L4</th>
-            <td></td>
-            <td></td>
+            <td><%= @spine_avg_tot_bmd %></td>
+            <td><%= @spine_tot_std %></td>
+            <td><%= @spine_l4_count %></td>
           </tr>
           <tr>
             <th>L1~L4</th>
             <td><%= @spine_avg_tot_bmd %></td>
             <td><%= @spine_tot_std %></td>
+            <td><%= @spine_tot_count %></td>
           </tr>
         </tbody>
       </table>
