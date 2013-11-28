@@ -18,6 +18,10 @@ class ScanAnalysis < ActiveRecord::Base
 
   scope :accession_lists, -> {
     effective.
+    select("scan_date,
+            accession_no,
+            patients.last_name AS pt_name,
+            patients.identifier1 AS pt_pid").
     group(:accession_no).
     order(scan_date: :desc)
   }
