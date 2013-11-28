@@ -1,6 +1,11 @@
 class StudiesController < ApplicationController
   def index
-    @studies = ScanAnalysis.accession_lists.page(params[:page])
+    @studies = ScanAnalysis.accession_lists.
+                            select("scan_date,
+                                    accession_no,
+                                    patients.last_name AS pt_name,
+                                    patients.identifier1 AS pt_pid").
+                            page(params[:page])
   end
 
   def show
