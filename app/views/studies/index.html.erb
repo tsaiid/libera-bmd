@@ -13,7 +13,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @studies.each_with_index do |study, i| %>
+        <% @studies.each do |study| %>
           <tr>
             <td><%= study.scan_date.to_date.to_s %></td>
             <td><%= study.patient.name %></td>
