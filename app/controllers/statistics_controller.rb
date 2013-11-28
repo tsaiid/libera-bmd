@@ -52,6 +52,25 @@ class StatisticsController < ApplicationController
     @hip_avg_wards_bmd = tmp_bmd / @hip_count
     @hip_wards_std = Math.sqrt(Hip.pcu.select("sum((wards_bmd - #{@hip_avg_wards_bmd})*(wards_bmd - #{@hip_avg_wards_bmd})) as delta_sum").first.delta_sum / (@hip_count - 1))
 
+    ## Forearm
+    @forearm_count = Forearm.pcu.select("count(*) as count").first.count
+
+    tmp_bmd = Forearm.pcu.select("sum(ru13tot_bmd) as bmd").first.bmd
+    @forearm_avg_ru13_bmd = tmp_bmd / @forearm_count
+    @forearm_ru13_std = Math.sqrt(Forearm.pcu.select("sum((ru13tot_bmd - #{@forearm_avg_ru13_bmd})*(ru13tot_bmd - #{@forearm_avg_ru13_bmd})) as delta_sum").first.delta_sum / (@forearm_count - 1))
+
+    tmp_bmd = Forearm.pcu.select("sum(rumidtot_bmd) as bmd").first.bmd
+    @forearm_avg_rumid_bmd = tmp_bmd / @forearm_count
+    @forearm_rumid_std = Math.sqrt(Forearm.pcu.select("sum((rumidtot_bmd - #{@forearm_avg_rumid_bmd})*(rumidtot_bmd - #{@forearm_avg_rumid_bmd})) as delta_sum").first.delta_sum / (@forearm_count - 1))
+
+    tmp_bmd = Forearm.pcu.select("sum(ruudtot_bmd) as bmd").first.bmd
+    @forearm_avg_ruud_bmd = tmp_bmd / @forearm_count
+    @forearm_ruud_std = Math.sqrt(Forearm.pcu.select("sum((ruudtot_bmd - #{@forearm_avg_ruud_bmd})*(ruudtot_bmd - #{@forearm_avg_ruud_bmd})) as delta_sum").first.delta_sum / (@forearm_count - 1))
+
+    tmp_bmd = Forearm.pcu.select("sum(rutot_bmd) as bmd").first.bmd
+    @forearm_avg_rutot_bmd = tmp_bmd / @forearm_count
+    @forearm_rutot_std = Math.sqrt(Forearm.pcu.select("sum((rutot_bmd - #{@forearm_avg_rutot_bmd})*(rutot_bmd - #{@forearm_avg_rutot_bmd})) as delta_sum").first.delta_sum / (@forearm_count - 1))
+
     # 用小數點後四位 output
     @spine_avg_tot_bmd = @spine_avg_tot_bmd.round(4)
     @spine_avg_l1_bmd = @spine_avg_l1_bmd.round(4)
@@ -63,12 +82,10 @@ class StatisticsController < ApplicationController
     @hip_avg_inter_bmd = @hip_avg_inter_bmd.round(4)
     @hip_avg_htot_bmd = @hip_avg_htot_bmd.round(4)
     @hip_avg_wards_bmd = @hip_avg_wards_bmd.round(4)
-=begin
     @forearm_avg_ru13_bmd = @forearm_avg_ru13_bmd.round(4)
     @forearm_avg_rumid_bmd = @forearm_avg_rumid_bmd.round(4)
     @forearm_avg_ruud_bmd = @forearm_avg_ruud_bmd.round(4)
     @forearm_avg_rutot_bmd = @forearm_avg_rutot_bmd.round(4)
-=end
 
     @spine_tot_std = @spine_tot_std.round(4)
     @spine_l1_std = @spine_l1_std.round(4)
@@ -80,11 +97,9 @@ class StatisticsController < ApplicationController
     @hip_inter_std = @hip_inter_std.round(4)
     @hip_htot_std = @hip_htot_std.round(4)
     @hip_wards_std = @hip_wards_std.round(4)
-=begin
     @forearm_ru13_std = @forearm_ru13_std.round(4)
     @forearm_rumid_std = @forearm_rumid_std.round(4)
     @forearm_ruud_std = @forearm_ruud_std.round(4)
     @forearm_rutot_std = @forearm_rutot_std.round(4)
-=end
   end
 end
