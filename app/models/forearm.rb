@@ -2,6 +2,8 @@ class Forearm < ActiveRecord::Base
   belongs_to :patient, foreign_key: "patient_key"
   belongs_to :scan_analysis, foreign_key: "scanid"
 
+  scope :pcu, -> { joins(:scan_analysis).where("wl_sched_proc_step_desc LIKE ?", "%PCU%") }
+
   def levels
     array = []
     array <<= {label: "RU 1/3", bone_range: "1..", area: self.ru13_area, bmc: self.ru13_bmc, bmd: self.ru13_bmd}
