@@ -1,5 +1,6 @@
 class ScanAnalysis < ActiveRecord::Base
   self.primary_key = "scanid"
+  self.per_page = 15
 
   belongs_to :patient, foreign_key: "patient_key"
 
