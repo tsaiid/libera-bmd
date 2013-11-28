@@ -1,9 +1,27 @@
-<h1>Patients#index</h1>
-<ul>
-<% @patients.each do |pt| %>
-  <li>
-  <%= pt.name %>
-  <%= link_to 'Show', :controller => 'patients', :action => 'show', :pid => pt.pid %>
-  </li>
-<% end %>
-</ul>
+<%= will_paginate @patients, renderer: BootstrapPagination::Rails %>
+
+<div class="row">
+  <div class="col-md-8">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>ID</th>
+          <th>Function</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @patients.each_with_index do |p, i| %>
+          <tr>
+            <td><%= p.name %></td>
+            <td><%= link_to p.pid, :controller => "patients", :action => "show", :pid => p.pid %></td>
+            <td></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <!-- for quick access of reports -->
+  </div>
+</div>
