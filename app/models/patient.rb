@@ -3,6 +3,7 @@ class Patient < ActiveRecord::Base
   #attr_accessible :last_name
 
   self.primary_key = "patient_key"
+  self.per_page = 15
 
   scope :not_phantom, -> {
     where('phantom_id IS NULL').
