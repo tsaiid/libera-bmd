@@ -2,6 +2,8 @@ class Spine < ActiveRecord::Base
   belongs_to :patient, foreign_key: "patient_key"
   belongs_to :scan_analysis, foreign_key: "scanid"
 
+  scope :pcu, -> { joins(:scan_analysis).where("wl_sched_proc_step_desc LIKE ?", "%PCU%") }
+
   def bone_range
     range = ""
     range += l1_included? ? "1" : "."
