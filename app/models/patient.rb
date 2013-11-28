@@ -11,6 +11,8 @@ class Patient < ActiveRecord::Base
   }
   scope :lists, -> {
     not_phantom.
+    select("last_name,
+            identifier1").
     group(:identifier1).
     order(identifier1: :asc)
   }
