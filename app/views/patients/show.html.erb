@@ -1,15 +1,11 @@
 <div class="row">
   <div class="col-md-12">
     <ul class="pager">
-      <li class="previous <%= "disabled" if @previous.nil? %>">
-        <%= link_to_unless(@previous.nil?, raw("&larr; Previous"), { :controller => "patients", :action => "show", :pid => (@previous.pid unless @previous.nil?) }) do |name| %>
-          <%= link_to(name) %>
-        <% end %>
+      <li class="previous disabled">
+        <a href="#" id="prev_link">&larr; Previous</a>
       </li>
-      <li class="next <%= "disabled" if @next.nil? %>">
-        <%= link_to_unless(@next.nil?, raw("Next &rarr;"), { :controller => "patients", :action => "show", :pid => (@next.pid unless @next.nil?) }) do |name| %>
-          <%= link_to(name) %>
-        <% end %>
+      <li class="next disabled">
+        <a href="#" id="next_link">Next &rarr;</a>
       </li>
     </ul>
   </div>
@@ -30,7 +26,7 @@
           </tr>
           <tr>
             <th>ID</th>
-            <td><%= @patient.pid %></td>
+            <td id="pid"><%= @patient.pid %></td>
           </tr>
           <tr>
             <th>Sex</th>
