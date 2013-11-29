@@ -8,7 +8,8 @@ BoneDensityAnalyzer::Application.routes.draw do
   get "studies/pagination/:accession_no" => 'studies#pagination'
   get "patients/index"
   get "patients/index/page/:page" => 'patients#index'
-  get "patients/:pid" => 'patients#show'
+  get "patients/:pid" => 'patients#show', as: 'patient_show'
+  get "patients/pagination/:pid" => 'patients#pagination'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
