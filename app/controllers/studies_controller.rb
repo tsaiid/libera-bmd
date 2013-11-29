@@ -35,7 +35,7 @@ class StudiesController < ApplicationController
                             where("scan_date > ?", study.scan_date).
                             select(:accession_no).
                             last
-    prv_link = study_show_path(prv_s.accession_no)
+    prv_link = study_show_path(prv_s.accession_no) unless prv_s.nil?
     nxt_s = study.nil? ?
             nil :
             ScanAnalysis.accession_lists.
@@ -43,7 +43,7 @@ class StudiesController < ApplicationController
                          where("scan_date < ?", study.scan_date).
                          select(:accession_no).
                          first
-    nxt_link = study_show_path(nxt_s.accession_no)
+    nxt_link = study_show_path(nxt_s.accession_no) unless nxt_s.nil?
 
     respond_to do |format|
       format.html { render json: {previous: prv_s, next: nxt_s, prev_link: prv_link, next_link: nxt_link} }
