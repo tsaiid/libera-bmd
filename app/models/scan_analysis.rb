@@ -39,11 +39,11 @@ class ScanAnalysis < ActiveRecord::Base
     type = read_attribute(:ref_type)
     case type
     when "S"
-      self.spine
+      spine
     when "H"
-      self.hip
+      hip
     when "R"
-      self.forearm
+      forearm
     else
       nil
     end
@@ -51,26 +51,26 @@ class ScanAnalysis < ActiveRecord::Base
 
   # decide to use T or Z score according to age > 50 or menopaused.
   def t_or_z
-    age = self.patient.age(self.scan_date)
-    mp_age = self.patient.menopause_year.to_i
+    age = patient.age(scan_date)
+    mp_age = patient.menopause_year.to_i
     (mp_age > 0 || age > 50) ? "t" : "z"
   end
 
   # find score for conclusion
   def score
-    case self.t_or_z
+    case t_or_z
     when 't'
-      self.exam.t_score
+      exam.t_score
     when 'z'
-      self.exam.z_score
+      exam.z_score
     end
   end
 
   def find_reference(bone_range="")
     ref_type = read_attribute(:ref_type)
-    ethnicity = self.patient.ethnicity
-    sex = self.patient.sex
-    bone_range = self.exam.bone_range if bone_range.empty?
+    ethnicity = patient.ethnicity
+    sex = patient.sex
+    bone_range = exam.bone_range if bone_range.empty?
     ReferenceCurve.where( if_current: 1,
                           reftype: ref_type,
                           ethnic: (ref_type == "R" ? nil : ethnicity),
@@ -87,13 +87,13 @@ class ScanAnalysis < ActiveRecord::Base
   end
 
   def to_s
-    case self.type
+    case type
     when "S"
       "Spine"
     when "H"
-      "Hip - " + self.exam.side.capitalize
+      "Hip - " + exam.side.capitalize
     when "R"
-      "Forearm - " + self.exam.side.capitalize
+      "Forearm - " + exam.side.capitalize
     else
       nil
     end

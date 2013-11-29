@@ -1,7 +1,4 @@
 class Patient < ActiveRecord::Base
-  include ActiveModel::ForbiddenAttributesProtection
-  #attr_accessible :last_name
-
   self.primary_key = "patient_key"
   self.per_page = 15
 
@@ -37,28 +34,28 @@ class Patient < ActiveRecord::Base
   end
 
   def studies
-    self.scan_analyses.group(:accession_no)
+    scan_analyses.group(:accession_no)
   end
 
   def studies_by_acc(accession_no)
-    self.scan_analyses.where(accession_no: accession_no)
+    scan_analyses.where(accession_no: accession_no)
   end
 
   def spines_by_acc(accession_no)
-    self.scan_analyses.where(accession_no: accession_no, ref_type: "S")
+    scan_analyses.where(accession_no: accession_no, ref_type: "S")
   end
 
   def hips_by_acc(accession_no)
-    self.scan_analyses.where(accession_no: accession_no, ref_type: "H")
+    scan_analyses.where(accession_no: accession_no, ref_type: "H")
   end
 
   def forearms_by_acc(accession_no)
-    self.scan_analyses.where(accession_no: accession_no, ref_type: "R")
+    scan_analyses.where(accession_no: accession_no, ref_type: "R")
   end
 
   def status_by_acc(accession_no)
     scores = []
-    studies = self.studies_by_acc(accession_no)
+    studies = studies_by_acc(accession_no)
     studies.each do |study|
       scores << study.score
     end
@@ -107,9 +104,9 @@ class Patient < ActiveRecord::Base
   end
 
   ## use last_update for age calculation.
-  def age(time = self.read_attribute(:last_update))
+  def age(time = read_attribute(:last_update))
     time = time.to_datetime
-    dob = self.birthday
+    dob = birthday
     time.year - dob.year - ((time.month > dob.month || (time.month == dob.month && time.day >= dob.day)) ? 0 : 1)
   end
 

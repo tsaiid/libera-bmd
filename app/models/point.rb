@@ -8,8 +8,4 @@ class Point < ActiveRecord::Base
   def bmd
     read_attribute(:y_value)
   end
-
-  def std
-    read_attribute(:std)
-  end
 end
