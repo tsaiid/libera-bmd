@@ -5,10 +5,27 @@ class PatientsController < ApplicationController
 
   def show
     @patient = Patient.where(identifier1: params[:pid]).first
-    patients = Patient.lists
-    index = patients.index(@patient)
-    @previous = (index > 0 ? patients[index - 1] : nil)
-    @next = patients[index + 1]
+  end
+
+  def pagination
+    p = Patient.where(identifier1: params[:pid]).first
+    prv_p = p.nil? ?
+              nil :
+              Patient.lists.
+                      where("identifier1 < ?", p.pid).
+                      last
+    prv_link = patient_show_path(prv_p.pid)
+    nxt_p = p.nil? ?
+              nil :
+              Patient.lists.
+                      where("identifier1 > ?", p.pid).
+                      first
+    nxt_link = patient_show_path(nxt_p.pid)
+
+    respond_to do |format|
+      format.html { render json: {previous: prv_p, next: nxt_p, prev_link: prv_link, next_link: nxt_link} }
+      format.json { render json: {previous: prv_p, next: nxt_p, prev_link: prv_link, next_link: nxt_link} }
+    end
   end
 
   private
