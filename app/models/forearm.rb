@@ -29,17 +29,17 @@ class Forearm < ActiveRecord::Base
   end
 
   def t_score
-    level = calculate_t_z_scores({label: "RU 1/3", bone_range: "1..", area: ru13_area, bmc: ru13_bmc, bmd: ru13_bmd})
+    level = calculate_t_z_scores({label: "RU 1/3", bone_range: "1..", area: ru13tot_area, bmc: ru13tot_bmc, bmd: ru13tot_bmd})
     level[:t_score].round(1)
   end
 
   def z_score
-    level = calculate_t_z_scores({label: "RU 1/3", bone_range: "1..", area: ru13_area, bmc: ru13_bmc, bmd: ru13_bmd})
+    level = calculate_t_z_scores({label: "RU 1/3", bone_range: "1..", area: ru13tot_area, bmc: ru13tot_bmc, bmd: ru13tot_bmd})
     level[:z_score].round(1)
   end
 
   def report_str
-    level = calculate_t_z_scores({label: "RU 1/3", bone_range: "1..", area: ru13_area, bmc: ru13_bmc, bmd: ru13_bmd})
+    level = calculate_t_z_scores({label: "RU 1/3", bone_range: "1..", area: ru13tot_area, bmc: ru13tot_bmc, bmd: ru13tot_bmd})
     str = "The BMD of #{side} 1/3 forearm is #{level[:bmd].round(3)} gm/cm2"
     case scan_analysis.t_or_z
     when 't'
