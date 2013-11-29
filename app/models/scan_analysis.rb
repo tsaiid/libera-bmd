@@ -8,6 +8,7 @@ class ScanAnalysis < ActiveRecord::Base
   has_one :spine, foreign_key: :scanid
   has_one :forearm, foreign_key: :scanid
   has_one :lateral, foreign_key: :scanid
+  has_one :w_body, foreign_key: :scanid
 
   scope :effective, -> {
     joins(:patient).
@@ -47,6 +48,8 @@ class ScanAnalysis < ActiveRecord::Base
       forearm
     when "L", nil
       lateral
+    when "W"
+      w_body
     else
       nil
     end
