@@ -10,13 +10,8 @@ class StudiesController < ApplicationController
 
   def show
     @studies = ScanAnalysis.where("ref_type IS NOT NULL").where(accession_no: params[:accession_no])
-    @study_lists = ScanAnalysis.accession_lists.where(accession_no: params[:accession_no])
     @patient = @studies.first.patient
     @conclusion = conclusion(@studies)
-    studies = ScanAnalysis.accession_lists
-    index = studies.index(@study_lists.first)
-    @previous = (index > 0 ? studies[index - 1] : nil)
-    @next = studies[index + 1]
   end
 
   def report
@@ -28,6 +23,31 @@ class StudiesController < ApplicationController
     respond_to do |format|
       format.html { render json: output }
       format.json { render json: output }
+    end
+  end
+
+  def pagination
+    study = ScanAnalysis.where(accession_no: params[:accession_no]).first
+    prv_s = study.nil? ?
+               nil :
+               ScanAnalysis.accession_lists.
+                            where("accession_no IS NOT ?", params[:accession_no]).
+                            where("scan_date > ?", study.scan_date).
+                            select(:accession_no).
+                            last
+    prv_link = study_show_path(prv_s.accession_no)
+    nxt_s = study.nil? ?
+            nil :
+            ScanAnalysis.accession_lists.
+                         where("accession_no IS NOT ?", params[:accession_no]).
+                         where("scan_date < ?", study.scan_date).
+                         select(:accession_no).
+                         first
+    nxt_link = study_show_path(nxt_s.accession_no)
+
+    respond_to do |format|
+      format.html { render json: {previous: prv_s, next: nxt_s, prev_link: prv_link, next_link: nxt_link} }
+      format.json { render json: {previous: prv_s, next: nxt_s, prev_link: prv_link, next_link: nxt_link} }
     end
   end
 
