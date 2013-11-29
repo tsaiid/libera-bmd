@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class WBodiesTest < ActiveSupport::TestCase
+class WBodyTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

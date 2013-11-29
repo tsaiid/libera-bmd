@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131129061223) do
+ActiveRecord::Schema.define(version: 20131129134831) do
 
   create_table "forearms", force: true do |t|
     t.string   "patient_key"
