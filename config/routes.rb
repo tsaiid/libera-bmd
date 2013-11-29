@@ -2,9 +2,10 @@ BoneDensityAnalyzer::Application.routes.draw do
   get "statistics/index"
   get "studies/index"
   get "studies/index/page/:page" => 'studies#index'
-  get "studies/:accession_no" => 'studies#show'
+  get "studies/:accession_no" => 'studies#show', as: 'study_show'
   get "studies/report/:accession_no" => 'studies#report'
   get "studies/report/:accession_no/:mode" => 'studies#report'
+  get "studies/pagination/:accession_no" => 'studies#pagination'
   get "patients/index"
   get "patients/index/page/:page" => 'patients#index'
   get "patients/:pid" => 'patients#show'
