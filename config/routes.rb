@@ -1,5 +1,5 @@
 BoneDensityAnalyzer::Application.routes.draw do
-  get "statistics/index"
+  get "statistics/pcu_average"
   get "studies/index"
   get "studies/index/page/:page" => 'studies#index'
   get "studies/:accession_no" => 'studies#show', as: 'study_show'

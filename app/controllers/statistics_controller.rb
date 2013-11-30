@@ -1,5 +1,5 @@
 class StatisticsController < ApplicationController
-  def index
+  def pcu_average
     @studies = ScanAnalysis.pcu_acc_list
 
     # 計算各部位平均的 BMD
