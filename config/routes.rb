@@ -1,6 +1,8 @@
 BoneDensityAnalyzer::Application.routes.draw do
   get "statistics/pcu_average"
   get "statistics/pcu_spine"
+  get "statistics/spine/:sex/:age/:interval" => 'statistics#spine'
+  get "statistics/spine/:sex/:age/:interval/round/:round_num" => 'statistics#spine'
   get "studies/index"
   get "studies/index/page/:page" => 'studies#index'
   get "studies/:accession_no" => 'studies#show', as: 'study_show'
