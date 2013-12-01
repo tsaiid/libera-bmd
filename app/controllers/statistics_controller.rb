@@ -1,77 +1,7 @@
 class StatisticsController < ApplicationController
   def pcu_spine
-    ## Male, 20 y/o
-    (tmp_bmd, @male_20_l1_count) = Spine.pcu.
-                                        joins(:patient).
-                                        select("(strftime('%Y', scan_analyses.scan_date) - strftime('%Y', patients.birthdate)) - (strftime('%m-%d', scan_analyses.scan_date) < strftime('%m-%d', patients.birthdate)) as age").
-                                        where('sex = ?', "M").
-                                        where("age >= 18 AND age < 23").
-                                        select("sum(l1_bmd) as bmd, sum(l1_included) as count").
-                                        map { |s| [s.bmd, s.count] }.
-                                        first
-    @male_20_avg_l1_bmd = tmp_bmd / @male_20_l1_count
-    @male_20_l1_std = Math.sqrt(Spine.pcu.
-                                      joins(:patient).
-                                      select("(strftime('%Y', scan_analyses.scan_date) - strftime('%Y', patients.birthdate)) - (strftime('%m-%d', scan_analyses.scan_date) < strftime('%m-%d', patients.birthdate)) as age").
-                                      where('sex = ?', "M").
-                                      where("age >= 18 AND age < 23").
-                                      select("sum((l1_bmd - #{@male_20_avg_l1_bmd})*(l1_bmd - #{@male_20_avg_l1_bmd})) as delta_sum").
-                                      first.
-                                      delta_sum / (@male_20_l1_count - 1))
+    calculate_spine("male", 20)
 
-    (tmp_bmd, @male_20_l2_count) = Spine.pcu.
-                                        joins(:patient).
-                                        select("(strftime('%Y', scan_analyses.scan_date) - strftime('%Y', patients.birthdate)) - (strftime('%m-%d', scan_analyses.scan_date) < strftime('%m-%d', patients.birthdate)) as age").
-                                        where('sex = ?', "M").
-                                        where("age >= 18 AND age < 23").
-                                        select("sum(l2_bmd) as bmd, sum(l2_included) as count").
-                                        map { |s| [s.bmd, s.count] }.
-                                        first
-    @male_20_avg_l2_bmd = tmp_bmd / @male_20_l2_count
-    @male_20_l2_std = Math.sqrt(Spine.pcu.
-                                      joins(:patient).
-                                      select("(strftime('%Y', scan_analyses.scan_date) - strftime('%Y', patients.birthdate)) - (strftime('%m-%d', scan_analyses.scan_date) < strftime('%m-%d', patients.birthdate)) as age").
-                                      where('sex = ?', "M").
-                                      where("age >= 18 AND age < 23").
-                                      select("sum((l2_bmd - #{@male_20_avg_l2_bmd})*(l2_bmd - #{@male_20_avg_l2_bmd})) as delta_sum").
-                                      first.
-                                      delta_sum / (@male_20_l2_count - 1))
-
-    (tmp_bmd, @male_20_l3_count) = Spine.pcu.
-                                        joins(:patient).
-                                        select("(strftime('%Y', scan_analyses.scan_date) - strftime('%Y', patients.birthdate)) - (strftime('%m-%d', scan_analyses.scan_date) < strftime('%m-%d', patients.birthdate)) as age").
-                                        where('sex = ?', "M").
-                                        where("age >= 18 AND age < 23").
-                                        select("sum(l3_bmd) as bmd, sum(l3_included) as count").
-                                        map { |s| [s.bmd, s.count] }.
-                                        first
-    @male_20_avg_l3_bmd = tmp_bmd / @male_20_l3_count
-    @male_20_l3_std = Math.sqrt(Spine.pcu.
-                                      joins(:patient).
-                                      select("(strftime('%Y', scan_analyses.scan_date) - strftime('%Y', patients.birthdate)) - (strftime('%m-%d', scan_analyses.scan_date) < strftime('%m-%d', patients.birthdate)) as age").
-                                      where('sex = ?', "M").
-                                      where("age >= 18 AND age < 23").
-                                      select("sum((l3_bmd - #{@male_20_avg_l3_bmd})*(l3_bmd - #{@male_20_avg_l3_bmd})) as delta_sum").
-                                      first.
-                                      delta_sum / (@male_20_l3_count - 1))
-
-    (tmp_bmd, @male_20_l4_count) = Spine.pcu.
-                                        joins(:patient).
-                                        select("(strftime('%Y', scan_analyses.scan_date) - strftime('%Y', patients.birthdate)) - (strftime('%m-%d', scan_analyses.scan_date) < strftime('%m-%d', patients.birthdate)) as age").
-                                        where('sex = ?', "M").
-                                        where("age >= 18 AND age < 23").
-                                        select("sum(l4_bmd) as bmd, sum(l4_included) as count").
-                                        map { |s| [s.bmd, s.count] }.
-                                        first
-    @male_20_avg_l4_bmd = tmp_bmd / @male_20_l4_count
-    @male_20_l4_std = Math.sqrt(Spine.pcu.
-                                      joins(:patient).
-                                      select("(strftime('%Y', scan_analyses.scan_date) - strftime('%Y', patients.birthdate)) - (strftime('%m-%d', scan_analyses.scan_date) < strftime('%m-%d', patients.birthdate)) as age").
-                                      where('sex = ?', "M").
-                                      where("age >= 18 AND age < 23").
-                                      select("sum((l4_bmd - #{@male_20_avg_l4_bmd})*(l4_bmd - #{@male_20_avg_l4_bmd})) as delta_sum").
-                                      first.
-                                      delta_sum / (@male_20_l4_count - 1))
     # 用小數點後四位 output
     @male_20_avg_l1_bmd = @male_20_avg_l1_bmd.round(4)
     @male_20_avg_l2_bmd = @male_20_avg_l2_bmd.round(4)
@@ -186,5 +116,43 @@ class StatisticsController < ApplicationController
     @forearm_rumid_std = @forearm_rumid_std.round(4)
     @forearm_ruud_std = @forearm_ruud_std.round(4)
     @forearm_rutot_std = @forearm_rutot_std.round(4)
+  end
+
+  private
+  def calculate_spine(sex, age)
+    select_age_sql = "(strftime('%Y', scan_analyses.scan_date) - strftime('%Y', patients.birthdate)) - (strftime('%m-%d', scan_analyses.scan_date) < strftime('%m-%d', patients.birthdate)) as age"
+    age_range_sql = "age >= #{age - 2} AND age < #{age + 3}"
+    bmd_count_sql = "sum(l1_bmd) as l1_bmd, sum(l1_included) as l1_count,
+                     sum(l2_bmd) as l2_bmd, sum(l2_included) as l2_count,
+                     sum(l3_bmd) as l3_bmd, sum(l3_included) as l3_count,
+                     sum(l4_bmd) as l4_bmd, sum(l4_included) as l4_count"
+    sex_sql = { "male" => "M", "female" => "F" }
+
+    s = Spine.pcu.
+              joins(:patient).
+              select(select_age_sql).
+              where('sex = ?', sex_sql[sex]).
+              where(age_range_sql).
+              select(bmd_count_sql).
+              map { |s| {
+                "l1_bmd" => s.l1_bmd, "l1_count" => s.l1_count,
+                "l2_bmd" => s.l2_bmd, "l2_count" => s.l2_count,
+                "l3_bmd" => s.l3_bmd, "l3_count" => s.l3_count,
+                "l4_bmd" => s.l4_bmd, "l4_count" => s.l4_count
+              } }.
+              first
+    (1..4).each do |i|
+      instance_variable_set "@#{sex}_#{age}_l#{i}_count", s["l#{i}_count"]
+      instance_variable_set "@#{sex}_#{age}_avg_l#{i}_bmd", (s["l#{i}_bmd"] / s["l#{i}_count"])
+      variance_sql = "sum((l#{i}_bmd - #{instance_variable_get("@#{sex}_#{age}_avg_l#{i}_bmd")}) * (l#{i}_bmd - #{instance_variable_get("@#{sex}_#{age}_avg_l#{i}_bmd")})) as delta_sum"
+      instance_variable_set "@#{sex}_#{age}_l#{i}_std", Math.sqrt(Spine.pcu.
+                                                                    joins(:patient).
+                                                                    select(select_age_sql).
+                                                                    where('sex = ?', sex_sql[sex]).
+                                                                    where(age_range_sql).
+                                                                    select(variance_sql).
+                                                                    first.
+                                                                    delta_sum / (s["l#{i}_count"] - 1))
+    end
   end
 end
