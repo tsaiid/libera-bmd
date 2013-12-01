@@ -1,8 +1,9 @@
 class StatisticsController < ApplicationController
   def pcu_spine
-    calculate_spine("male", 20)
-
-    spine_output_round(4, "male", 20)
+    (4..17).each do |i|
+      calculate_spine("male", i*5)
+      spine_output_round(4, "male", i*5)
+    end
   end
 
   def pcu_average
