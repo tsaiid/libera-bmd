@@ -2,16 +2,7 @@ class StatisticsController < ApplicationController
   def pcu_spine
     calculate_spine("male", 20)
 
-    # 用小數點後四位 output
-    @male_20_avg_l1_bmd = @male_20_avg_l1_bmd.round(4)
-    @male_20_avg_l2_bmd = @male_20_avg_l2_bmd.round(4)
-    @male_20_avg_l3_bmd = @male_20_avg_l3_bmd.round(4)
-    @male_20_avg_l4_bmd = @male_20_avg_l4_bmd.round(4)
-
-    @male_20_l1_std = @male_20_l1_std.round(4)
-    @male_20_l2_std = @male_20_l2_std.round(4)
-    @male_20_l3_std = @male_20_l3_std.round(4)
-    @male_20_l4_std = @male_20_l4_std.round(4)
+    spine_output_round(4, "male", 20)
   end
 
   def pcu_average
@@ -153,6 +144,14 @@ class StatisticsController < ApplicationController
                                                                     select(variance_sql).
                                                                     first.
                                                                     delta_sum / (s["l#{i}_count"] - 1))
+    end
+  end
+
+  def spine_output_round(round_num, sex, age)
+    # 用小數點後四位 output
+    (1..4).each do |i|
+      instance_variable_set "@#{sex}_#{age}_avg_l#{i}_bmd", instance_variable_get("@#{sex}_#{age}_avg_l#{i}_bmd").round(round_num)
+      instance_variable_set "@#{sex}_#{age}_l#{i}_std", instance_variable_get("@#{sex}_#{age}_l#{i}_std").round(round_num)
     end
   end
 end
