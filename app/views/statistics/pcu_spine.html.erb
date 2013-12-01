@@ -2,7 +2,7 @@
   <!-- Spine -->
   <% (4..17).each do |i| %>
     <% age = i * 5 %>
-  <!-- Male, 20 -->
+  <!-- Male, <%= age %> -->
   <div class="col-md-4">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -21,9 +21,9 @@
           <% (1..4).each do |j| %>
           <tr>
             <th>L<%= j %></th>
-            <td><%= instance_variable_get "@male_#{age}_avg_l#{j}_bmd" %></td>
-            <td><%= instance_variable_get "@male_#{age}_l#{j}_std" %></td>
-            <td><%= instance_variable_get "@male_#{age}_l#{j}_count" %></td>
+            <td id="<%= "male_#{age}_avg_l#{j}_bmd" %>"><%= instance_variable_get "@male_#{age}_avg_l#{j}_bmd" %></td>
+            <td id="<%= "male_#{age}_l#{j}_std" %>"><%= instance_variable_get "@male_#{age}_l#{j}_std" %></td>
+            <td id="<%= "male_#{age}_l#{j}_count" %>"><%= instance_variable_get "@male_#{age}_l#{j}_count" %></td>
           </tr>
           <% end %>
         </tbody>
@@ -32,3 +32,5 @@
   </div>
   <% end %>
 </div>
+
+<%= javascript_include_tag 'statistics_pcu_spine' %>
