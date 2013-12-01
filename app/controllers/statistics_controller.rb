@@ -1,4 +1,89 @@
 class StatisticsController < ApplicationController
+  def pcu_spine
+    ## Male, 20 y/o
+    (tmp_bmd, @male_20_l1_count) = Spine.pcu.
+                                        joins(:patient).
+                                        select("(strftime('%Y', scan_analyses.scan_date) - strftime('%Y', patients.birthdate)) - (strftime('%m-%d', scan_analyses.scan_date) < strftime('%m-%d', patients.birthdate)) as age").
+                                        where('sex = ?', "M").
+                                        where("age >= 18 AND age < 23").
+                                        select("sum(l1_bmd) as bmd, sum(l1_included) as count").
+                                        map { |s| [s.bmd, s.count] }.
+                                        first
+    @male_20_avg_l1_bmd = tmp_bmd / @male_20_l1_count
+    @male_20_l1_std = Math.sqrt(Spine.pcu.
+                                      joins(:patient).
+                                      select("(strftime('%Y', scan_analyses.scan_date) - strftime('%Y', patients.birthdate)) - (strftime('%m-%d', scan_analyses.scan_date) < strftime('%m-%d', patients.birthdate)) as age").
+                                      where('sex = ?', "M").
+                                      where("age >= 18 AND age < 23").
+                                      select("sum((l1_bmd - #{@male_20_avg_l1_bmd})*(l1_bmd - #{@male_20_avg_l1_bmd})) as delta_sum").
+                                      first.
+                                      delta_sum / (@male_20_l1_count - 1))
+
+    (tmp_bmd, @male_20_l2_count) = Spine.pcu.
+                                        joins(:patient).
+                                        select("(strftime('%Y', scan_analyses.scan_date) - strftime('%Y', patients.birthdate)) - (strftime('%m-%d', scan_analyses.scan_date) < strftime('%m-%d', patients.birthdate)) as age").
+                                        where('sex = ?', "M").
+                                        where("age >= 18 AND age < 23").
+                                        select("sum(l2_bmd) as bmd, sum(l2_included) as count").
+                                        map { |s| [s.bmd, s.count] }.
+                                        first
+    @male_20_avg_l2_bmd = tmp_bmd / @male_20_l2_count
+    @male_20_l2_std = Math.sqrt(Spine.pcu.
+                                      joins(:patient).
+                                      select("(strftime('%Y', scan_analyses.scan_date) - strftime('%Y', patients.birthdate)) - (strftime('%m-%d', scan_analyses.scan_date) < strftime('%m-%d', patients.birthdate)) as age").
+                                      where('sex = ?', "M").
+                                      where("age >= 18 AND age < 23").
+                                      select("sum((l2_bmd - #{@male_20_avg_l2_bmd})*(l2_bmd - #{@male_20_avg_l2_bmd})) as delta_sum").
+                                      first.
+                                      delta_sum / (@male_20_l2_count - 1))
+
+    (tmp_bmd, @male_20_l3_count) = Spine.pcu.
+                                        joins(:patient).
+                                        select("(strftime('%Y', scan_analyses.scan_date) - strftime('%Y', patients.birthdate)) - (strftime('%m-%d', scan_analyses.scan_date) < strftime('%m-%d', patients.birthdate)) as age").
+                                        where('sex = ?', "M").
+                                        where("age >= 18 AND age < 23").
+                                        select("sum(l3_bmd) as bmd, sum(l3_included) as count").
+                                        map { |s| [s.bmd, s.count] }.
+                                        first
+    @male_20_avg_l3_bmd = tmp_bmd / @male_20_l3_count
+    @male_20_l3_std = Math.sqrt(Spine.pcu.
+                                      joins(:patient).
+                                      select("(strftime('%Y', scan_analyses.scan_date) - strftime('%Y', patients.birthdate)) - (strftime('%m-%d', scan_analyses.scan_date) < strftime('%m-%d', patients.birthdate)) as age").
+                                      where('sex = ?', "M").
+                                      where("age >= 18 AND age < 23").
+                                      select("sum((l3_bmd - #{@male_20_avg_l3_bmd})*(l3_bmd - #{@male_20_avg_l3_bmd})) as delta_sum").
+                                      first.
+                                      delta_sum / (@male_20_l3_count - 1))
+
+    (tmp_bmd, @male_20_l4_count) = Spine.pcu.
+                                        joins(:patient).
+                                        select("(strftime('%Y', scan_analyses.scan_date) - strftime('%Y', patients.birthdate)) - (strftime('%m-%d', scan_analyses.scan_date) < strftime('%m-%d', patients.birthdate)) as age").
+                                        where('sex = ?', "M").
+                                        where("age >= 18 AND age < 23").
+                                        select("sum(l4_bmd) as bmd, sum(l4_included) as count").
+                                        map { |s| [s.bmd, s.count] }.
+                                        first
+    @male_20_avg_l4_bmd = tmp_bmd / @male_20_l4_count
+    @male_20_l4_std = Math.sqrt(Spine.pcu.
+                                      joins(:patient).
+                                      select("(strftime('%Y', scan_analyses.scan_date) - strftime('%Y', patients.birthdate)) - (strftime('%m-%d', scan_analyses.scan_date) < strftime('%m-%d', patients.birthdate)) as age").
+                                      where('sex = ?', "M").
+                                      where("age >= 18 AND age < 23").
+                                      select("sum((l4_bmd - #{@male_20_avg_l4_bmd})*(l4_bmd - #{@male_20_avg_l4_bmd})) as delta_sum").
+                                      first.
+                                      delta_sum / (@male_20_l4_count - 1))
+    # 用小數點後四位 output
+    @male_20_avg_l1_bmd = @male_20_avg_l1_bmd.round(4)
+    @male_20_avg_l2_bmd = @male_20_avg_l2_bmd.round(4)
+    @male_20_avg_l3_bmd = @male_20_avg_l3_bmd.round(4)
+    @male_20_avg_l4_bmd = @male_20_avg_l4_bmd.round(4)
+
+    @male_20_l1_std = @male_20_l1_std.round(4)
+    @male_20_l2_std = @male_20_l2_std.round(4)
+    @male_20_l3_std = @male_20_l3_std.round(4)
+    @male_20_l4_std = @male_20_l4_std.round(4)
+  end
+
   def pcu_average
     @studies = ScanAnalysis.pcu_acc_list
 
