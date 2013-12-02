@@ -113,12 +113,10 @@ class StatisticsController < ApplicationController
     interval = params[:interval].to_i
     age_up = age + (interval.even? ? interval / 2 : interval / 2  + 1)
     age_low = age - interval / 2
+    level = params[:level]
     select_age_sql = "(strftime('%Y', scan_analyses.scan_date) - strftime('%Y', patients.birthdate)) - (strftime('%m-%d', scan_analyses.scan_date) < strftime('%m-%d', patients.birthdate)) as age"
     age_range_sql = "age >= #{age_low} AND age < #{age_up}"
-    bmd_count_sql = "sum(l1_bmd) as l1_bmd, sum(l1_included) as l1_count,
-                     sum(l2_bmd) as l2_bmd, sum(l2_included) as l2_count,
-                     sum(l3_bmd) as l3_bmd, sum(l3_included) as l3_count,
-                     sum(l4_bmd) as l4_bmd, sum(l4_included) as l4_count"
+    bmd_count_sql = "sum(l#{level}_bmd) as bmd, sum(l#{level}_included) as count"
     sex_sql = { "male" => "M", "female" => "F" }
 
     s = Spine.pcu.
@@ -127,26 +125,19 @@ class StatisticsController < ApplicationController
               where('sex = ?', sex_sql[sex]).
               where(age_range_sql).
               select(bmd_count_sql).
-              map { |s| {
-                "l1_bmd" => s.l1_bmd, "l1_count" => s.l1_count,
-                "l2_bmd" => s.l2_bmd, "l2_count" => s.l2_count,
-                "l3_bmd" => s.l3_bmd, "l3_count" => s.l3_count,
-                "l4_bmd" => s.l4_bmd, "l4_count" => s.l4_count
-              } }.
+              map { |s| { "bmd" => s.bmd, "count" => s.count } }.
               first
-    (1..4).each do |i|
-      avg_bmd = (s["l#{i}_bmd"] / s["l#{i}_count"])
-      s["avg_l#{i}_bmd"] = avg_bmd
-      variance_sql = "sum((l#{i}_bmd - #{avg_bmd}) * (l#{i}_bmd - #{avg_bmd})) as delta_sum"
-      s["l#{i}_std"] = Math.sqrt(Spine.pcu.
-                                      joins(:patient).
-                                      select(select_age_sql).
-                                      where('sex = ?', sex_sql[sex]).
-                                      where(age_range_sql).
-                                      select(variance_sql).
-                                      first.
-                                      delta_sum / (s["l#{i}_count"] - 1))
-    end
+    avg_bmd = (s["bmd"] / s["count"])
+    s["avg_bmd"] = avg_bmd
+    variance_sql = "sum((l#{level}_bmd - #{avg_bmd}) * (l#{level}_bmd - #{avg_bmd})) as delta_sum"
+    s["std"] = Math.sqrt(Spine.pcu.
+                              joins(:patient).
+                              select(select_age_sql).
+                              where('sex = ?', sex_sql[sex]).
+                              where(age_range_sql).
+                              select(variance_sql).
+                              first.
+                              delta_sum / (s["count"] - 1))
 
     if !params[:round_num].nil? then
       s.each do |k, v|
