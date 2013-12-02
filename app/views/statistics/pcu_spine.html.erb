@@ -1,3 +1,8 @@
+<!-- params for ajax -->
+<input type="hidden" name="age_lists" value="<%= @age_lists %>">
+<input type="hidden" name="interval" value="<%= @interval %>">
+<input type="hidden" name="sex" value="<%= @sex %>">
+
 <div class="row">
   <!-- Spine -->
   <% (1..4).each do |i| %>
@@ -8,6 +13,10 @@
         <div class="panel-heading">
           <h3 class="panel-title">Spine Male L<%= i %></h3>
         </div>
+
+        <!-- params for ajax -->
+        <input type="hidden" name="level" value="<%= i %>">
+
         <table class="table">
           <thead>
             <tr>
@@ -22,10 +31,7 @@
             <tr>
               <th>BMD</th>
               <% @age_lists.each do |age| %>
-                <td id="<%= "male_#{age}_avg_l#{i}_bmd" %>">
-                  <input type="hidden" name="age" value="<%= age %>">
-                  <input type="hidden" name="interval" value="<%= @interval %>">
-                </td>
+                <td id="<%= "male_#{age}_avg_l#{i}_bmd" %>"></td>
               <% end %>
             </tr>
 
