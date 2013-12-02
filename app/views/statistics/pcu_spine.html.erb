@@ -10,50 +10,61 @@
   <!-- L<%= i %> -->
   <div class="row">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">L<%= i %></h3>
-        </div>
+      <table class="spine-row">
+        <tr>
+          <td>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">L<%= i %></h3>
+              </div>
 
-        <!-- params for ajax -->
-        <input type="hidden" name="level" value="<%= i %>">
+              <!-- params for ajax -->
+              <input type="hidden" name="level" value="<%= i %>">
 
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Age</th>
-              <% @age_lists.each do |age| %>
-                <th><%= "#{age}" %></th>
-              <% end %>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- BMD -->
-            <tr>
-              <th>BMD</th>
-              <% @age_lists.each do |age| %>
-                <td id="<%= "#{@sex}_#{age}_avg_l#{i}_bmd" %>"></td>
-              <% end %>
-            </tr>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Age</th>
+                    <% @age_lists.each do |age| %>
+                      <th><%= "#{age}" %></th>
+                    <% end %>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- BMD -->
+                  <tr>
+                    <th>BMD</th>
+                    <% @age_lists.each do |age| %>
+                      <td id="<%= "#{@sex}_#{age}_avg_l#{i}_bmd" %>"></td>
+                    <% end %>
+                  </tr>
 
-            <!-- STD -->
-            <tr>
-              <th>STD</th>
-              <% @age_lists.each do |age| %>
-                <td id="<%= "#{@sex}_#{age}_l#{i}_std" %>"></td>
-              <% end %>
-            </tr>
+                  <!-- STD -->
+                  <tr>
+                    <th>STD</th>
+                    <% @age_lists.each do |age| %>
+                      <td id="<%= "#{@sex}_#{age}_l#{i}_std" %>"></td>
+                    <% end %>
+                  </tr>
 
-            <!-- Count -->
-            <tr>
-              <th>Count</th>
-              <% @age_lists.each do |age| %>
-                <td id="<%= "#{@sex}_#{age}_l#{i}_count" %>"></td>
-              <% end %>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+                  <!-- Count -->
+                  <tr>
+                    <th>Count</th>
+                    <% @age_lists.each do |age| %>
+                      <td id="<%= "#{@sex}_#{age}_l#{i}_count" %>"></td>
+                    <% end %>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </td>
+          <td class="loading_icon">
+            <div class="pull-right" id="<%= "l#{i}_is_loading" %>">
+              <i class="fa fa-refresh fa-spin fa-2x"></i>
+            </div>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
   <% end %>

@@ -1,3 +1,11 @@
 // Place all the styles related to the statistics controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+table.spine-row {
+  width: 100%;
+
+  td.loading_icon {
+    width: 50px;
+  }
+}
