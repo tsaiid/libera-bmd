@@ -1,5 +1,6 @@
 class StatisticsController < ApplicationController
   def pcu_spine
+    @sex = "male"
     @interval = 5
     @age_lists = (4..17).map { |i| i * @interval }
   end
