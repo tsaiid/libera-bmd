@@ -32,7 +32,7 @@
             <tr>
               <th>BMD</th>
               <% @age_lists.each do |age| %>
-                <td id="<%= "male_#{age}_avg_l#{i}_bmd" %>"></td>
+                <td id="<%= "#{@sex}_#{age}_avg_l#{i}_bmd" %>"></td>
               <% end %>
             </tr>
 
@@ -40,7 +40,7 @@
             <tr>
               <th>STD</th>
               <% @age_lists.each do |age| %>
-                <td id="<%= "male_#{age}_l#{i}_std" %>"></td>
+                <td id="<%= "#{@sex}_#{age}_l#{i}_std" %>"></td>
               <% end %>
             </tr>
 
@@ -48,7 +48,7 @@
             <tr>
               <th>Count</th>
               <% @age_lists.each do |age| %>
-                <td id="<%= "male_#{age}_l#{i}_count" %>"></td>
+                <td id="<%= "#{@sex}_#{age}_l#{i}_count" %>"></td>
               <% end %>
             </tr>
           </tbody>
