@@ -1,36 +1,58 @@
 <div class="row">
   <!-- Spine -->
-  <% (4..17).each do |i| %>
+  <% (1..4).each do |i| %>
     <% age = i * 5 %>
-  <!-- Male, <%= age %> -->
-  <div class="col-md-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Spine Male <%= "#{age-3}-#{age+2} (#{age})" %></h3>
+  <!-- Male, L<%= i %> -->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Spine Male L<%= i %></h3>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Age</th>
+              <% (4..17).each do |j| %>
+              <%   age = j * 5 %>
+                <th><%= "#{age}" %></th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- BMD -->
+            <tr>
+              <th>BMD</th>
+              <% (4..17).each do |j| %>
+              <%   age = j * 5 %>
+                <td id="<%= "male_#{age}_avg_l#{i}_bmd" %>"></td>
+              <% end %>
+            </tr>
+
+            <!-- STD -->
+            <tr>
+              <th>STD</th>
+              <% (4..17).each do |j| %>
+              <%   age = j * 5 %>
+                <td id="<%= "male_#{age}_l#{j}_std" %>"></td>
+              <% end %>
+            </tr>
+
+            <!-- Count -->
+            <tr>
+              <th>Count</th>
+              <% (4..17).each do |j| %>
+              <%   age = j * 5 %>
+                <td id="<%= "male_#{age}_l#{j}_count" %>"></td>
+              <% end %>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>部位</th>
-            <th>BMD</th>
-            <th>STD</th>
-            <th>Count</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% (1..4).each do |j| %>
-          <tr>
-            <th>L<%= j %></th>
-            <td id="<%= "male_#{age}_avg_l#{j}_bmd" %>"><%= instance_variable_get "@male_#{age}_avg_l#{j}_bmd" %></td>
-            <td id="<%= "male_#{age}_l#{j}_std" %>"><%= instance_variable_get "@male_#{age}_l#{j}_std" %></td>
-            <td id="<%= "male_#{age}_l#{j}_count" %>"><%= instance_variable_get "@male_#{age}_l#{j}_count" %></td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
     </div>
   </div>
   <% end %>
 </div>
+
 
 <%= javascript_include_tag 'statistics_pcu_spine' %>
