@@ -1,5 +1,6 @@
 class StatisticsController < ApplicationController
   def pcu_spine
+    @age_lists = (4..17).map { |i| i * 5 }
   end
 
   def pcu_average
