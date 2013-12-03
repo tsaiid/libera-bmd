@@ -14,4 +14,5 @@ $(document).ready ->
           $("#"+sex+"_"+age+"_l"+level+"_count").text(data.count)
           completed[level].push age
           if completed[level].sort().toString() == age_lists.sort().toString()
-            $('#l'+level+'_is_loading').fadeOut()
+            $('#l'+level+'_is_loading').fadeOut "slow", ()->
+              $('#l'+level+'_panel').removeClass('opacity-50')
