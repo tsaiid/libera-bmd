@@ -13,3 +13,10 @@ $(document).ready ->
     html: true,
     trigger: 'hover'
   });
+
+details_in_popup = (acc_no, div_id) ->
+  report = ""
+  $.getJSON( "/studies/report/" + acc_no )
+    .done (data)->
+      $('#'+div_id).html(data.report)
+  '<div id="' + div_id + '">Loading...</div>'

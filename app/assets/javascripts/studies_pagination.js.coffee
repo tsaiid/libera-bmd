@@ -9,9 +9,3 @@ $(document).ready ->
         $('#next_link').attr('href', data.next_link)
         $('#next_link').parent().removeClass('disabled')
 
-details_in_popup = (acc_no, div_id) ->
-  report = ""
-  $.getJSON( "/studies/report/" + acc_no )
-    .done (data)->
-      $('#'+div_id).html(data.report)
-  '<div id="' + div_id + '">Loading...</div>'
