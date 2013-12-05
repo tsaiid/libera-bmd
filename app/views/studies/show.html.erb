@@ -26,7 +26,7 @@
           </tr>
           <tr>
             <th>ID</th>
-            <td><%= @patient.pid %></td>
+            <td><%= link_to @patient.pid, patient_show_path(@patient.pid) %></td>
           </tr>
           <tr>
             <th>Acc No</th>
