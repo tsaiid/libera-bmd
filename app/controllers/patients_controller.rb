@@ -7,6 +7,10 @@ class PatientsController < ApplicationController
     @patient = Patient.where(identifier1: params[:pid]).first
   end
 
+  def key
+    @patient = Patient.find(params[:patient_key])
+  end
+
   def pagination
     p = Patient.where(identifier1: params[:pid]).first
     prv_p = p.nil? ?
@@ -21,6 +25,23 @@ class PatientsController < ApplicationController
                       where("identifier1 > ?", p.pid).
                       first
     nxt_link = patient_show_path(nxt_p.pid)
+
+    respond_to do |format|
+      format.html { render json: {previous: prv_p, next: nxt_p, prev_link: prv_link, next_link: nxt_link} }
+      format.json { render json: {previous: prv_p, next: nxt_p, prev_link: prv_link, next_link: nxt_link} }
+    end
+  end
+
+  def pagination_key
+    p = Patient.find(params[:patient_key])
+    prv_p = p.nil? ?
+              nil :
+              Patient.where("patient_key < ?", p.patient_key).last
+    prv_link = patient_key_path(prv_p.patient_key)
+    nxt_p = p.nil? ?
+              nil :
+              Patient.where("patient_key > ?", p.patient_key).first
+    nxt_link = patient_key_path(nxt_p.patient_key)
 
     respond_to do |format|
       format.html { render json: {previous: prv_p, next: nxt_p, prev_link: prv_link, next_link: nxt_link} }
