@@ -12,8 +12,6 @@ class ScanAnalysis < ActiveRecord::Base
 
   scope :effective, -> {
     joins(:patient).
-    where("accession_no is not null").
-    where("ref_type IS NOT NULL").
     where("patients.identifier1 IS NOT NULL").
     where("patients.last_name IS NOT NULL")
   }
@@ -46,7 +44,7 @@ class ScanAnalysis < ActiveRecord::Base
       hip
     when "R"
       forearm
-    when "L", nil
+    when "L"
       lateral
     when "W"
       w_body
@@ -73,7 +71,7 @@ class ScanAnalysis < ActiveRecord::Base
   end
 
   def find_reference(bone_range="")
-    ref_type = read_attribute(:ref_type)
+    ref_type = type
     ethnicity = patient.ethnicity
     sex = patient.sex
     bone_range = exam.bone_range if bone_range.empty?
@@ -85,7 +83,12 @@ class ScanAnalysis < ActiveRecord::Base
   end
 
   def type
-    read_attribute(:ref_type)
+    ref_type || (spine ? "S" :
+                (hip ? "H" :
+                (forearm ? "R" :
+                (lateral ? "L" :
+                (w_body ? "W" :
+                nil)))))
   end
 
   def scan_type
