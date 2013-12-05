@@ -3,16 +3,20 @@ BoneDensityAnalyzer::Application.routes.draw do
   get "statistics/pcu_spine/:sex" => 'statistics#pcu_spine', as: 'statistics_pcu_spine'
   get "statistics/spine/:level/:sex/:age/:interval" => 'statistics#spine'
   get "statistics/spine/:level/:sex/:age/:interval/round/:round_num" => 'statistics#spine'
+
   get "studies/index"
   get "studies/index/page/:page" => 'studies#index'
   get "studies/:accession_no" => 'studies#show', as: 'study_show'
   get "studies/report/:accession_no" => 'studies#report'
   get "studies/report/:accession_no/:mode" => 'studies#report'
   get "studies/pagination/:accession_no" => 'studies#pagination'
+
   get "patients/index"
   get "patients/index/page/:page" => 'patients#index'
   get "patients/:pid" => 'patients#show', as: 'patient_show'
+  get "patients/key/:patient_key" => 'patients#key', as: 'patient_key'
   get "patients/pagination/:pid" => 'patients#pagination'
+  get "patients/pagination/key/:patient_key" => 'patients#pagination_key'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
