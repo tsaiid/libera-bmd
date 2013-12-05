@@ -3,15 +3,14 @@ class Patient < ActiveRecord::Base
   self.per_page = 15
 
   scope :not_phantom, -> {
-    where('phantom_id IS NULL').
-    where('identifier1 IS NOT NULL')
+    where('phantom_id IS NULL')
   }
   scope :lists, -> {
     not_phantom.
-    select("last_name,
-            identifier1").
-    group(:identifier1).
-    order(identifier1: :asc)
+    select("patient_key,
+            first_name,
+            last_name,
+            identifier1")
   }
 
   has_many :forearms, foreign_key: "patient_key"
@@ -34,7 +33,50 @@ class Patient < ActiveRecord::Base
   end
 
   def studies
-    scan_analyses.group(:accession_no)
+    scan_analyses.group(:serial_number)
+  end
+
+  def studies_by_sn(serial_number)
+    scan_analyses.where(serial_number: serial_number).delete_if { |s| s.type.nil? }
+  end
+
+  def spines_by_sn(serial_number)
+    scan_analyses.where(serial_number: serial_number, scan_type: 1).delete_if { |s| s.type.nil? }
+  end
+
+  def hips_by_sn(serial_number)
+    scan_analyses.where(serial_number: serial_number, scan_type: [2, 3]).delete_if { |s| s.type.nil? }
+  end
+
+  def forearms_by_sn(serial_number)
+    scan_analyses.where(serial_number: serial_number, scan_type: [6, 7]).delete_if { |s| s.type.nil? }
+  end
+
+  def status_by_sn(serial_number)
+    scores = []
+    studies = studies_by_sn(serial_number)
+    studies.each do |study|
+      scores << study.score
+    end
+
+    if studies.length > 0
+      case studies.first.t_or_z
+      when 't'
+        if scores.min <= -2.5
+          "osteoporosis"
+        elsif scores.min < -1.0
+          "osteopenia"
+        else
+          "normal"
+        end
+      when 'z'
+        if scores.min < 2
+          "normal"
+        else
+          "below"
+        end
+      end
+    end
   end
 
   def studies_by_acc(accession_no)
