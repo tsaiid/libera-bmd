@@ -1,0 +1,113 @@
+<div class="row">
+  <div class="col-md-12">
+    <ul class="pager">
+      <li class="previous disabled">
+        <a href="#" id="prev_link">&larr; Previous</a>
+      </li>
+      <li class="next disabled">
+        <a href="#" id="next_link">Next &rarr;</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <!-- Patient Info -->
+  <div class="col-md-4">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Patient Info</h3>
+      </div>
+      <table class="table table-striped">
+        <tbody>
+          <tr>
+            <th>Name</th>
+            <td><%= @patient.name %></td>
+          </tr>
+          <tr>
+            <th>ID</th>
+            <td id="pid"><%= @patient.pid %></td>
+          </tr>
+          <tr>
+            <th>Key</th>
+            <td id="pt_key"><%= @patient.patient_key %></td>
+          </tr>
+          <tr>
+            <th>Sex</th>
+            <td><%= @patient.sex %></td>
+          </tr>
+          <tr>
+            <th>Birthday</th>
+            <td><%= @patient.birthday.to_date %></td>
+          </tr>
+          <tr>
+            <th>Age</th>
+            <td><%= @patient.age %> <small>(by now)</small></td>
+          </tr>
+          <tr>
+            <th>Menopause Age</th>
+            <td><%= @patient.menopause_year %></td>
+          </tr>
+          <tr>
+            <th>Ethnicity</th>
+            <td><%= @patient.ethnicity %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Studies -->
+  <div class="col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Studies</h3>
+      </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>SN</th>
+            <th>Acc NO</th>
+            <th>Age</th>
+            <th>Spine</th>
+            <th>Hip</th>
+            <th>Forearm</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%
+            @patient.studies.each do |study|
+              acc = study.accession_no
+              sn = study.serial_number
+          %>
+          <tr>
+            <td><%= study.scan_date.to_date.to_s %></td>
+            <td><%= study.serial_number %></td>
+            <td><%= acc.nil? ? "無 ACC NO" : link_to(study.accession_no, :controller => "studies", :action => "show", :accession_no => study.accession_no) %></td>
+            <td><%= @patient.age(study.scan_date) %></td>
+            <td>
+              <% @patient.spines_by_sn(sn).each do |spine| %>
+                <%= "#{spine.t_or_z.capitalize}: #{spine.score}" %>
+              <% end %>
+            </td>
+            <td>
+              <% @patient.hips_by_sn(sn).each do |hip| %>
+                <div><%= raw(hip.exam.side_abbr) + "#{hip.t_or_z.capitalize}: #{hip.score}" %>
+              <% end %></div>
+            </td>
+            <td>
+              <% @patient.forearms_by_sn(sn).each do |forearm| %>
+                <div><%= raw(forearm.exam.side_abbr) + "#{forearm.t_or_z.capitalize}: #{forearm.score}" %></div>
+              <% end %>
+            </td>
+            <td><%= raw @patient.status_to_icon(@patient.status_by_sn(sn)) %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+  </div>
+</div>
+
+<%= javascript_include_tag 'patients_key_pagination' %>
