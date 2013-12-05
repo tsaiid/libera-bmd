@@ -36,7 +36,6 @@ class ScanAnalysis < ActiveRecord::Base
   }
 
   def exam
-    type = read_attribute(:ref_type)
     case type
     when "S"
       spine
