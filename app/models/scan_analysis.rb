@@ -76,7 +76,7 @@ class ScanAnalysis < ActiveRecord::Base
     bone_range = exam.bone_range if bone_range.empty?
     ReferenceCurve.where( if_current: 1,
                           reftype: ref_type,
-                          ethnic: (ref_type == "R" ? nil : ethnicity),
+                          ethnic: (["R", "L"].include?(ref_type) ? nil : ethnicity),
                           sex: sex,
                           bonerange: bone_range).first
   end
@@ -102,6 +102,8 @@ class ScanAnalysis < ActiveRecord::Base
       "Hip - " + exam.side.capitalize
     when "R"
       "Forearm - " + exam.side.capitalize
+    when "L"
+      "Lateral Spine"
     else
       nil
     end
