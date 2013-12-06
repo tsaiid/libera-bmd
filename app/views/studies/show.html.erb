@@ -68,6 +68,8 @@
         <% case study.type %>
         <% when "S", "H", "R" %>
           <%= render partial: "studies/panel_spine_hip_forearm", locals: {study: study} %>
+        <% when "L" %>
+          <%= render partial: "studies/panel_lateral", locals: {study: study} %>
         <% end %>
       <% end %>
     </div>

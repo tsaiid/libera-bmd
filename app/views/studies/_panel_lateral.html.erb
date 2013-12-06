@@ -1,0 +1,39 @@
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <a data-toggle="collapse" data-parent="#studies-panel" href="#collapse-<%= study.scanid %>">
+              <%= study.to_s %>
+            </a>
+          </h3>
+        </div>
+        <div id="collapse-<%= study.scanid %>" class="panel-collapse collapse in">
+          <div class="panel-body">
+            <table class="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Region</th>
+                  <th>BMD <small>(g/cm<sup>2</sup>)</small></th>
+                  <th>WA-BMD <small>(g/cm<sup>3</sup>)</small></th>
+                  <th>T-score</th>
+                  <th>PR <small>(%)</small></th>
+                  <th>Z-score</th>
+                  <th>AM <small>(%)</small></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% study.exam.levels.each do |level| %>
+                <tr class="<%= "active" if level[:label] == "Total" %>">
+                  <td><%= level[:label] %></td>
+                  <td><%= level[:bmd].round(3) %></td>
+                  <td><%= level[:vbmd].round(3) %></td>
+                  <td><%= level[:t_score].round(1) %></td>
+                  <td><%= level[:peak_reference].round(0) %></td>
+                  <td><%= level[:z_score].round(1) %></td>
+                  <td><%= level[:age_matched].round(0) %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
