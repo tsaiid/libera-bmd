@@ -18,6 +18,7 @@ class Patient < ActiveRecord::Base
   has_many :hips, foreign_key: "patient_key"
   has_many :hip_hsas, foreign_key: "patient_key"
   has_many :laterals, foreign_key: "patient_key"
+  has_many :w_bodies, foreign_key: "patient_key"
   has_many :scan_analyses, foreign_key: "patient_key"
 
   def name
