@@ -70,6 +70,8 @@
           <%= render partial: "studies/panel_spine_hip_forearm", locals: {study: study} %>
         <% when "L" %>
           <%= render partial: "studies/panel_lateral", locals: {study: study} %>
+        <% when "W" %>
+          <%= render partial: "studies/panel_w_body", locals: {study: study} %>
         <% end %>
       <% end %>
     </div>
