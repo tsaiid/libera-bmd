@@ -33,6 +33,14 @@ class ReferenceCurve < ActiveRecord::Base
     (bmd / ref[:bmd]) * 100
   end
 
+  def x_values
+    points.select(:x_value).map {|p| p.x_value}
+  end
+
+  def y_values
+    points.select(:y_value).map {|p| p.y_value}
+  end
+
 #  private
 #  temp comment out for debug
   def calculate_ref(pt_age)
