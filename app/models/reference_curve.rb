@@ -45,6 +45,8 @@ class ReferenceCurve < ActiveRecord::Base
     points.select(:std).map {|p| p.std}
   end
 
+  ## polynomial curve fitting
+  ## ref: http://rosettacode.org/wiki/Polynomial_regression#Ruby
   def regress x, y, degree
     require 'matrix'
 
