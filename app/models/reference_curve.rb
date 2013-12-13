@@ -66,6 +66,7 @@ class ReferenceCurve < ActiveRecord::Base
 #  private
 #  temp comment out for debug
   def calculate_ref(pt_age)
+=begin
     up = upper_point(pt_age)
     lp = lower_point(pt_age)
     # should handle with: if upper == lower
@@ -82,10 +83,9 @@ class ReferenceCurve < ActiveRecord::Base
       ref_bmd = ((pt_age - lp.age) / (up.age - lp.age)) * (up.bmd - lp.bmd) + lp.bmd
       ref_std = ((pt_age - lp.age) / (up.age - lp.age)) * (up.std - lp.std) + lp.std
     end
-=begin
-    cf_bmd = curve_fit(regress(x_values, y_values, 1), pt_age)
-    cf_std = curve_fit(regress(x_values, stds, 1), pt_age)
 =end
+    ref_bmd = curve_fit(regress(x_values, y_values, points.size), pt_age)
+    ref_std = curve_fit(regress(x_values, stds, points.size), pt_age)
     {bmd: ref_bmd, std: ref_std}
   end
 end
