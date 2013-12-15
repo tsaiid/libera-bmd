@@ -40,10 +40,12 @@
             <th>Age</th>
             <td><%= @patient.age %> <small>(by now)</small></td>
           </tr>
+          <% if @patient.is_female? %>
           <tr>
             <th>Menopause Age</th>
             <td><%= @patient.menopause_year %></td>
           </tr>
+          <% end %>
           <tr>
             <th>Ethnicity</th>
             <td><%= @patient.ethnicity %></td>
