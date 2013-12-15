@@ -78,7 +78,7 @@
           <%   acc = study.accession_no %>
           <tr>
             <td><%= study.scan_date.to_date.to_s %></td>
-            <td><%= link_to study.accession_no, :controller => "studies", :action => "show", :accession_no => study.accession_no %></td>
+            <td><%= study.accession_no.nil? ? "無 ACC NO" : link_to(study.accession_no, :controller => "studies", :action => "show", :accession_no => study.accession_no) %></td>
             <td><%= @patient.age(study.scan_date) %></td>
             <td>
               <% @patient.spines_by_acc(acc).each do |spine| %>
