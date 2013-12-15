@@ -138,14 +138,6 @@ class Patient < ActiveRecord::Base
     </button>"
   end
 
-  def ethnicity
-    read_attribute(:ethnicity)
-  end
-
-  def sex
-    read_attribute(:sex)
-  end
-
   def is_female?
     sex == "F"
   end
