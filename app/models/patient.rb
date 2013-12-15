@@ -34,7 +34,7 @@ class Patient < ActiveRecord::Base
   end
 
   def studies
-    scan_analyses.group(:serial_number)
+    scan_analyses.group(:accession_no)
   end
 
   def studies_by_sn(serial_number)
