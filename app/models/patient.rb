@@ -81,42 +81,46 @@ class Patient < ActiveRecord::Base
   end
 
   def studies_by_acc(accession_no)
-    scan_analyses.where(accession_no: accession_no)
+    scan_analyses.where(accession_no: accession_no).reject { |s| s.type.nil? }
   end
 
   def spines_by_acc(accession_no)
-    scan_analyses.where(accession_no: accession_no, ref_type: "S")
+    scan_analyses.where(accession_no: accession_no).keep_if { |s| s.type == "S"}
   end
 
   def hips_by_acc(accession_no)
-    scan_analyses.where(accession_no: accession_no, ref_type: "H")
+    scan_analyses.where(accession_no: accession_no).keep_if { |s| s.type == "H"}
   end
 
   def forearms_by_acc(accession_no)
-    scan_analyses.where(accession_no: accession_no, ref_type: "R")
+    scan_analyses.where(accession_no: accession_no).keep_if { |s| s.type == "R"}
   end
 
   def status_by_acc(accession_no)
     scores = []
     studies = studies_by_acc(accession_no)
     studies.each do |study|
-      scores << study.score
+      if (Float(study.score) != nil rescue false)
+        scores << study.score
+      end
     end
 
-    case studies.first.t_or_z
-    when 't'
-      if scores.min <= -2.5
-        "osteoporosis"
-      elsif scores.min < -1.0
-        "osteopenia"
-      else
-        "normal"
-      end
-    when 'z'
-      if scores.min < 2
-        "normal"
-      else
-        "below"
+    if studies.size > 0 && scores.size > 0
+      case studies.first.t_or_z
+      when 't'
+        if scores.min <= -2.5
+          "osteoporosis"
+        elsif scores.min < -1.0
+          "osteopenia"
+        else
+          "normal"
+        end
+      when 'z'
+        if scores.min < 2
+          "normal"
+        else
+          "below"
+        end
       end
     end
   end
