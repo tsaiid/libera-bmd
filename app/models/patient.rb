@@ -146,6 +146,10 @@ class Patient < ActiveRecord::Base
     read_attribute(:sex)
   end
 
+  def is_female?
+    sex == "F"
+  end
+
   ## use last_update for age calculation.
   def age(time = read_attribute(:last_update))
     time = time.to_datetime
