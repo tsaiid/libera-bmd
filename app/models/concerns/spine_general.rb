@@ -41,20 +41,24 @@ module SpineGeneral
     age = patient.age(scan_analysis.scan_date)
     ref_curve = scan_analysis.find_reference(level[:bone_range])
 
-    level[:t_score] = ref_curve.t_score(level[:bmd])
-    level[:peak_reference] = ref_curve.peak_reference(level[:bmd])
-    level[:z_score] = ref_curve.z_score(age, level[:bmd])
-    level[:age_matched] = ref_curve.age_matched(age, level[:bmd])
+    if !ref_curve.nil?
+      level[:t_score] = ref_curve.t_score(level[:bmd])
+      level[:peak_reference] = ref_curve.peak_reference(level[:bmd])
+      level[:z_score] = ref_curve.z_score(age, level[:bmd])
+      level[:age_matched] = ref_curve.age_matched(age, level[:bmd])
+    else
+      level[:error] = "No Ref Curve"
+    end
     level
   end
 
   def t_score
     level = calculate_t_z_scores({label: "Total", bone_range: "1234", area: tot_area, bmc: tot_bmc, bmd: tot_bmd})
-    level[:t_score].round(1)
+    level[:error] ? level[:error] : level[:t_score].round(1)
   end
 
   def z_score
     level = calculate_t_z_scores({label: "Total", bone_range: "1234", area: tot_area, bmc: tot_bmc, bmd: tot_bmd})
-    level[:z_score].round(1)
+    level[:error] ? level[:error] : level[:z_score].round(1)
   end
 end
