@@ -45,28 +45,11 @@ class ReferenceCurve < ActiveRecord::Base
     points.select(:std).map {|p| p.std}
   end
 
-  ## polynomial curve fitting
-  ## ref: http://rosettacode.org/wiki/Polynomial_regression#Ruby
-  def regress x, y, degree
-    require 'matrix'
-
-    x_data = x.map { |xi| (0..degree).map { |pow| (xi**pow).to_f } }
-
-    mx = Matrix[*x_data]
-    my = Matrix.column_vector(y)
-
-    ((mx.t * mx).inv * mx.t * my).transpose.to_a[0]
-  end
-
-  def curve_fit polynom, x
-    degree = polynom.size - 1
-    (0..degree).inject(0) {|sum, i| sum + polynom[i] * x**i}
-  end
-
 #  private
 #  temp comment out for debug
+  ## 以內插法計算
+  ## 暫時先不考慮 L-Value 不等於 1 的狀況
   def calculate_ref(pt_age)
-=begin
     up = upper_point(pt_age)
     lp = lower_point(pt_age)
     # should handle with: if upper == lower
@@ -83,9 +66,7 @@ class ReferenceCurve < ActiveRecord::Base
       ref_bmd = ((pt_age - lp.age) / (up.age - lp.age)) * (up.bmd - lp.bmd) + lp.bmd
       ref_std = ((pt_age - lp.age) / (up.age - lp.age)) * (up.std - lp.std) + lp.std
     end
-=end
-    ref_bmd = curve_fit(regress(x_values, y_values, points.size), pt_age)
-    ref_std = curve_fit(regress(x_values, stds, points.size), pt_age)
+
     {bmd: ref_bmd, std: ref_std}
   end
 end
