@@ -149,8 +149,8 @@ class Patient < ActiveRecord::Base
   ## use last_update for age calculation.
   def age(time = read_attribute(:last_update))
     time = time.to_datetime
-    dob = birthday
-    time.year - dob.year - ((time.month > dob.month || (time.month == dob.month && time.day >= dob.day)) ? 0 : 1)
+    dob = birthdate.to_datetime
+    (time - dob) / 365.25
   end
 
   def menopause_year
