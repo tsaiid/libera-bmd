@@ -42,7 +42,7 @@
           </tr>
           <tr>
             <th>Age</th>
-            <td><%= @patient.age(@studies.first.scan_date) %> <small>(by scan date)</small></td>
+            <td><%= @patient.age(@studies.first.scan_date).to_i %> <small>(by scan date)</small></td>
           </tr>
           <% if @patient.is_female? %>
           <tr>
