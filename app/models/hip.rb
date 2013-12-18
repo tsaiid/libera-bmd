@@ -6,7 +6,7 @@ class Hip < ActiveRecord::Base
 
   def levels
     array = []
-    array <<= {label: "Neck", bone_range: "1...", area: neck_area, bmc: neck_bmc, bmd: neck_bmd}
+    array <<= {label: "Neck", bone_range: "1...", area: neck_area, bmc: neck_bmc, bmd: neck_bmd, noncollapse: true}
     array <<= {label: "Troch", bone_range: ".2..", area: troch_area, bmc: troch_bmc, bmd: troch_bmd}
     array <<= {label: "Inter", bone_range: "..3.", area: inter_area, bmc: inter_bmc, bmd: inter_bmd}
     array <<= {label: "Total", bone_range: "123.", area: htot_area, bmc: htot_bmc, bmd: htot_bmd}

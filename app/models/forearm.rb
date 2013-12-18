@@ -6,7 +6,7 @@ class Forearm < ActiveRecord::Base
 
   def levels
     array = []
-    array <<= {label: "RU 1/3", bone_range: "1..", area: ru13tot_area, bmc: ru13tot_bmc, bmd: ru13tot_bmd}
+    array <<= {label: "RU 1/3", bone_range: "1..", area: ru13tot_area, bmc: ru13tot_bmc, bmd: ru13tot_bmd, noncollapse: true}
     array <<= {label: "RU Mid", bone_range: ".2.", area: rumidtot_area, bmc: rumidtot_bmc, bmd: rumidtot_bmd}
     array <<= {label: "RU UD", bone_range: "..3", area: ruudtot_area, bmc: ruudtot_bmc, bmd: ruudtot_bmd}
     array <<= {label: "Total", bone_range: "123", area: rutot_area, bmc: rutot_bmc, bmd: rutot_bmd}
