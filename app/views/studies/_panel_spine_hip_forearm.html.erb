@@ -38,4 +38,39 @@
             </table>
           </div>
         </div>
+        <% nc_levels = study.exam.levels.select {|l| l[:noncollapse]} %>
+        <% if nc_levels.length > 0 %>
+        <div class="panel-noncollapse">
+          <div class="panel-body">
+            <table class="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Region</th>
+                  <th>Area <small>(cm<sup>2</sup>)</small></th>
+                  <th>BMC <small>(g)</small></th>
+                  <th>BMD <small>(g/cm<sup>2</sup>)</small></th>
+                  <th>T-score</th>
+                  <th>PR <small>(%)</small></th>
+                  <th>Z-score</th>
+                  <th>AM <small>(%)</small></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% nc_levels.each do |level| %>
+                <tr>
+                  <td><%= level[:label] %></td>
+                  <td><%= level[:area].round(2) %></td>
+                  <td><%= level[:bmc].round(2) %></td>
+                  <td><%= level[:bmd].round(3) %></td>
+                  <td><%= level[:t_score].round(1) %></td>
+                  <td><%= level[:peak_reference].round(0) %></td>
+                  <td><%= level[:z_score].round(1) %></td>
+                  <td><%= level[:age_matched].round(0) %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+        </div>
+        </div>
+        <% end %>
       </div>
