@@ -14,6 +14,12 @@ $(document).ready ->
     trigger: 'hover'
   });
 
+  $('.panel-collapse').on 'hide.bs.collapse', ->
+    $(this).next().show()
+
+  $('.panel-collapse').on 'show.bs.collapse', ->
+    $(this).next().hide()
+
 details_in_popup = (acc_no, div_id) ->
   report = ""
   $.getJSON( "/studies/report/" + acc_no )
