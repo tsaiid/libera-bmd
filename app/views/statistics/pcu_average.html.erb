@@ -16,9 +16,9 @@
             <th>總 Forearm 數</th>
           </tr>
           <tr>
-            <td><%= @studies.first.scan_date.to_date.to_s + " ~ " + @studies.last.scan_date.to_date.to_s %></td>
-            <td><%= @studies.group("patients.identifier1").length %></td>
-            <td><%= @studies.length %></td>
+            <td><%= @time_range %></td>
+            <td><%= @patient_count %></td>
+            <td><%= @study_count %></td>
             <td><%= @spine_tot_count %></td>
             <td><%= @hip_count %></td>
             <td><%= @forearm_count %></td>

@@ -6,7 +6,9 @@ class StatisticsController < ApplicationController
   end
 
   def pcu_average
-    @studies = ScanAnalysis.pcu_acc_list
+    @time_range = ScanAnalysis.pcu_acc_list.pluck(:scan_date).first.to_date.to_s + " ~ " + ScanAnalysis.pcu_acc_list.pluck(:scan_date).last.to_date.to_s
+    @patient_count = ScanAnalysis.pcu_acc_list.group("patients.identifier1").size.length
+    @study_count = ScanAnalysis.pcu_acc_list.size.length
 
     # 計算各部位平均的 BMD
     ## Spine
