@@ -33,12 +33,12 @@ class StatisticsController < ApplicationController
     @spine_l4_std = Math.sqrt(Spine.pcu.sum("(tot_bmd - #{@spine_avg_l4_bmd})*(tot_bmd - #{@spine_avg_l4_bmd})") / (@spine_l4_count - 1))
 
     tmp_bmd = Spine.pcu.sum(:tot_bmd)
-    @spine_tot_count = Spine.pcu.pluck("count(*)").first
+    @spine_tot_count = Spine.pcu.size
     @spine_avg_tot_bmd = tmp_bmd / @spine_tot_count
     @spine_tot_std = Math.sqrt(Spine.pcu.sum("(tot_bmd - #{@spine_avg_tot_bmd})*(tot_bmd - #{@spine_avg_tot_bmd})") / (@spine_tot_count - 1))
 
     ## Hip
-    @hip_count = Hip.pcu.pluck("count(*)").first
+    @hip_count = Hip.pcu.size
 
     tmp_bmd = Hip.pcu.sum(:neck_bmd)
     @hip_avg_neck_bmd = tmp_bmd / @hip_count
@@ -61,7 +61,7 @@ class StatisticsController < ApplicationController
     @hip_wards_std = Math.sqrt(Hip.pcu.sum("(wards_bmd - #{@hip_avg_wards_bmd})*(wards_bmd - #{@hip_avg_wards_bmd})") / (@hip_count - 1))
 
     ## Forearm
-    @forearm_count = Forearm.pcu.pluck("count(*)").first
+    @forearm_count = Forearm.pcu.size
 
     tmp_bmd = Forearm.pcu.sum(:ru13tot_bmd)
     @forearm_avg_ru13_bmd = tmp_bmd / @forearm_count
