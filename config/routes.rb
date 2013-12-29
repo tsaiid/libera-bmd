@@ -1,4 +1,8 @@
 BoneDensityAnalyzer::Application.routes.draw do
+  # You can have the root of your site routed with "root"
+  # You should put the root route at the top of the file, because it is the most popular route and should be matched first.
+  root 'studies#index'
+
   get "statistics/pcu_average"
   get "statistics/pcu_spine/:sex" => 'statistics#pcu_spine', as: 'statistics_pcu_spine'
   get "statistics/spine/:level/:sex/:age/:interval" => 'statistics#spine'
@@ -19,9 +23,6 @@ BoneDensityAnalyzer::Application.routes.draw do
   get "patients/pagination/key/:patient_key" => 'patients#pagination_key'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
