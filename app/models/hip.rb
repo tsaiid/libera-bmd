@@ -30,25 +30,29 @@ class Hip < ActiveRecord::Base
   end
 
   def t_score
-    level = calculate_t_z_scores({label: "Neck", bone_range: "1...", area: neck_area, bmc: neck_bmc, bmd: neck_bmd})
-    level[:t_score].round(1)
+    neck = calculate_t_z_scores({label: "Neck", bone_range: "1...", area: neck_area, bmc: neck_bmc, bmd: neck_bmd})
+    total = calculate_t_z_scores({label: "Total", bone_range: "123.", area: htot_area, bmc: htot_bmc, bmd: htot_bmd})
+    neck[:t_score] < total[:t_score] ? neck[:t_score] : total[:t_score]
   end
 
   def z_score
-    level = calculate_t_z_scores({label: "Neck", bone_range: "1...", area: neck_area, bmc: neck_bmc, bmd: neck_bmd})
-    level[:z_score].round(1)
+    neck = calculate_t_z_scores({label: "Neck", bone_range: "1...", area: neck_area, bmc: neck_bmc, bmd: neck_bmd})
+    total = calculate_t_z_scores({label: "Total", bone_range: "123.", area: htot_area, bmc: htot_bmc, bmd: htot_bmd})
+    neck[:z_score] < total[:z_score] ? neck[:z_score] : total[:z_score]
   end
 
   def report_str
-    level = calculate_t_z_scores({label: "Neck", bone_range: "1...", area: neck_area, bmc: neck_bmc, bmd: neck_bmd})
-    str = "The BMD of #{self.side} proximal femur is #{level[:bmd].round(3)} gm/cm2"
+    neck = calculate_t_z_scores({label: "Neck", bone_range: "1...", area: neck_area, bmc: neck_bmc, bmd: neck_bmd})
+    total = calculate_t_z_scores({label: "Total", bone_range: "123.", area: htot_area, bmc: htot_bmc, bmd: htot_bmd})
     case scan_analysis.t_or_z
     when 't'
-      str += ", and is about #{level[:peak_reference].round(0)}\% of the mean of young reference value (T-score = #{level[:t_score].round(1)})."
+      level = (neck[:t_score] < total[:t_score] ? neck : total)
+      str = ", and is about #{level[:peak_reference].round(0)}\% of the mean of young reference value (T-score = #{level[:t_score].round(1)})."
     when 'z'
-      str += ". The age matched percentage is about #{level[:age_matched].round(0)}\% (Z-score = #{level[:z_score].round(1)})."
+      level = (neck[:z_score] < total[:z_score] ? neck : total)
+      str = ". The age matched percentage is about #{level[:age_matched].round(0)}\% (Z-score = #{level[:z_score].round(1)})."
     end
-    str
+    str = "The BMD of #{self.side} proximal femur is #{level[:bmd].round(3)} gm/cm2" + str
   end
 
   def side
