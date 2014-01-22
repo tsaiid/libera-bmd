@@ -29,7 +29,7 @@ module SpineGeneral
     array <<= {label: "L2", bone_range: ".2..", area: l2_area, bmc: l2_bmc, bmd: l2_bmd} if l2_included?
     array <<= {label: "L3", bone_range: "..3.", area: l3_area, bmc: l3_bmc, bmd: l3_bmd} if l3_included?
     array <<= {label: "L4", bone_range: "...4", area: l4_area, bmc: l4_bmc, bmd: l4_bmd} if l4_included?
-    array <<= {label: "Total", bone_range: "1234", area: tot_area, bmc: tot_bmc, bmd: tot_bmd, noncollapse: true}
+    array <<= {label: "Total", bone_range: bone_range, area: tot_area, bmc: tot_bmc, bmd: tot_bmd, noncollapse: true}
 
     ## calculate T- and Z-scores
     array.each do |a|
@@ -53,12 +53,12 @@ module SpineGeneral
   end
 
   def t_score
-    level = calculate_t_z_scores({label: "Total", bone_range: "1234", area: tot_area, bmc: tot_bmc, bmd: tot_bmd})
+    level = calculate_t_z_scores({label: "Total", bone_range: bone_range, area: tot_area, bmc: tot_bmc, bmd: tot_bmd})
     level[:error] ? level[:error] : level[:t_score].round(1)
   end
 
   def z_score
-    level = calculate_t_z_scores({label: "Total", bone_range: "1234", area: tot_area, bmc: tot_bmc, bmd: tot_bmd})
+    level = calculate_t_z_scores({label: "Total", bone_range: bone_range, area: tot_area, bmc: tot_bmc, bmd: tot_bmd})
     level[:error] ? level[:error] : level[:z_score].round(1)
   end
 end
