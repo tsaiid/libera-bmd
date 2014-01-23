@@ -7,6 +7,18 @@ module SpineGeneral
     range += l4_included? ? "4" : "."
   end
 
+  def bone_range_str
+    arr = []
+    bone_range.split('.').each do |level|
+      if (level.length == 1)
+        arr << "L#{level}"
+      elsif (level.length > 1)
+        arr << "L#{level[0]} to L#{level[-1]}"
+      end
+    end
+    arr.join(" and ")
+  end
+
   def l1_included?
     !l1_included.nil? && !l1_included.zero?
   end
