@@ -37,13 +37,13 @@ class Hip < ActiveRecord::Base
   def t_score
     neck = calculate_t_z_scores({label: "Neck", bone_range: "1...", area: neck_area, bmc: neck_bmc, bmd: neck_bmd})
     total = calculate_t_z_scores({label: "Total", bone_range: "123.", area: htot_area, bmc: htot_bmc, bmd: htot_bmd})
-    neck[:t_score] < total[:t_score] ? neck[:t_score] : total[:t_score]
+    neck[:t_score] < total[:t_score] ? neck[:t_score].round(1) : total[:t_score].round(1)
   end
 
   def z_score
     neck = calculate_t_z_scores({label: "Neck", bone_range: "1...", area: neck_area, bmc: neck_bmc, bmd: neck_bmd})
     total = calculate_t_z_scores({label: "Total", bone_range: "123.", area: htot_area, bmc: htot_bmc, bmd: htot_bmd})
-    neck[:z_score] < total[:z_score] ? neck[:z_score] : total[:z_score]
+    neck[:z_score] < total[:z_score] ? neck[:z_score].round(1) : total[:z_score].round(1)
   end
 
   def report_str
