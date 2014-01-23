@@ -38,7 +38,7 @@
           </tr>
           <tr>
             <th>Age</th>
-            <td><%= @patient.age %> <small>(by now)</small></td>
+            <td><%= @patient.age.to_i %> <small>(by now)</small></td>
           </tr>
           <% if @patient.is_female? %>
           <tr>
@@ -79,7 +79,7 @@
           <tr>
             <td><%= study.scan_date.to_date.to_s %></td>
             <td><%= study.accession_no.nil? ? "無 ACC NO" : link_to(study.accession_no, :controller => "studies", :action => "show", :accession_no => study.accession_no) %></td>
-            <td><%= @patient.age(study.scan_date) %></td>
+            <td><%= @patient.age(study.scan_date).to_i %></td>
             <td>
               <% @patient.spines_by_acc(acc).each do |spine| %>
                 <%= "#{spine.t_or_z.capitalize}: #{spine.score}" %>
