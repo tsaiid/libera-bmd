@@ -16,16 +16,21 @@ class Hip < ActiveRecord::Base
     array.each do |a|
       a = calculate_t_z_scores(a)
     end
+
+    ## delete if no score
+    array.delete_if { |a| a[:t_score].nil? }
   end
 
   def calculate_t_z_scores(level)
     age = patient.age(scan_analysis.scan_date)
     ref_curve = scan_analysis.find_reference(level[:bone_range])
 
-    level[:t_score] = ref_curve.t_score(level[:bmd])
-    level[:peak_reference] = ref_curve.peak_reference(level[:bmd])
-    level[:z_score] = ref_curve.z_score(age, level[:bmd])
-    level[:age_matched] = ref_curve.age_matched(age, level[:bmd])
+    unless ref_curve.nil? then
+      level[:t_score] = ref_curve.t_score(level[:bmd])
+      level[:peak_reference] = ref_curve.peak_reference(level[:bmd])
+      level[:z_score] = ref_curve.z_score(age, level[:bmd])
+      level[:age_matched] = ref_curve.age_matched(age, level[:bmd])
+    end
     level
   end
 
