@@ -47,7 +47,7 @@ class WBody < ActiveRecord::Base
 
   def report_str
     level = calculate_t_z_scores(total_hash)
-    str = "The BMD of whole body is #{level[:bmd].round(3)} gm/cm2"
+    str = "The BMD of whole body is #{level[:bmd].round_with_zero(3)} gm/cm2"
     case scan_analysis.t_or_z
     when 't'
       str += ", and is about #{level[:peak_reference].round(0)}\% of the mean of young reference value (T-score = #{level[:t_score].round(1)})."

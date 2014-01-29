@@ -40,7 +40,7 @@ class Forearm < ActiveRecord::Base
 
   def report_str
     level = calculate_t_z_scores({label: "RU 1/3", bone_range: "1..", area: ru13tot_area, bmc: ru13tot_bmc, bmd: ru13tot_bmd})
-    str = "The BMD of #{side} 1/3 forearm is #{level[:bmd].round(3)} gm/cm2"
+    str = "The BMD of #{side} 1/3 forearm is #{level[:bmd].round_with_zero(3)} gm/cm2"
     case scan_analysis.t_or_z
     when 't'
       str += ", and is about #{level[:peak_reference].round(0)}\% of the mean of young reference value (T-score = #{level[:t_score].round(1)})."
