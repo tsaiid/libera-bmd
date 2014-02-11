@@ -55,8 +55,9 @@ class ScanAnalysis < ActiveRecord::Base
   # decide to use T or Z score according to age > 50 or menopaused.
   def t_or_z
     age = patient.age(scan_date)
+    sex = patient.sex
     mp_age = patient.menopause_year.to_i
-    (mp_age > 0 || age > 50) ? "t" : "z"
+    (mp_age > 0 || (age > 50 && sex == "M")) ? "t" : "z"
   end
 
   # find score for conclusion
