@@ -55,7 +55,7 @@ class StudiesController < ApplicationController
   def conclusion(studies)
     scores = []
     studies.each do |study|
-      scores << study.score
+      scores << study.score.to_f
     end
     case studies.first.t_or_z
     when 't'
