@@ -66,11 +66,11 @@ module SpineGeneral
 
   def t_score
     level = calculate_t_z_scores({label: "Total", bone_range: bone_range, area: tot_area, bmc: tot_bmc, bmd: tot_bmd})
-    level[:error] ? level[:error] : level[:t_score].round(1)
+    level[:error] ? level[:error] : level[:t_score].round_for_report(1)
   end
 
   def z_score
     level = calculate_t_z_scores({label: "Total", bone_range: bone_range, area: tot_area, bmc: tot_bmc, bmd: tot_bmd})
-    level[:error] ? level[:error] : level[:z_score].round(1)
+    level[:error] ? level[:error] : level[:z_score].round_for_report(1)
   end
 end
