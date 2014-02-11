@@ -10,6 +10,7 @@ default_run_options[:pty] = true  # Must be set for the password prompt
                                   # from git to work
 set :application, "bone-density-analyzer"
 set :repository,  "git@github.com:tsaiid/libera-bmd.git"
+set :scm, "git"
 set :branch, "master"
 
 set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
