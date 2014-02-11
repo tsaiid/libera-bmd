@@ -57,7 +57,7 @@ class Hip < ActiveRecord::Base
       level = (neck[:z_score] < total[:z_score] ? neck : total)
       str = ". The age matched percentage is about #{level[:age_matched].round(0)}\% (Z-score = #{level[:z_score].round(1)})."
     end
-    str = "The BMD of #{self.side} proximal femur is #{level[:bmd].round_with_zero(3)} gm/cm2" + str
+    str = "The BMD of #{self.side} proximal femur is #{level[:bmd].round_for_report(3)} gm/cm2" + str
   end
 
   def side

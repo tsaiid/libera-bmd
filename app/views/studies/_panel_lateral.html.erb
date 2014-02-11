@@ -24,8 +24,8 @@
                 <% study.exam.levels.each do |level| %>
                 <tr class="<%= "active" if level[:label] == "Total" %>">
                   <td><%= level[:label] %></td>
-                  <td><%= level[:bmd].round_with_zero(3) %></td>
-                  <td><%= level[:vbmd].round_with_zero(3) %></td>
+                  <td><%= level[:bmd].round_for_report(3) %></td>
+                  <td><%= level[:vbmd].round_for_report(3) %></td>
                   <td><%= level[:t_score].round(1) %></td>
                   <td><%= level[:peak_reference].round(0) %></td>
                   <td><%= level[:z_score].round(1) %></td>

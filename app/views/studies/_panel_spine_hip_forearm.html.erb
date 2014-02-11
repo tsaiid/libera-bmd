@@ -27,7 +27,7 @@
                   <td><%= level[:label] %></td>
                   <td><%= level[:area].round(2) %></td>
                   <td><%= level[:bmc].round(2) %></td>
-                  <td><%= level[:bmd].round_with_zero(3) %></td>
+                  <td><%= level[:bmd].round_for_report(3) %></td>
                   <td><%= level[:t_score].round(1) %></td>
                   <td><%= level[:peak_reference].round(0) %></td>
                   <td><%= level[:z_score].round(1) %></td>
@@ -61,7 +61,7 @@
                   <td><%= level[:label] %></td>
                   <td><%= level[:area].round(2) %></td>
                   <td><%= level[:bmc].round(2) %></td>
-                  <td><%= level[:bmd].round_with_zero(3) %></td>
+                  <td><%= level[:bmd].round_for_report(3) %></td>
                   <td><%= level[:t_score].round(1) %></td>
                   <td><%= level[:peak_reference].round(0) %></td>
                   <td><%= level[:z_score].round(1) %></td>
