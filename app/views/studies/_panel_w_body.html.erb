@@ -30,18 +30,18 @@
                 <% study.exam.levels.each do |level| %>
                 <tr class="<%= "active" if level[:label] == "Total" %>">
                   <td><%= level[:label] %></td>
-                  <td><%= level[:area].round(2) %></td>
-                  <td><%= level[:bmc].round(2) %></td>
+                  <td><%= level[:area].round_for_report(2) %></td>
+                  <td><%= level[:bmc].round_for_report(2) %></td>
                   <td><%= level[:bmd].round_for_report(3) %></td>
                   <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
-                  <td><%= level[:t_score].round(1) if level[:label] == "Total" %></td>
-                  <td><%= level[:peak_reference].round(0) if level[:label] == "Total" %></td>
-                  <td><%= level[:z_score].round(1) if level[:label] == "Total" %></td>
-                  <td><%= level[:age_matched].round(0) if level[:label] == "Total" %></td>
+                  <td><%= level[:t_score].round_for_report(1) if level[:label] == "Total" %></td>
+                  <td><%= level[:peak_reference].round_for_report(0) if level[:label] == "Total" %></td>
+                  <td><%= level[:z_score].round_for_report(1) if level[:label] == "Total" %></td>
+                  <td><%= level[:age_matched].round_for_report(0) if level[:label] == "Total" %></td>
                 </tr>
                 <% end %>
               </tbody>

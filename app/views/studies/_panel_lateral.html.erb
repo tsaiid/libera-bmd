@@ -26,10 +26,10 @@
                   <td><%= level[:label] %></td>
                   <td><%= level[:bmd].round_for_report(3) %></td>
                   <td><%= level[:vbmd].round_for_report(3) %></td>
-                  <td><%= level[:t_score].round(1) %></td>
-                  <td><%= level[:peak_reference].round(0) %></td>
-                  <td><%= level[:z_score].round(1) %></td>
-                  <td><%= level[:age_matched].round(0) %></td>
+                  <td><%= level[:t_score].round_for_report(1) %></td>
+                  <td><%= level[:peak_reference].round_for_report(0) %></td>
+                  <td><%= level[:z_score].round_for_report(1) %></td>
+                  <td><%= level[:age_matched].round_for_report(0) %></td>
                 </tr>
                 <% end %>
               </tbody>
