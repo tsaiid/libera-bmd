@@ -9,14 +9,14 @@ require 'bundler/capistrano'
 default_run_options[:pty] = true  # Must be set for the password prompt
                                   # from git to work
 set :application, "bone-density-analyzer"
-set :repository,  "ssh://git@git.tsaiid.idv.tw/repos/bone-density-analyzer.git"
+set :repository,  "git@github.com:tsaiid/libera-bmd.git"
 set :branch, "master"
 
 set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 
-role :web, "192.168.197.233"                          # Your HTTP server, Apache/etc
-role :app, "192.168.197.233"                          # This may be the same as your `Web` server
-role :db,  "192.168.197.233", :primary => true # This is where Rails migrations will run
+role :web, "vghks.tsai.it"
+role :app, "vghks.tsai.it"
+role :db,  "vghks.tsai.it", :primary => true # This is where Rails migrations will run
 
 set :user, "tsaiid"
 set :port, "22"
