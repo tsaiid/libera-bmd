@@ -9,13 +9,17 @@ class StudiesController < ApplicationController
   end
 
   def show
-    @studies = ScanAnalysis.where("ref_type IS NOT NULL").where(accession_no: params[:accession_no])
+    @studies = ScanAnalysis.where("ref_type IS NOT NULL").
+                            where(accession_no: params[:accession_no]).
+                            order(:scan_type)
     @patient = @studies.first.patient
     @conclusion = conclusion(@studies)
   end
 
   def report
-    @studies = ScanAnalysis.where("ref_type IS NOT NULL").where(accession_no: params[:accession_no])
+    @studies = ScanAnalysis.where("ref_type IS NOT NULL").
+                            where(accession_no: params[:accession_no]).
+                            order(:scan_type)
     mode = params[:mode] || 'html'
     output = { report: get_reports(@studies, mode) }
 
