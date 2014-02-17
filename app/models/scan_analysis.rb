@@ -57,7 +57,8 @@ class ScanAnalysis < ActiveRecord::Base
     age = patient.age(scan_date)
     sex = patient.sex
     mp_age = patient.menopause_year.to_i
-    (mp_age > 0 || (age > 50 && sex == "M")) ? "t" : "z"
+    ## 依規定，停經後婦女及大於 50 歲之男性才適用 T-score，但有可能放射師沒有輸入停經年齡，所以必須額外加入條件
+    ((sex == "F" && (age > 55  || mp_age > 0)) || (age > 50 && sex == "M")) ? "t" : "z"
   end
 
   # find score for conclusion
