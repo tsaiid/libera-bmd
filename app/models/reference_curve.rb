@@ -14,7 +14,11 @@ class ReferenceCurve < ActiveRecord::Base
   def t_score(bmd)
     age = read_attribute(:age_young).to_i
     p = points.where(x_value: age).first
-    (bmd - p.bmd) / p.std
+    if (p.l_value == 1)
+      (bmd - p.bmd) / p.std
+    else
+      (p.bmd * ((bmd / p.bmd) ** p.l_value - 1)) / (p.l_value * p.std)
+    end
   end
 
   def peak_reference(bmd)
@@ -25,7 +29,11 @@ class ReferenceCurve < ActiveRecord::Base
 
   def z_score(pt_age, bmd)
     ref = calculate_ref(pt_age)
-    (bmd - ref[:bmd]) / ref[:std]
+    if (ref[:l] == 1)
+      (bmd - ref[:bmd]) / ref[:std]
+    else
+      (ref[:bmd] * ((bmd / ref[:bmd]) ** ref[:l] - 1)) / (ref[:l] * ref[:std])
+    end
   end
 
   def age_matched(pt_age, bmd)
@@ -48,7 +56,6 @@ class ReferenceCurve < ActiveRecord::Base
 #  private
 #  temp comment out for debug
   ## 以內插法計算
-  ## 暫時先不考慮 L-Value 不等於 1 的狀況
   def calculate_ref(pt_age)
     up = upper_point(pt_age)
     lp = lower_point(pt_age)
@@ -62,11 +69,13 @@ class ReferenceCurve < ActiveRecord::Base
       slope = (pt_age - lp.age) / (lp.age - lp2.age)
       ref_bmd = slope * (lp.bmd - lp2.bmd) + lp.bmd
       ref_std = slope * (lp.std - lp2.std) + lp.std
+      ref_l = slope * (lp.l_value - lp2.l_value) + lp.l_value
     else
       ref_bmd = ((pt_age - lp.age) / (up.age - lp.age)) * (up.bmd - lp.bmd) + lp.bmd
       ref_std = ((pt_age - lp.age) / (up.age - lp.age)) * (up.std - lp.std) + lp.std
+      ref_l = ((pt_age - lp.age) / (up.age - lp.age)) * (up.l_value - lp.l_value) + lp.l_value
     end
 
-    {bmd: ref_bmd, std: ref_std}
+    {bmd: ref_bmd, std: ref_std, l: ref_l}
   end
 end
