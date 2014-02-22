@@ -92,7 +92,7 @@ class StudiesController < ApplicationController
           report = "#{study.exam.report_str}\n\n"
           reports += report
         end
-        reports += "Conclusions:\n    #{conclusion(studies)}"
+        reports += "Conclusion:\n    #{conclusion(studies)}"
       end
     else
       reports = nil
