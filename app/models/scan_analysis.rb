@@ -77,11 +77,29 @@ class ScanAnalysis < ActiveRecord::Base
     sex = patient.sex
     # 暫時不要對 bone_range 做預設處理
     #bone_range = exam.bone_range if bone_range.empty?
-    ReferenceCurve.where( if_current: 1,
-                          reftype: ref_type,
-                          ethnic: (["R", "L", "W"].include?(ref_type) ? nil : ethnicity),
-                          sex: sex,
-                          bonerange: bone_range).first
+    # 先以找到 ref_curve 為主，確定有之後再往下細找
+    # 至少一定要符合的條件是 reftype, sex, bonerange
+    rc = ReferenceCurve.where(  reftype: ref_type,
+                                sex: sex,
+                                bonerange: bone_range  )
+
+    if (rc.size > 1)
+      next_rc = rc.where( ethnic: (["R", "L", "W"].include?(ref_type) ? nil : ethnicity) )
+
+      if (next_rc.size >= 1)
+        rc = next_rc
+      end
+
+      if (next_rc.size > 1)
+        next_rc = rc.where( if_current: 1 )
+
+        if (next_rc.size >= 1)
+          rc = next_rc
+        end
+      end
+    end
+
+    rc.first
   end
 
   def type
