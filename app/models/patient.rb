@@ -150,7 +150,7 @@ class Patient < ActiveRecord::Base
   def age(time = read_attribute(:last_update))
     time = time.to_datetime
     dob = birthdate.to_datetime
-    (time - dob) / 365.25
+    (time - dob) / 365.2425
   end
 
   def menopause_year
