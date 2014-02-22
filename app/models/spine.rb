@@ -13,7 +13,7 @@ class Spine < ActiveRecord::Base
     when 't'
       str += ", about #{level[:peak_reference].round_for_report(0)}\% of the mean of young reference value (T-score = #{level[:t_score].round_for_report(1)})."
     when 'z'
-      str += ". The age matched percentage is about #{level[:age_matched].round_for_report(0)}\% (Z-score = #{level[:z_score].round_for_report(1)})."
+      str += ", the age matched percentage was about #{level[:age_matched].round_for_report(0)}\% (Z-score = #{level[:z_score].round_for_report(1)})."
     end
     str
   end
