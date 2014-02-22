@@ -52,7 +52,7 @@ class Hip < ActiveRecord::Base
     case scan_analysis.t_or_z
     when 't'
       level = (neck[:t_score] < total[:t_score] ? neck : total)
-      str = ", about #{level[:peak_reference].round_for_report(0)}\% of the mean of young reference value (T-score = #{level[:t_score].round_for_report(1)})."
+      str = ", and is about #{level[:peak_reference].round_for_report(0)}\% of the mean of young reference value (T-score = #{level[:t_score].round_for_report(1)})."
     when 'z'
       level = (neck[:z_score] < total[:z_score] ? neck : total)
       str = ", the age matched percentage was about #{level[:age_matched].round_for_report(0)}\% (Z-score = #{level[:z_score].round_for_report(1)})."
