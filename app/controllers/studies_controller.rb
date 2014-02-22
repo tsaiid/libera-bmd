@@ -1,4 +1,6 @@
 class StudiesController < ApplicationController
+  SCAN_TYPE_ORDER = "132457689"
+
   def index
     @studies = ScanAnalysis.accession_lists.
                             select("scan_date,
@@ -11,7 +13,7 @@ class StudiesController < ApplicationController
   def show
     @studies = ScanAnalysis.where("ref_type IS NOT NULL").
                             where(accession_no: params[:accession_no]).
-                            order(:scan_type)
+                            sort_by { |s| SCAN_TYPE_ORDER.index(s.scan_type.to_s) }
     @patient = @studies.first.patient
     @conclusion = conclusion(@studies)
   end
@@ -19,7 +21,7 @@ class StudiesController < ApplicationController
   def report
     @studies = ScanAnalysis.where("ref_type IS NOT NULL").
                             where(accession_no: params[:accession_no]).
-                            order(:scan_type)
+                            sort_by { |s| SCAN_TYPE_ORDER.index(s.scan_type.to_s) }
     mode = params[:mode] || 'html'
     output = { report: get_reports(@studies, mode) }
 
