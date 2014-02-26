@@ -51,10 +51,42 @@ class Hip < ActiveRecord::Base
     total = calculate_t_z_scores({label: "Total", bone_range: "123.", area: htot_area, bmc: htot_bmc, bmd: htot_bmd})
     case scan_analysis.t_or_z
     when 't'
-      level = (neck[:t_score] < total[:t_score] ? neck : total)
+      if (neck[:t_score].round(1) < total[:t_score].round(1))
+        level = neck
+      elsif neck[:t_score].round(1) > total[:t_score].round(1)
+        level = total
+      else
+        if (neck[:peak_reference].round(0) < total[:peak_reference].round(0))
+          level = neck
+        elsif (neck[:peak_reference].round(0) > total[:peak_reference].round(0))
+          level = total
+        else
+          if (neck[:bmd].round(3) < total[:bmd].round(3))
+            level = neck
+          else
+            level = total
+          end
+        end
+      end
       str = ", and is about #{level[:peak_reference].round_for_report(0)}\% of the mean of young reference value (T-score = #{level[:t_score].round_for_report(1)})."
     when 'z'
-      level = (neck[:z_score] < total[:z_score] ? neck : total)
+      if (neck[:z_score].round(1) < total[:z_score].round(1))
+        level = neck
+      elsif neck[:z_score].round(1) > total[:z_score].round(1)
+        level = total
+      else
+        if (neck[:age_matched].round(0) < total[:age_matched].round(0))
+          level = neck
+        elsif (neck[:age_matched].round(0) > total[:age_matched].round(0))
+          level = total
+        else
+          if (neck[:bmd].round(3) < total[:bmd].round(3))
+            level = neck
+          else
+            level = total
+          end
+        end
+      end
       str = ", the age matched percentage was about #{level[:age_matched].round_for_report(0)}\% (Z-score = #{level[:z_score].round_for_report(1)})."
     end
     str = "The BMD of #{self.side} proximal femur is #{level[:bmd].round_for_report(3)} gm/cm2" + str
