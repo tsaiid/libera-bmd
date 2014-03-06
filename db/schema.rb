@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131129134831) do
+ActiveRecord::Schema.define(version: 20140306091128) do
 
   create_table "forearms", force: true do |t|
     t.string   "patient_key"
@@ -259,6 +259,8 @@ ActiveRecord::Schema.define(version: 20131129134831) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "patients", ["patient_key"], name: "index_patients_on_patient_key", unique: true
 
   create_table "points", force: true do |t|
     t.integer  "unique_id",  null: false
