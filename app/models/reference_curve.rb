@@ -14,17 +14,25 @@ class ReferenceCurve < ActiveRecord::Base
   def t_score(bmd)
     age = read_attribute(:age_young).to_i
     p = points.where(x_value: age).first
-    if (p.l_value == 1)
-      (bmd - p.bmd) / p.std
-    else
-      (p.bmd * ((bmd / p.bmd) ** p.l_value - 1)) / (p.l_value * p.std)
+    if (p)
+      if (p.l_value == 1)
+        (bmd - p.bmd) / p.std
+      else
+        (p.bmd * ((bmd / p.bmd) ** p.l_value - 1)) / (p.l_value * p.std)
+      end
+    else # 可能在 age_young 沒有設定 point, 直接傳回 age_young 的 Z score
+      z_score(age, bmd)
     end
   end
 
   def peak_reference(bmd)
     age = read_attribute(:age_young).to_i
     p = points.where(x_value: age).first
-    (bmd / p.bmd) * 100
+    if (p)
+      (bmd / p.bmd) * 100
+    else # 可能在 age_young 沒有設定 point, 直接傳回 age_young 的 age matched
+      age_matched(age, bmd)
+    end
   end
 
   def z_score(pt_age, bmd)
