@@ -84,7 +84,12 @@ class ScanAnalysis < ActiveRecord::Base
                                 bonerange: bone_range  )
 
     if (rc.size > 1)
-      next_rc = rc.where( ethnic: (["R", "L", "W"].include?(ref_type) ? nil : ethnicity) )
+      # 因為 Ref Curve 中的 ethnic: nil 時代表 White, 需特例處理
+      if (ethnicity == "W")
+        next_rc = rc.where( "ethnic = 'W' OR ethnic IS NULL" )
+      else
+        next_rc = rc.where( ethnic: (["R", "L", "W"].include?(ref_type) ? nil : ethnicity) )
+      end
 
       if (next_rc.size >= 1)
         rc = next_rc
