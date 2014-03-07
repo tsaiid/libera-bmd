@@ -99,7 +99,7 @@ class ScanAnalysis < ActiveRecord::Base
       end
     end
 
-    rc.first
+    rc.last
   end
 
   def type
