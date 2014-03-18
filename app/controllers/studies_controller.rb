@@ -73,7 +73,7 @@ class StudiesController < ApplicationController
         "The BMD meets the criteria of normal limit, according to the WHO (World Health Organization) classification."
       end
     when 'z'
-      "The BMD meets the criteria was " + (scores.min < -2 ? "below" : "within") + " the expected range of age, according to 2007 ISCD (the International Society for Clinical Densitometry) combined official positions.\n\n(Z-score of -2.0 or lower is defined as 'below the expected range for age', and a Z-score above -2.0 is 'within the expected range for age')"
+      "The BMD meets the criteria was " + (scores.min <= -2 ? "below" : "within") + " the expected range of age, according to 2007 ISCD (the International Society for Clinical Densitometry) combined official positions.\n\n(Z-score of -2.0 or lower is defined as 'below the expected range for age', and a Z-score above -2.0 is 'within the expected range for age')"
     end
   end
 
