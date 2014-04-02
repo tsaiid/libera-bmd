@@ -11,6 +11,7 @@ db_path = '/home/tsaiid/rails/bone-density/shared/production.sqlite3'
 
 ## Modules
 import os, sqlite3
+from shutil import copyfile
 
 ## Main
 for root, dirs, files in os.walk(mdb_dir):
@@ -24,6 +25,10 @@ for root, dirs, files in os.walk(mdb_dir):
 			# convert
 			os.system(command_str)
 
+			# backup db
+			db_bak_path = db_path + '.bak'
+			copyfile(db_path, db_bak_path)
+
 			# import
 			qry = open(sql_path, 'r').read()
 			conn = sqlite3.connect(db_path)
@@ -35,4 +40,8 @@ for root, dirs, files in os.walk(mdb_dir):
 				print error_str + "\n"
 				cursor.close()
 				raise
+
+			# move mdb file into Done folder if success
+			done_path = done_dir + '/' + f
+			os.rename(mdb_path, done_path)
 	break	# depth only 1.
