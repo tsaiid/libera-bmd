@@ -5,12 +5,18 @@
 # It depends upon the mdbtools suite:
 #   http://sourceforge.net/projects/mdbtools/
 
-import sys, subprocess, os
+import sys, subprocess, os, argparse
 
-DATABASE = sys.argv[1]
+parser = argparse.ArgumentParser()
+parser.add_argument('-t', '--tables', action='store_true', help='create tables.')
+parser.add_argument('mdb', nargs=1, help='MDB file path.')
+args = parser.parse_args()
+
+DATABASE = args.mdb[0]
 
 # Dump the schema for the DB
-subprocess.call(["mdb-schema", DATABASE, "mysql"])
+if args.tables:
+  subprocess.call(["mdb-schema", DATABASE, "mysql"])
 
 # Get the list of table names with "mdb-tables"
 table_names = subprocess.Popen(["mdb-tables", "-1", DATABASE],
