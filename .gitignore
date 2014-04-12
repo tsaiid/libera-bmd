@@ -18,4 +18,6 @@
 # Ignore vendor
 /vendor
 
+# Security
 config/database.yml
+config/initializers/secret_token.rb
