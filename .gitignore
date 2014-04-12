@@ -17,3 +17,5 @@
 
 # Ignore vendor
 /vendor
+
+config/database.yml
