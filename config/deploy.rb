@@ -37,9 +37,11 @@ set :use_sudo, false
 
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
-  task :copy_config_files, :roles => [:app] do
-    db_config = "#{shared_path}/database.yml"
-    run "cp #{db_config} #{release_path}/config/database.yml"
+  task :symlink_db, :roles => :app do
+    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml" # This file is not included repository, so we will create a symlink 
+  end
+  task :symlink_secret_token, :roles => :app do
+    run "ln -nfs #{shared_path}/config/secret_token.rb #{release_path}/config/initializers/secret_token.rb" # This file is not included repository, so we will create a symlink 
   end
 
   task :update_symlink do
@@ -65,4 +67,7 @@ namespace :init do
   end
 end
 
+before 'deploy:assets:precompile', 'deploy:symlink_db' # callback: run this task before deploy:assets:precompile
+before 'deploy:assets:precompile', 'deploy:symlink_secret_token' # # callback: run this task before deploy:assets:precompile
 after "deploy", "deploy:migrate"
+after "deploy", "deploy:cleanup" # delete old releases
