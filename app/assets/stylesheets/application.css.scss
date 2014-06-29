@@ -15,7 +15,8 @@
 $link-color: red;
 
 // import original bootstrap
-@import "twitter/bootstrap";
+@import "bootstrap-sprockets";
+@import "bootstrap";
 
 body {
   padding-top: 70px;
