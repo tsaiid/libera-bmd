@@ -51,6 +51,10 @@ end
 group :development do
   gem 'guard-livereload', require: false
   gem "rack-livereload"
+  gem 'capistrano', '~> 3.0', require: false
+  gem 'capistrano-rails',   '~> 1.1', require: false
+  gem 'capistrano-bundler', '~> 1.1', require: false
+  gem 'capistrano-rvm',   '~> 0.1', require: false
 end
 
 gem "font-awesome-rails"
