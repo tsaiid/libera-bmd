@@ -1,4 +1,5 @@
 class Hip < ActiveRecord::Base
+  self.primary_key = "scanid"
   belongs_to :patient, foreign_key: "patient_key"
   belongs_to :scan_analysis, foreign_key: "scanid"
 
