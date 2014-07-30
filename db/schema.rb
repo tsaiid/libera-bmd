@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140716070311) do
+ActiveRecord::Schema.define(version: 20140730055008) do
 
   create_table "forearms", force: true do |t|
     t.string   "patient_key"
@@ -280,55 +280,6 @@ ActiveRecord::Schema.define(version: 20140716070311) do
     t.datetime "updated_at"
   end
 
-  create_table "qc_params", id: false, force: true do |t|
-    t.string   "phantom_id",    limit: 24, null: false
-    t.integer  "phantom_type",             null: false
-    t.integer  "scan_type",                null: false
-    t.integer  "scan_mode",                null: false
-    t.string   "serial_number", limit: 24, null: false
-    t.float    "bmd_mean"
-    t.float    "bmd_stdev"
-    t.float    "bmd_center"
-    t.float    "bmd_tick"
-    t.float    "bmc_mean"
-    t.float    "bmc_stdev"
-    t.float    "bmc_center"
-    t.float    "bmc_tick"
-    t.float    "area_mean"
-    t.float    "area_stdev"
-    t.float    "area_center"
-    t.float    "area_tick"
-    t.float    "k_mean"
-    t.float    "k_stdev"
-    t.float    "k_center"
-    t.float    "k_tick"
-    t.float    "d0_mean"
-    t.float    "d0_stdev"
-    t.float    "d0_center"
-    t.float    "d0_tick"
-    t.float    "hia_mean"
-    t.float    "hia_stdev"
-    t.float    "hia_center"
-    t.float    "hia_tick"
-    t.float    "loa_mean"
-    t.float    "loa_stdev"
-    t.float    "loa_center"
-    t.float    "loa_tick"
-    t.float    "acf_mean"
-    t.float    "acf_stdev"
-    t.float    "acf_center"
-    t.float    "acf_tick"
-    t.float    "bcf_mean"
-    t.float    "bcf_stdev"
-    t.float    "bcf_center"
-    t.float    "bcf_tick"
-    t.datetime "last_update"
-  end
-
-  create_table "ref_physicians", id: false, force: true do |t|
-    t.string "phy_name", limit: 128, null: false
-  end
-
   create_table "reference_curves", force: true do |t|
     t.integer  "unique_id"
     t.integer  "if_current", null: false
@@ -353,20 +304,6 @@ ActiveRecord::Schema.define(version: 20140716070311) do
     t.string   "method"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "referenceresults", id: false, force: true do |t|
-    t.string "patient_key",   limit: 48
-    t.string "scanid",        limit: 26,  null: false
-    t.string "serial_number", limit: 24,  null: false
-    t.string "ref_type",      limit: 4,   null: false
-    t.string "bonerange",     limit: 16,  null: false
-    t.float  "t_score"
-    t.float  "z_score"
-    t.string "title",         limit: 126
-    t.float  "age_young"
-    t.float  "pct_t"
-    t.float  "pct_z"
   end
 
   create_table "scan_analyses", force: true do |t|
@@ -452,6 +389,8 @@ ActiveRecord::Schema.define(version: 20140716070311) do
     t.datetime "updated_at"
   end
 
+  add_index "scan_analyses", ["scanid"], name: "index_scan_analyses_on_scanid", unique: true
+
   create_table "spines", force: true do |t|
     t.string   "patient_key"
     t.string   "scanid",            null: false
@@ -491,224 +430,6 @@ ActiveRecord::Schema.define(version: 20140716070311) do
   end
 
   add_index "spines", ["scanid"], name: "index_spines_on_scanid", unique: true
-
-  create_table "sub_region_bones", id: false, force: true do |t|
-    t.string  "patient_key",       limit: 48
-    t.string  "scanid",            limit: 26,  null: false
-    t.string  "serial_number",     limit: 24,  null: false
-    t.integer "no_regions"
-    t.integer "roi_type"
-    t.float   "roi_width"
-    t.float   "roi_height"
-    t.float   "net_avg_area"
-    t.float   "net_avg_bmc"
-    t.float   "net_avg_bmd"
-    t.float   "global_area"
-    t.float   "global_bmc"
-    t.float   "global_bmd"
-    t.string  "reg1_name",         limit: 12
-    t.float   "reg1_area"
-    t.float   "reg1_bmc"
-    t.float   "reg1_bmd"
-    t.string  "reg2_name",         limit: 12
-    t.float   "reg2_area"
-    t.float   "reg2_bmc"
-    t.float   "reg2_bmd"
-    t.string  "reg3_name",         limit: 12
-    t.float   "reg3_area"
-    t.float   "reg3_bmc"
-    t.float   "reg3_bmd"
-    t.string  "reg4_name",         limit: 12
-    t.float   "reg4_area"
-    t.float   "reg4_bmc"
-    t.float   "reg4_bmd"
-    t.string  "reg5_name",         limit: 12
-    t.float   "reg5_area"
-    t.float   "reg5_bmc"
-    t.float   "reg5_bmd"
-    t.string  "reg6_name",         limit: 12
-    t.float   "reg6_area"
-    t.float   "reg6_bmc"
-    t.float   "reg6_bmd"
-    t.string  "reg7_name",         limit: 12
-    t.float   "reg7_area"
-    t.float   "reg7_bmc"
-    t.float   "reg7_bmd"
-    t.string  "reg8_name",         limit: 12
-    t.float   "reg8_area"
-    t.float   "reg8_bmc"
-    t.float   "reg8_bmd"
-    t.string  "reg9_name",         limit: 12
-    t.float   "reg9_area"
-    t.float   "reg9_bmc"
-    t.float   "reg9_bmd"
-    t.string  "reg10_name",        limit: 12
-    t.float   "reg10_area"
-    t.float   "reg10_bmc"
-    t.float   "reg10_bmd"
-    t.string  "reg11_name",        limit: 12
-    t.float   "reg11_area"
-    t.float   "reg11_bmc"
-    t.float   "reg11_bmd"
-    t.string  "reg12_name",        limit: 12
-    t.float   "reg12_area"
-    t.float   "reg12_bmc"
-    t.float   "reg12_bmd"
-    t.string  "reg13_name",        limit: 12
-    t.float   "reg13_area"
-    t.float   "reg13_bmc"
-    t.float   "reg13_bmd"
-    t.string  "reg14_name",        limit: 12
-    t.float   "reg14_area"
-    t.float   "reg14_bmc"
-    t.float   "reg14_bmd"
-    t.text    "physician_comment", limit: 255
-  end
-
-  create_table "sub_region_compositions", id: false, force: true do |t|
-    t.string  "patient_key",            limit: 48
-    t.string  "scanid",                 limit: 26,  null: false
-    t.string  "serial_number",          limit: 24,  null: false
-    t.string  "step_phant_id",          limit: 128
-    t.float   "fat_std"
-    t.float   "lean_std"
-    t.float   "brain_fat"
-    t.float   "water_lbm"
-    t.integer "no_regions"
-    t.integer "roi_type"
-    t.float   "roi_width"
-    t.float   "roi_height"
-    t.float   "net_avg_fat"
-    t.float   "net_avg_lean"
-    t.float   "net_avg_mass"
-    t.float   "net_avg_pfat"
-    t.float   "global_fat"
-    t.float   "global_lean"
-    t.float   "global_mass"
-    t.float   "global_pfat"
-    t.string  "reg1_name",              limit: 12
-    t.float   "reg1_fat"
-    t.float   "reg1_lean"
-    t.float   "reg1_mass"
-    t.float   "reg1_pfat"
-    t.string  "reg2_name",              limit: 12
-    t.float   "reg2_fat"
-    t.float   "reg2_lean"
-    t.float   "reg2_mass"
-    t.float   "reg2_pfat"
-    t.string  "reg3_name",              limit: 12
-    t.float   "reg3_fat"
-    t.float   "reg3_lean"
-    t.float   "reg3_mass"
-    t.float   "reg3_pfat"
-    t.string  "reg4_name",              limit: 12
-    t.float   "reg4_fat"
-    t.float   "reg4_lean"
-    t.float   "reg4_mass"
-    t.float   "reg4_pfat"
-    t.string  "reg5_name",              limit: 12
-    t.float   "reg5_fat"
-    t.float   "reg5_lean"
-    t.float   "reg5_mass"
-    t.float   "reg5_pfat"
-    t.string  "reg6_name",              limit: 12
-    t.float   "reg6_fat"
-    t.float   "reg6_lean"
-    t.float   "reg6_mass"
-    t.float   "reg6_pfat"
-    t.string  "reg7_name",              limit: 12
-    t.float   "reg7_fat"
-    t.float   "reg7_lean"
-    t.float   "reg7_mass"
-    t.float   "reg7_pfat"
-    t.string  "reg8_name",              limit: 12
-    t.float   "reg8_fat"
-    t.float   "reg8_lean"
-    t.float   "reg8_mass"
-    t.float   "reg8_pfat"
-    t.string  "reg9_name",              limit: 12
-    t.float   "reg9_fat"
-    t.float   "reg9_lean"
-    t.float   "reg9_mass"
-    t.float   "reg9_pfat"
-    t.string  "reg10_name",             limit: 12
-    t.float   "reg10_fat"
-    t.float   "reg10_lean"
-    t.float   "reg10_mass"
-    t.float   "reg10_pfat"
-    t.string  "reg11_name",             limit: 12
-    t.float   "reg11_fat"
-    t.float   "reg11_lean"
-    t.float   "reg11_mass"
-    t.float   "reg11_pfat"
-    t.string  "reg12_name",             limit: 12
-    t.float   "reg12_fat"
-    t.float   "reg12_lean"
-    t.float   "reg12_mass"
-    t.float   "reg12_pfat"
-    t.string  "reg13_name",             limit: 12
-    t.float   "reg13_fat"
-    t.float   "reg13_lean"
-    t.float   "reg13_mass"
-    t.float   "reg13_pfat"
-    t.string  "reg14_name",             limit: 12
-    t.float   "reg14_fat"
-    t.float   "reg14_lean"
-    t.float   "reg14_mass"
-    t.float   "reg14_pfat"
-    t.text    "physician_comment",      limit: 255
-    t.integer "tissue_analysis_method"
-  end
-
-  create_table "system_ids", id: false, force: true do |t|
-    t.integer  "lastpatientno"
-    t.datetime "lastpatientdate"
-    t.integer  "lastscanno"
-    t.datetime "lastscandate"
-    t.integer  "labelsequenceno"
-    t.integer  "savesetsequenceno"
-    t.integer  "lastphysicianno"
-  end
-
-  create_table "ten_year_fx_risks", id: false, force: true do |t|
-    t.string   "patient_key",     limit: 48
-    t.string   "scanid",          limit: 26, null: false
-    t.string   "serial_number",   limit: 24, null: false
-    t.integer  "country_code"
-    t.float    "age"
-    t.integer  "sex"
-    t.float    "bmi"
-    t.integer  "prev_fx"
-    t.integer  "parent_fx"
-    t.integer  "curr_smoker"
-    t.integer  "glucocorticoid"
-    t.integer  "rh_arthritis"
-    t.integer  "osteo2"
-    t.integer  "dailyalcohol"
-    t.float    "l_neck_bmd"
-    t.datetime "l_hip_scan_date"
-    t.float    "r_neck_bmd"
-    t.datetime "r_hip_scan_date"
-    t.datetime "updateflag"
-    t.float    "field1"
-    t.float    "field2"
-    t.float    "version"
-    t.float    "i_thresh_1"
-    t.float    "i_thresh_2"
-    t.float    "hip_fx_risk"
-    t.float    "fx_risk"
-    t.datetime "resultscalcdate"
-    t.float    "field3"
-    t.float    "field4"
-  end
-
-  create_table "version", id: false, force: true do |t|
-    t.string "version", limit: 100
-  end
-
-  create_table "versions", id: false, force: true do |t|
-    t.string "versions", limit: 100
-  end
 
   create_table "w_bodies", force: true do |t|
     t.string   "patient_key"
@@ -760,53 +481,5 @@ ActiveRecord::Schema.define(version: 20140716070311) do
   end
 
   add_index "w_bodies", ["scanid"], name: "index_w_bodies_on_scanid", unique: true
-
-  create_table "w_body_compositions", id: false, force: true do |t|
-    t.string  "patient_key",            limit: 48
-    t.string  "scanid",                 limit: 26,  null: false
-    t.string  "serial_number",          limit: 24,  null: false
-    t.string  "step_phant_id",          limit: 128
-    t.float   "fat_std"
-    t.float   "lean_std"
-    t.float   "brain_fat"
-    t.float   "water_lbm"
-    t.float   "head_fat"
-    t.float   "head_lean"
-    t.float   "head_mass"
-    t.float   "head_pfat"
-    t.float   "larm_fat"
-    t.float   "larm_lean"
-    t.float   "larm_mass"
-    t.float   "larm_pfat"
-    t.float   "rarm_fat"
-    t.float   "rarm_lean"
-    t.float   "rarm_mass"
-    t.float   "rarm_pfat"
-    t.float   "trunk_fat"
-    t.float   "trunk_lean"
-    t.float   "trunk_mass"
-    t.float   "trunk_pfat"
-    t.float   "l_leg_fat"
-    t.float   "l_leg_lean"
-    t.float   "l_leg_mass"
-    t.float   "l_leg_pfat"
-    t.float   "r_leg_fat"
-    t.float   "r_leg_lean"
-    t.float   "r_leg_mass"
-    t.float   "r_leg_pfat"
-    t.float   "subtot_fat"
-    t.float   "subtot_lean"
-    t.float   "subtot_mass"
-    t.float   "subtot_pfat"
-    t.float   "wbtot_fat"
-    t.float   "wbtot_lean"
-    t.float   "wbtot_mass"
-    t.float   "wbtot_pfat"
-    t.integer "roi_type"
-    t.float   "roi_width"
-    t.float   "roi_height"
-    t.text    "physician_comment",      limit: 255
-    t.integer "tissue_analysis_method"
-  end
 
 end
