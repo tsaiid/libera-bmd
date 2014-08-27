@@ -3,8 +3,9 @@
 PYTHON_PATH=`which python`
 SED_PATH=`which sed`
 PERL_PATH=`which perl`
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-$PYTHON_PATH mdb2sqlite.py $1 \
+$PYTHON_PATH $SCRIPT_DIR/mdb2sqlite.py $1 \
 | $SED_PATH "s/\`Forearm\`/\`forearms\`/g" \
 | $SED_PATH "s/\`Hip\`/\`hips\`/g" \
 | $SED_PATH "s/\`HipHSA\`/\`hip_hsas\`/g" \
