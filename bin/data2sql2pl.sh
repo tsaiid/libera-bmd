@@ -3,7 +3,7 @@
 PYTHON_PATH=`which python`
 SED_PATH=`which sed`
 PERL_PATH=`which perl`
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+SCRIPT_DIR="/home/tsaiid/rails/bone-density/current/bin"
 
 $PYTHON_PATH $SCRIPT_DIR/mdb2sqlite.py $1 \
 | $SED_PATH "s/\`Forearm\`/\`forearms\`/g" \
