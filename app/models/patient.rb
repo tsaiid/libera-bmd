@@ -101,7 +101,7 @@ class Patient < ActiveRecord::Base
     studies = studies_by_acc(accession_no)
     studies.each do |study|
       if (Float(study.score) != nil rescue false)
-        scores << study.score
+        scores << study.score.to_f
       end
     end
 
